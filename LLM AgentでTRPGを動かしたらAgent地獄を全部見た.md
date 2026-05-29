@@ -88,9 +88,9 @@ GDGoC Osaka — LLM Agent Build with AI
 
 # なぜこれを作ったか
 
-LT登壇のネタを考えていたら、**気づいたら一から実装していました**
+LTネタを探す → TRPGが好き × LLM Agent触りたい → 合体させよう（）
 
-TRPGが好き × LLM Agent触りたい → 合体させよう（）
+## 気づいたら一から実装していました
 
 ---
  
