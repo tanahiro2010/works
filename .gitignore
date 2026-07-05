@@ -1,1 +1,5 @@
 **.pdf
+**/*.db
+**/__pycache__/
+**/.venv/
+.claude
