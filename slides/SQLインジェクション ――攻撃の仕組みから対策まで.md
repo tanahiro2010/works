@@ -63,10 +63,11 @@ style: |
 - **SQLの基本文法**（`SELECT` / `INSERT` / `WHERE`）を読んだことがある人
 - Web開発で**DBを使ったことがある**人（言語・フレームワークは問わない）
 - 「SQLインジェクション」という言葉は知っているが、**手を動かしたことはない**人
+- ZAPで脆弱性診断をしたことはあるが、**検出後に何が起きるか**を深く見たい人
 
 <div class="warning">
 
-SQL文法そのものの解説はしません。**SQLインジェクションの仕組みと対策**に集中します。
+SQL文法そのものの解説はしません。**攻撃者視点で何が漏れるか**と、その対策に集中します。
 
 </div>
 
@@ -87,14 +88,67 @@ SQL文法そのものの解説はしません。**SQLインジェクションの
 
 # アジェンダ
 
-1. SQLインジェクションとは
-2. なぜ起こるのか（仕組み）
-3. 基本編：ログインバイパス
-4. 基本編：UNIONベースの攻撃
-5. 発展編：ブラインドSQLインジェクション
-6. 発展編：スタック型・セカンドオーダー
-7. 対策：プリペアドステートメントほか
-8. まとめ
+1. 講義の安全範囲とZAPの役割
+2. SQLインジェクションの仕組み
+3. 基本編：ログインバイパス / UNION情報漏洩
+4. 発展編：ブラインド / スタック型 / セカンドオーダー
+5. 実DB編：MySQLで見る方言差と漏洩
+6. NoSQL編：MongoDB NoSQL injection
+7. 総合演習：コードを見ずに探す
+8. 対策：プリペアドステートメントほか
+9. まとめ
+
+---
+
+# 講義のゴール
+
+## 「検出」から「被害」までをつなげる
+
+通常の診断講義では、ZAPなどで脆弱性を見つけて対策を確認することが多い。
+今回はその間にある、攻撃者視点の流れを重点的に見る。
+
+1. ZAPで脆弱性の疑いを見つける
+2. Request / Response / Evidence を読む
+3. 手動ペイロードで再現する
+4. 架空の認証情報・顧客情報が漏洩するところまで確認する
+5. 修正版で同じ攻撃が無効化されることを確認する
+
+---
+
+# ZAPはDB種別まで分かる？
+
+## 結論：推測材料は出せるが、常に断定できるわけではない
+
+- ZAPのSQL Injection alertは、MySQL / PostgreSQL / SQLite / Oracle / MSSQLなど
+  複数DBを対象技術として扱う
+- Technology Detectionはレスポンス内の証拠から技術を推測する
+- ただしDBが裏側に隠れている場合、画面上の情報だけでDB種別を断定できないことも多い
+
+見るべきもの：
+
+- SQLエラーの文面
+- コメント記法（`-- ` / `#` など）
+- 時間差関数（`SLEEP()` など）
+- メタデータ参照（`information_schema` など）
+
+---
+
+# ZAPから手動攻撃につなげる
+
+## ZAPのAlertは入口
+
+1. Spiderで画面とパラメータを集める
+2. Active Scanで `SQL Injection` のAlertを確認する
+3. Alertsの `Evidence`、HistoryのRequest/Responseを見る
+4. Requesterやブラウザでペイロードを少しずつ変える
+5. **情報漏洩が再現できるか**を確認する
+
+<div class="warning">
+
+ZAPの検出結果だけで「攻撃できる」と判断しない。
+逆にZAPで検出されないから安全とも判断しない。
+
+</div>
 
 ---
 
@@ -246,6 +300,14 @@ SELECT id, name, price FROM products WHERE name LIKE '%[入力]%'
 
 → 商品一覧の中に**ユーザー名とパスワードが混ざって表示される**
 
+顧客情報を抜く例：
+
+```
+%' UNION SELECT id, email, last_order_total FROM customers --
+```
+
+→ 商品一覧の中に**顧客メールアドレスと注文金額が混ざって表示される**
+
 ---
 
 <div class="poc">
@@ -260,9 +322,10 @@ cd 02_union_based && pip install -r requirements.txt && python app.py
 ```
 
 1. `app.py` の検索（`LIKE`）部分の文字列結合を確認する
-2. `%' UNION SELECT id, username, password FROM users --` で`users`テーブルを抽出 →**突破確認**
-3. `app.py` をプレースホルダに書き換えてみる
-4. 同じペイロードでヒット件数が0件になることを確認（答え合わせ：`secure_app.py`）
+2. `%' UNION SELECT id, username, password FROM users --` で`users`テーブルを抽出
+3. `%' UNION SELECT id, email, last_order_total FROM customers --` で顧客情報を抽出
+4. `app.py` をプレースホルダに書き換えてみる
+5. 同じペイロードでヒット件数が0件になることを確認（答え合わせ：`secure_app.py`）
 
 </div>
 
@@ -357,8 +420,9 @@ cd 03_blind_injection && pip install -r requirements.txt && python app.py
 
 1. `app.py` の数値パラメータの文字列結合部分を確認する
 2. `/track?order_id=` に Boolean-based / Time-based の両方を試す →**突破確認**
-3. `app.py` を `int()` チェック＋プレースホルダに書き換えてみる
-4. 同じペイロードがエラーになり実行されないことを確認（答え合わせ：`secure_app.py`）
+3. `python extract_password.py` で1文字ずつの抽出を自動化して見る
+4. `app.py` を `int()` チェック＋プレースホルダに書き換えてみる
+5. 同じペイロードがエラーになり実行されないことを確認（答え合わせ：`secure_app.py`）
 
 </div>
 
@@ -430,7 +494,194 @@ cd 04_advanced_second_order && pip install -r requirements.txt && python app.py
 
 ---
 
-# 7. 対策①：プレースホルダ（プリペアドステートメント）
+# 7. 実DB編：MySQLで見るSQLインジェクション
+
+## SQLiteとの違いも見せる
+
+SQLiteのPoCは準備が軽い一方、実DBらしい差分は見えにくい。
+MySQL版では以下を確認する。
+
+- `--` コメントの後ろに空白が必要
+- エラー文からDB種別や構文のヒントが漏れることがある
+- `information_schema` のようなメタデータ参照がある
+- `SLEEP()` など時間差攻撃に使われる関数が存在する
+
+---
+
+<div class="poc">
+
+## 🧪 PoC⑤：MySQL実DBで情報漏洩を再現する
+
+フォルダ：`05_mysql_realdb/`
+
+```bash
+cd sandboxes/poc_sql_injection
+docker compose up --build
+# 脆弱版 http://127.0.0.1:5005
+# 修正版 http://127.0.0.1:5015
+```
+
+1. ZAPで `http://127.0.0.1:5005/` をSpider/Active Scanする
+2. `'` や `ORDER BY` でエラーとカラム数を確認する
+3. `zzz%' UNION SELECT id, email, last_order_total FROM customers -- ` を入力する
+4. 商品検索画面に架空顧客のメールアドレス・注文金額が漏れることを確認する
+5. 修正版 `5015` で同じ攻撃が効かないことを確認する
+
+</div>
+
+---
+
+# 8. NoSQL injection
+
+## SQL以外でも「入力がクエリ構造になる」と危険
+
+MongoDBではクエリがJSON風のオブジェクトで表現される。
+アプリがリクエストJSONをそのまま検索条件に渡すと、値ではなく条件式を混入される。
+
+```json
+{
+  "username": {"$ne": null},
+  "password": {"$ne": null}
+}
+```
+
+`$ne` は「等しくない」という条件。
+文字列として扱うべき入力が条件オブジェクトとして解釈されると、認証をすり抜ける。
+
+---
+
+<div class="poc">
+
+## 🧪 PoC⑥：MongoDB NoSQL injection
+
+フォルダ：`06_mongodb_nosql/`
+
+```bash
+cd sandboxes/poc_sql_injection
+docker compose up --build
+# 脆弱版 http://127.0.0.1:5006
+# 修正版 http://127.0.0.1:5016
+```
+
+攻撃例：
+
+```bash
+curl -s -X POST http://127.0.0.1:5006/login \
+  -H 'Content-Type: application/json' \
+  -d '{"username":{"$ne":null},"password":{"$ne":null}}'
+```
+
+→ パスワードを知らなくても最初に一致したユーザーでログイン成功する
+
+</div>
+
+---
+
+# 🎯 PoC⑤・⑥で理解してほしいこと
+
+- SQLiteだけでなく、実DBではコメント記法・エラー・関数・メタデータに差がある
+- ZAPは検出の入口。DB種別や攻撃可否は手動確認で詰める
+- NoSQLでも「ユーザー入力がクエリ構造に混ざる」と同じ種類の問題が起きる
+- SQLならプレースホルダ、MongoDBなら型検証・スキーマ検証・演算子オブジェクト拒否が重要
+
+---
+
+# 9. 見つけ方：ブラックボックス探索の型
+
+## 闇雲に攻撃しない
+
+まずアプリの入口を洗い出す。
+
+| 観察対象 | 見ること |
+|---|---|
+| フォーム | 入力名、必須項目、エラー表示 |
+| URL | `id` / `q` / `filter` などのパラメータ |
+| JSON API | 値が文字列か、オブジェクトも受けるか |
+| レスポンス | 表示差分、エラー、応答時間 |
+| 保存機能 | 入力した値が別画面で再利用されるか |
+
+ZAPのSpider/Historyで入口を集め、怪しい順に手動確認する。
+
+---
+
+# 見つけ方：SQLiの切り分け
+
+## 小さく差分を見る
+
+1. 通常入力で基準レスポンスを確認する
+2. `'` や `"` でエラー・表示差分を見る
+3. Boolean条件で真偽の差を見る
+   - `1 AND 1=1`
+   - `1 AND 1=2`
+4. `ORDER BY` で列数を推測する
+5. `UNION SELECT` で表示可能な列を探す
+6. 結果が出ない場合は応答時間を見る
+
+<div class="warning">
+
+本講義ではローカル教材だけで実施する。実在サイトには絶対に試さない。
+
+</div>
+
+---
+
+# 見つけ方：NoSQL / セカンドオーダー
+
+## SQLらしく見えない場所も疑う
+
+NoSQL injection：
+
+- JSON APIで文字列の代わりにオブジェクトを送れるか
+- `{"$ne": null}` や `{"$gt": 0}` のような条件が値として扱われていないか
+- レスポンス件数・認証結果が変わるか
+
+セカンドオーダー：
+
+- 登録画面では何も起きない値が、管理画面・レポート・検索で後から効かないか
+- 「保存された値だから安全」という思い込みがないか
+
+---
+
+<div class="poc">
+
+## 🧪 PoC⑦：総合演習 Black-box Challenge
+
+フォルダ：`07_challenge_blackbox/`
+
+```bash
+cd sandboxes/poc_sql_injection
+docker compose up --build
+# http://127.0.0.1:5007
+```
+
+ルール：
+
+- コードを見ずに、ZAP・ブラウザ・curlで探す
+- 対象は `127.0.0.1:5007` のみ
+- 見つけたら「場所」「脆弱性の種類」「再現手順」「漏れた/変わった情報」を記録する
+
+</div>
+
+---
+
+# PoC⑦で探すもの
+
+## これまでの脆弱性を全部混ぜてある
+
+| 種類 | ありそうな場所の例 |
+|---|---|
+| ログインバイパス | 認証フォーム |
+| UNION情報漏洩 | 商品検索・一覧 |
+| Boolean/Time-based Blind | 注文照会などの数値パラメータ |
+| Stacked Queries | 投稿・メモ・保存フォーム |
+| セカンドオーダー | 登録後に別画面で使われる値 |
+| NoSQL injection | JSON API |
+
+講義では、最初に答えを見ずに探索し、最後に講師が答え合わせする。
+
+---
+
+# 10. 対策①：プレースホルダ（プリペアドステートメント）
 
 ## 最も重要かつ最も効果的な対策
 
@@ -465,6 +716,8 @@ User.query.filter_by(username=username).first()
 ## 入力値検証（バリデーション）
 
 - 想定外の文字種・長さを拒否する（**多層防御の一つ**、これ単体では不十分）
+- MongoDBでは `username` / `password` などを**文字列型に限定**し、
+  `{"$ne": null}` のような演算子オブジェクトを拒否する
 
 ## 最小権限の原則
 
@@ -497,6 +750,9 @@ User.query.filter_by(username=username).first()
 | 基本 | ログインバイパス / UNION | プレースホルダ |
 | 発展 | ブラインド（Boolean/Time） | 詳細エラー非表示・最小権限 |
 | 発展 | スタック型・セカンドオーダー | 使う場所すべてでプレースホルダ |
+| 実DB | MySQL方言差・エラー・メタデータ | パラメータ化・詳細エラー非表示 |
+| NoSQL | MongoDB条件オブジェクト混入 | 型検証・スキーマ検証・演算子拒否 |
+| 総合演習 | 複数箇所の混在 | 入口ごとの洗い出し・分類・再現 |
 | 全体 | — | 多層防御・入力値検証・WAF・監視 |
 
 SQLインジェクションは**古典的だが今も現役**の脆弱性。
@@ -509,6 +765,8 @@ SQLインジェクションは**古典的だが今も現役**の脆弱性。
 - [OWASP SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
 - [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
 - [PortSwigger Web Security Academy - SQL injection](https://portswigger.net/web-security/sql-injection)
+- [ZAP SQL Injection Alert](https://www.zaproxy.org/docs/alerts/40018/)
+- [ZAP Technology Detection](https://www.zaproxy.org/docs/desktop/addons/technology-detection/)
 
 ---
 

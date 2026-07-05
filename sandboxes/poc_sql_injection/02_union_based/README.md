@@ -1,6 +1,7 @@
 # PoC②: UNIONベースのSQLインジェクション
 
-商品検索フォームから、別テーブル（`users`）の内容を検索結果に混ぜて抜き出す。
+商品検索フォームから、別テーブル（`users` / `customers`）の内容を検索結果に混ぜて抜き出す。
+講義では「商品一覧に見えている画面から、顧客情報が漏れる」体験を重視する。
 
 ```bash
 pip install -r requirements.txt
@@ -38,7 +39,7 @@ q = a%' UNION SELECT 1,2,3 --
 
 エラーが出ずに `1, 2, 3` の行が表示されればカラム数・型が一致している。
 
-### 2-3. 本命：`users` テーブルの中身を抜き出す
+### 2-3. 認証情報を抜き出す
 
 ```
 q = zzz%' UNION SELECT id, username, password FROM users --
@@ -48,6 +49,22 @@ q = zzz%' UNION SELECT id, username, password FROM users --
 UNIONした結果だけを見やすくしている）
 
 → 検索結果の一覧に `admin` / `S3cretAdminPass!` などが**商品名・価格の欄に紛れて表示される**
+
+### 2-4. 顧客情報を抜き出す
+
+```
+q = zzz%' UNION SELECT id, email, last_order_total FROM customers --
+```
+
+→ 本来の商品検索画面に、架空顧客のメールアドレスと直近注文金額が混ざって表示される。
+「ログイン突破」よりも、情報漏洩の被害が目で分かりやすいデモとして使う。
+
+## ZAPで見るポイント
+
+- Active Scanで `SQL Injection` alert が出るか確認する
+- Alertsの `Evidence` と、HistoryのRequest/Responseを見る
+- ZAPの結果だけで終わらず、上記の `UNION SELECT` を手動で再現する
+- DB種別はZAPが常に断定するものではないため、エラー文や挙動を合わせて推測する
 
 ## Step 3: 自分で修正する
 
@@ -63,7 +80,7 @@ cur.execute(query, (like_pattern,))
 
 ## Step 4: 再攻撃して防御を確認する
 
-Step 2-3 と同じペイロードを試して、`UNION SELECT` が構文として解釈されず
+Step 2-3 / 2-4 と同じペイロードを試して、`UNION SELECT` が構文として解釈されず
 **ヒット件数が0件になる**ことを確認しよう。
 
 ## 答え合わせ

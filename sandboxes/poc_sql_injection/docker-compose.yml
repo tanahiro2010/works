@@ -1,0 +1,92 @@
+services:
+  mysql-db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: training
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+    volumes:
+      - ./05_mysql_realdb/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -prootpass"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  mysql-vuln:
+    build: ./05_mysql_realdb
+    environment:
+      MYSQL_HOST: mysql-db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+      MYSQL_DATABASE: training
+      APP_PORT: 5005
+    ports:
+      - "127.0.0.1:5005:5005"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+  mysql-secure:
+    build: ./05_mysql_realdb
+    command: ["python", "secure_app.py"]
+    environment:
+      MYSQL_HOST: mysql-db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+      MYSQL_DATABASE: training
+      APP_PORT: 5015
+    ports:
+      - "127.0.0.1:5015:5015"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+  mongo-db:
+    image: mongo:7
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  mongo-vuln:
+    build: ./06_mongodb_nosql
+    environment:
+      MONGO_URI: mongodb://mongo-db:27017
+      APP_PORT: 5006
+    ports:
+      - "127.0.0.1:5006:5006"
+    depends_on:
+      mongo-db:
+        condition: service_healthy
+
+  mongo-secure:
+    build: ./06_mongodb_nosql
+    command: ["python", "secure_app.py"]
+    environment:
+      MONGO_URI: mongodb://mongo-db:27017
+      APP_PORT: 5016
+    ports:
+      - "127.0.0.1:5016:5016"
+    depends_on:
+      mongo-db:
+        condition: service_healthy
+
+  challenge:
+    build: ./07_challenge_blackbox
+    environment:
+      MYSQL_HOST: mysql-db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+      MYSQL_DATABASE: training
+      MONGO_URI: mongodb://mongo-db:27017
+      APP_PORT: 5007
+    ports:
+      - "127.0.0.1:5007:5007"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+      mongo-db:
+        condition: service_healthy

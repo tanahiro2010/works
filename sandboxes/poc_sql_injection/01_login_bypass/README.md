@@ -38,6 +38,12 @@ query = (
 画面下部に**実際に実行されたSQL文**が表示されるので、
 入力がどのようにSQLへ混ざっているかを確認しながら試してみてください。
 
+## ZAPで見るポイント
+
+- `/` のログインフォームをSpider/Active Scan対象にする
+- AlertsでSQL Injectionの有無、Historyで送信されたusername/passwordを確認する
+- ZAPのAlertだけで終わらず、`admin' --` を手入力してログイン突破を再現する
+
 ## Step 3: 自分で修正する
 
 `app.py` の文字列結合部分を、プレースホルダ（`?`）を使う形に書き換えてみよう。

@@ -18,9 +18,20 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     conn.execute("DROP TABLE IF EXISTS products")
     conn.execute("DROP TABLE IF EXISTS users")
+    conn.execute("DROP TABLE IF EXISTS customers")
     conn.execute("CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER)")
     conn.execute(
         "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, role TEXT)"
+    )
+    conn.execute(
+        """
+        CREATE TABLE customers (
+            id INTEGER PRIMARY KEY,
+            email TEXT,
+            phone TEXT,
+            last_order_total INTEGER
+        )
+        """
     )
     conn.executemany(
         "INSERT INTO products (name, price) VALUES (?, ?)",
@@ -36,6 +47,14 @@ def init_db():
         [
             ("admin", "S3cretAdminPass!", "admin"),
             ("alice", "alicepw123", "user"),
+        ],
+    )
+    conn.executemany(
+        "INSERT INTO customers (email, phone, last_order_total) VALUES (?, ?, ?)",
+        [
+            ("sato.customer@example.test", "090-1111-2222", 128000),
+            ("suzuki.customer@example.test", "080-3333-4444", 54800),
+            ("takahashi.customer@example.test", "070-5555-6666", 23900),
         ],
     )
     conn.commit()

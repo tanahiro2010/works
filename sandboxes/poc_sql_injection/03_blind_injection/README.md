@@ -61,6 +61,23 @@ order_id=1 AND (CASE WHEN (SELECT SUBSTR(password,1,1) FROM users WHERE username
 <small>※ SQLiteに本来 `SLEEP()` は存在しません。学習用に `app.py` 内で Python の
 `time.sleep` をSQL関数として登録し、MySQL等での挙動を再現しています。</small>
 
+### 2-3. 自動抽出デモ
+
+手作業で1文字ずつ確認する流れを理解したあと、ローカルPoC専用スクリプトで同じ作業を自動化する。
+
+```bash
+python extract_password.py
+```
+
+→ `admin` のパスワードが1文字ずつ確定していく。ZAPやスキャナが「脆弱性あり」と示すだけでなく、
+攻撃者が実際に情報を復元できることを短時間で見せるためのデモ。
+
+## ZAPで見るポイント
+
+- `/track?order_id=1` を対象にSpider/Active Scanを実行する
+- Boolean-basedはレスポンス本文の違い、Time-basedは応答時間の違いが証拠になる
+- 自動検出が弱い場合もあるため、Requesterやブラウザで手動ペイロードを試して確認する
+
 ## Step 3: 自分で修正する
 
 `app.py` を、型を検証してからプレースホルダで渡す形に書き換えてみよう。
