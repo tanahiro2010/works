@@ -4,7 +4,7 @@ import sys
 ARTIFACTS = {
     "file": [
         {"name": "article.md"},
-        {"name": "slide.md", "content": "---\ntitle: {name}\"\"\ndescription: \"\"\nauthor: \"\"\ndate: \"\"\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n"},
+        {"name": "slide.md", "content": "---\ntitle: {name}\ndescription: \"\"\nauthor: \"\"\ndate: \"\"\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n"},
         {"name": "README.md", "content": "# {name}"},
         {"name": "codelab/claat.md"}
     ],
@@ -13,6 +13,25 @@ ARTIFACTS = {
         "sandbox",
         "codelab"
     ]
+}
+
+ARGUMENTS = {
+    "--create": {
+        "description": "Create a new project structure with predefined files and directories.",
+        "function": "create_project_structure"
+    },
+    "--delete": {
+        "description": "Delete an existing project structure.",
+        "function": "delete_project_structure"
+    },
+    "--export": {
+        "description": "Export Marp slides to PDF.",
+        "function": "export_marp"
+    },
+    "--help": {
+        "description": "Display this help message.",
+        "function": "display_help"
+    },
 }
 
 def create_project_structure():
@@ -44,6 +63,26 @@ def create_project_structure():
 
     return 0
 
+def delete_project_structure():
+    current_directory = os.getcwd()
+    print(f"Current working directory: {current_directory}")
+
+    proj_name = input("Enter the project name to delete: ")
+    proj_path = os.path.join(current_directory, proj_name)
+
+    if os.path.exists(proj_path) and os.path.isdir(proj_path):
+        confirm = input(f"Are you sure you want to delete the project '{proj_name}'? This action cannot be undone. (yes/no): ")
+        if confirm.lower() == 'yes':
+            import shutil
+            shutil.rmtree(proj_path)
+            print(f"Project directory '{proj_name}' has been deleted.")
+        else:
+            print("Deletion cancelled.")
+    else:
+        print(f"Project directory '{proj_name}' does not exist at: {proj_path}")
+
+    return 0
+
 def export_marp():
     projects = [d for d in os.listdir('.') if os.path.isdir(d)]
     if not projects:
@@ -68,17 +107,30 @@ def export_marp():
         else:
             print(f"No 'slide.md' found in project '{project}'. Skipping export.")
 
+def display_help():
+    print("Usage: python main.py [command]")
+    print("Available commands:")
+    for cmd, info in ARGUMENTS.items():
+        print(f"  {cmd}: {info['description']}")
+    return 0
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python main.py [create|export]")
+        print("Usage: python main.py [{}]".format("|".join(ARGUMENTS.keys())))
         sys.exit(1)
 
     command = sys.argv[1].lower()
-    result = 0
-    if command == "--create":
-        result = create_project_structure()
-    elif command == "--export":
-        result = export_marp()
+    result = 1
+    if command in ARGUMENTS.keys():
+        function_name = ARGUMENTS[command]["function"]
+        result = globals()[function_name]()
+
+    else:
+        print(f"Unknown command: {command}")
+        print("Available commands:")
+        for cmd, info in ARGUMENTS.items():
+            print(f"  {cmd}: {info['description']}")
+
+    exit(result)
     
     sys.exit(result)
