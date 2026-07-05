@@ -76,9 +76,9 @@ if __name__ == "__main__":
 
     command = sys.argv[1].lower()
     result = 0
-    if command == "create":
+    if command == "--create":
         result = create_project_structure()
-    elif command == "export":
+    elif command == "--export":
         result = export_marp()
     
     sys.exit(result)
