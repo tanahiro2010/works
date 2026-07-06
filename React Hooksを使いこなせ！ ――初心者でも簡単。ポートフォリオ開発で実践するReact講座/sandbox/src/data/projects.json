@@ -1,0 +1,68 @@
+[
+  {
+    "id": "recipe-share",
+    "title": "レシピシェア",
+    "summary": "作った料理を投稿してシェアできるSNS",
+    "description": "写真付きでレシピを投稿し、材料からレシピを検索できるSNSアプリ。お気に入り機能とコメント機能つき。",
+    "tags": ["React", "Firebase", "Tailwind CSS"],
+    "color": "from-orange-400 to-rose-500",
+    "likes": 42,
+    "repoUrl": "https://github.com/example/recipe-share",
+    "demoUrl": "https://example.com/recipe-share"
+  },
+  {
+    "id": "study-timer",
+    "title": "勉強タイマー",
+    "summary": "ポモドーロ方式の学習用タイマーアプリ",
+    "description": "25分集中 + 5分休憩のポモドーロ方式で学習時間を記録できるアプリ。学習ログはグラフで可視化。",
+    "tags": ["React", "TypeScript", "Chart.js"],
+    "color": "from-sky-400 to-indigo-500",
+    "likes": 27,
+    "repoUrl": "https://github.com/example/study-timer",
+    "demoUrl": "https://example.com/study-timer"
+  },
+  {
+    "id": "task-board",
+    "title": "タスクボード",
+    "summary": "ドラッグ&ドロップで使えるカンバン風タスク管理",
+    "description": "ToDo / 進行中 / 完了の3列でタスクを管理できるカンバンボード。ドラッグ&ドロップで列を移動できる。",
+    "tags": ["React", "dnd-kit", "Tailwind CSS"],
+    "color": "from-emerald-400 to-teal-500",
+    "likes": 63,
+    "repoUrl": "https://github.com/example/task-board",
+    "demoUrl": "https://example.com/task-board"
+  },
+  {
+    "id": "weather-dash",
+    "title": "お天気ダッシュボード",
+    "summary": "登録した都市の天気をまとめて確認できるダッシュボード",
+    "description": "複数の都市を登録して、現在の気温・降水確率・週間予報をまとめて確認できるダッシュボード。",
+    "tags": ["React", "REST API", "CSS"],
+    "color": "from-cyan-400 to-blue-500",
+    "likes": 18,
+    "repoUrl": "https://github.com/example/weather-dash",
+    "demoUrl": "https://example.com/weather-dash"
+  },
+  {
+    "id": "book-log",
+    "title": "読書ログ",
+    "summary": "読んだ本を記録して感想を残せるアプリ",
+    "description": "読んだ本のタイトル・著者・読了日・感想を記録できるアプリ。年間の読書数を集計するダッシュボードつき。",
+    "tags": ["React", "IndexedDB"],
+    "color": "from-fuchsia-400 to-purple-500",
+    "likes": 35,
+    "repoUrl": "https://github.com/example/book-log",
+    "demoUrl": "https://example.com/book-log"
+  },
+  {
+    "id": "expense-tracker",
+    "title": "お小遣い帳",
+    "summary": "収支を記録してグラフで振り返れる家計簿アプリ",
+    "description": "日々の収支を記録し、カテゴリ別の支出を円グラフで確認できるシンプルな家計簿アプリ。",
+    "tags": ["React", "TypeScript", "Chart.js"],
+    "color": "from-amber-400 to-orange-500",
+    "likes": 51,
+    "repoUrl": "https://github.com/example/expense-tracker",
+    "demoUrl": "https://example.com/expense-tracker"
+  }
+]

@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* ThemeContext.tsx で <html> に "dark" クラスを付け外しする方式に合わせて、
+   prefers-color-scheme ではなく class ベースの dark: バリアントを使う */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}

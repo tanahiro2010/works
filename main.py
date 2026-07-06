@@ -38,7 +38,7 @@ def create_project_structure():
     current_directory = os.getcwd()
     print(f"Current working directory: {current_directory}")
 
-    proj_name = input("Enter the project name: ")
+    proj_name = input("Enter the project name: ").encode('utf-8').decode('utf-8').strip()
     proj_path = os.path.join(current_directory, proj_name)
 
     if not os.path.exists(proj_path):
@@ -51,7 +51,7 @@ def create_project_structure():
 
         for file in ARTIFACTS["file"]:
             file_path = os.path.join(proj_path, file["name"])
-            with open(file_path, 'w', encoding='utf-8') as f:
+            with open(file_path, 'w') as f:
                 if "content" in file:
                     f.write(file["content"].format(name=proj_name))
                 else:
