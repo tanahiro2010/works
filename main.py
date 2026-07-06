@@ -1,5 +1,9 @@
 import os
 import sys
+import json
+import hashlib
+
+CACHE_PATH = os.path.join(os.getcwd(), "cache.json")
 
 ARTIFACTS = {
     "file": [
@@ -89,10 +93,37 @@ def export_marp():
         print("No projects found in the current directory.")
         return 1
     
+    cache = {}
+    if not os.path.exists(CACHE_PATH):
+        with open(CACHE_PATH, 'w') as cache_file:
+            json.dump({}, cache_file)
+
+    with open(CACHE_PATH, 'r') as cache_file:
+        cache = json.loads(cache_file.read() or '{}')
+
     for project in projects:
         project_path = os.path.join(os.getcwd(), project)
         slide_file = os.path.join(project_path, "slide.md")
         if os.path.exists(slide_file):
+            if slide_file in cache and cache[slide_file]["date"] == os.path.getmtime(slide_file):
+                print(f"Skipping '{slide_file}' as it has not changed since the last export.")
+                continue
+
+            with open(slide_file, 'rb') as f:
+                file_content = f.read()
+            hashed_content = hashlib.sha256(file_content).hexdigest()
+
+            if hashed_content != cache.get(slide_file, {}).get("sha256"):
+                cache[slide_file] = {
+                    "sha256": hashed_content,
+                    "date": os.path.getmtime(slide_file)
+                }
+                with open(CACHE_PATH, 'w') as cache_file:
+                    json.dump(cache, cache_file, indent=2)
+            else:
+                print(f"Skipping '{slide_file}' as it has not changed since the last export.")
+                continue
+
             output_dir = os.path.join(project_path, "outputs")
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)

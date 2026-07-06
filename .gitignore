@@ -3,3 +3,4 @@
 **/.venv/
 .claude
 **/.DS_Store
+cache.json
