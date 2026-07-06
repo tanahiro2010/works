@@ -61,7 +61,7 @@ style: |
 # React Hooksを使いこなせ！
 
 ## 初心者でも簡単。ポートフォリオ開発で実践するReact講座
-田中博悠
+田中博悠 / UniSchool
 
 ---
 
