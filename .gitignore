@@ -2,4 +2,4 @@
 **/__pycache__/
 **/.venv/
 .claude
-.DS_Store
+**/.DS_Store
