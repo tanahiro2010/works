@@ -97,9 +97,9 @@ def export_marp():
     if not os.path.exists(CACHE_PATH):
         with open(CACHE_PATH, 'w') as cache_file:
             json.dump({}, cache_file)
-
-    with open(CACHE_PATH, 'r') as cache_file:
-        cache = json.loads(cache_file.read() or '{}')
+    else:
+        with open(CACHE_PATH, 'r') as cache_file:
+            cache = json.loads(cache_file.read() or '{}')
 
     for project in projects:
         project_path = os.path.join(os.getcwd(), project)
