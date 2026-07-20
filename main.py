@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import hashlib
+import subprocess
 
 CACHE_PATH = os.path.join(os.getcwd(), "cache.json")
 
@@ -127,14 +128,17 @@ def export_marp():
             output_dir = os.path.join(project_path, "outputs")
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
+
             output_file = os.path.join(output_dir, f"{project}.pdf")
-            command = f'marp "{slide_file}" -o "{output_file}"'
+            commands = ["marp", slide_file, "-o", output_file, "--pdf", "--allow-local-files"]
             print(f"Exporting '{slide_file}' to '{output_file}'...")
-            result = os.system(command)
-            if result == 0:
+
+            result = subprocess.run(commands, capture_output=True, text=True)
+            if result.returncode == 0:
                 print(f"Export successful: {output_file}")
             else:
                 print(f"Export failed for project '{project}'.")
+                print(f"Error: {result.stderr}")
         else:
             print(f"No 'slide.md' found in project '{project}'. Skipping export.")
 
