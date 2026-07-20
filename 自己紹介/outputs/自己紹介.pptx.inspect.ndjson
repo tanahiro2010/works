@@ -1,0 +1,118 @@
+{"kind":"deck","id":"pr/fcps90","name":"Deck"}
+{"kind":"layout","layoutId":"927652d6-d841-4fee-b2f6-247893908bd1","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"8157a603-3bfe-4fce-8d31-da4c783c9473","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/7ej4gu","slide":1,"title":"田中博悠 / tanahiro2010","textShapes":5}
+{"kind":"textbox","id":"sh/wbqt4r2d","slide":1,"text":"田中博悠 / tanahiro2010","textPreview":"田中博悠 / tanahiro2010","textChars":19,"textLines":1,"bbox":[72,78,900,80]}
+{"kind":"shape","id":"sh/vahcv6ls","slide":1,"bbox":[72,176,270,5]}
+{"kind":"textbox","id":"sh/u98b21kn","slide":1,"text":"作る、調べる、つなげる高校生エンジニア","textPreview":"作る、調べる、つなげる高校生エンジニア","textChars":19,"textLines":1,"bbox":[72,230,900,58]}
+{"kind":"textbox","id":"sh/98zatw32","slide":1,"text":"三田学園高等学校 1年生\nTypeScript / Web / CLI / AI Agent / Security","textPreview":"三田学園高等学校 1年生 | TypeScript / Web / CLI / AI Agent / Security","textChars":57,"textLines":2,"bbox":[72,330,760,110]}
+{"kind":"shape","id":"sh/87qt0r2h","slide":1,"bbox":[910,84,250,520]}
+{"kind":"textbox","id":"sh/n6hsrmlw","slide":1,"text":"Build\nShip\nLearn\nIterate","textPreview":"Build | Ship | Learn | Iterate","textChars":24,"textLines":4,"bbox":[940,160,190,300]}
+{"kind":"textbox","id":"sh/m58byhkb","slide":1,"text":"自己紹介 / tanahiro2010    1","textPreview":"自己紹介 / tanahiro2010    1","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/7ej4gu","slide":1,"text":""}
+{"kind":"slide","id":"sl/quzgbz","slide":2,"title":"ひとことで言うと","textShapes":9}
+{"kind":"textbox","id":"sh/psvy5sv2","slide":2,"text":"ひとことで言うと","textPreview":"ひとことで言うと","textChars":8,"textLines":1,"bbox":[72,52,740,58]}
+{"kind":"textbox","id":"sh/254zudwb","slide":2,"text":"WebアプリやCLIツールを作りながら、AI Agent連携やセキュリティにも踏み込んでいます。","textPreview":"WebアプリやCLIツールを作りながら、AI Agent連携やセキュリティにも踏み込んでいます。","textChars":48,"textLines":1,"bbox":[72,150,1040,110]}
+{"kind":"shape","id":"sh/36dg3idw","slide":2,"bbox":[72,345,330,150]}
+{"kind":"textbox","id":"sh/cv6h07ut","slide":2,"text":"TypeScript中心","textPreview":"TypeScript中心","textChars":12,"textLines":1,"bbox":[96,372,280,34]}
+{"kind":"textbox","id":"sh/dwfi9svy","slide":2,"text":"個人開発の主軸。Webからローカルツールまで。","textPreview":"個人開発の主軸。Webからローカルツールまで。","textChars":23,"textLines":1,"bbox":[96,424,280,70]}
+{"kind":"shape","id":"sh/qtozyxwn","slide":2,"bbox":[446,345,330,150]}
+{"kind":"textbox","id":"sh/ruxg72d8","slide":2,"text":"CLI / Tooling","textPreview":"CLI / Tooling","textChars":13,"textLines":1,"bbox":[470,372,280,34]}
+{"kind":"textbox","id":"sh/0z6h47up","slide":2,"text":"最近は開発支援やAgent連携などローカル寄り。","textPreview":"最近は開発支援やAgent連携などローカル寄り。","textChars":24,"textLines":1,"bbox":[470,424,280,70]}
+{"kind":"shape","id":"sh/10zidcva","slide":2,"bbox":[820,345,330,150]}
+{"kind":"textbox","id":"sh/5g3uh4vm","slide":2,"text":"OSS / Security","textPreview":"OSS / Security","textChars":14,"textLines":1,"bbox":[844,372,280,34]}
+{"kind":"textbox","id":"sh/4vutoze1","slide":2,"text":"コードを読む、報告する、学びを教材化する。","textPreview":"コードを読む、報告する、学びを教材化する。","textChars":21,"textLines":1,"bbox":[844,424,280,70]}
+{"kind":"textbox","id":"sh/3ulcfudw","slide":2,"text":"自己紹介 / tanahiro2010    2","textPreview":"自己紹介 / tanahiro2010    2","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/quzgbz","slide":2,"text":""}
+{"kind":"slide","id":"sl/f27i7l","slide":3,"title":"活動領域は「作る」から「場を作る」まで広がっています","textShapes":12}
+{"kind":"textbox","id":"sh/32lcbipw","slide":3,"text":"活動領域は「作る」から「場を作る」まで広がっています","textPreview":"活動領域は「作る」から「場を作る」まで広がっています","textChars":26,"textLines":1,"bbox":[72,52,1040,72]}
+{"kind":"shape","id":"sh/o3et43qh","slide":3,"bbox":[72,152,1080,62]}
+{"kind":"textbox","id":"sh/p4nud872","slide":3,"text":"CLI / Tooling","textPreview":"CLI / Tooling","textChars":13,"textLines":1,"bbox":[96,166,250,30]}
+{"kind":"textbox","id":"sh/q5wb6d8n","slide":3,"text":"開発支援ツール、ローカルツール、ブラウザ拡張","textPreview":"開発支援ツール、ローカルツール、ブラウザ拡張","textChars":22,"textLines":1,"bbox":[360,167,750,30]}
+{"kind":"shape","id":"sh/b65cfip8","slide":3,"bbox":[72,238,1080,62]}
+{"kind":"textbox","id":"sh/c7et8nqt","slide":3,"text":"Web App","textPreview":"Web App","textChars":7,"textLines":1,"bbox":[96,252,250,30]}
+{"kind":"textbox","id":"sh/d8nuhs7y","slide":3,"text":"React / Next.js / Hono / Cloudflare Workers","textPreview":"React / Next.js / Hono / Cloudflare Workers","textChars":43,"textLines":1,"bbox":[360,253,750,30]}
+{"kind":"shape","id":"sh/y9wbax8j","slide":3,"bbox":[72,324,1080,62]}
+{"kind":"textbox","id":"sh/za5cj2p4","slide":3,"text":"AI Agent","textPreview":"AI Agent","textChars":8,"textLines":1,"bbox":[96,338,250,30]}
+{"kind":"textbox","id":"sh/be90bmdc","slide":3,"text":"WebMCP、Google ADK、A2A連携の実験とハンズオン","textPreview":"WebMCP、Google ADK、A2A連携の実験とハンズオン","textChars":32,"textLines":1,"bbox":[360,339,750,30]}
+{"kind":"shape","id":"sh/qd0j2hcr","slide":3,"bbox":[72,410,1080,62]}
+{"kind":"textbox","id":"sh/d0bidwvi","slide":3,"text":"Security","textPreview":"Security","textChars":8,"textLines":1,"bbox":[96,424,250,30]}
+{"kind":"textbox","id":"sh/cfi14rux","slide":3,"text":"OSS / Webサービスの脆弱性調査、報告、教材制作","textPreview":"OSS / Webサービスの脆弱性調査、報告、教材制作","textChars":27,"textLines":1,"bbox":[360,425,750,30]}
+{"kind":"shape","id":"sh/3a9072d0","slide":3,"bbox":[72,496,1080,62]}
+{"kind":"textbox","id":"sh/290zyhcf","slide":3,"text":"Community","textPreview":"Community","textChars":9,"textLines":1,"bbox":[96,510,250,30]}
+{"kind":"textbox","id":"sh/pcri9cv6","slide":3,"text":"GDG Greater Kansaiでのイベント運営・ハンズオン制作","textPreview":"GDG Greater Kansaiでのイベント運営・ハンズオン制作","textChars":34,"textLines":1,"bbox":[360,511,750,30]}
+{"kind":"textbox","id":"sh/4bi107ul","slide":3,"text":"自己紹介 / tanahiro2010    3","textPreview":"自己紹介 / tanahiro2010    3","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/f27i7l","slide":3,"text":""}
+{"kind":"slide","id":"sl/q1tu18","slide":4,"title":"技術スタック","textShapes":12}
+{"kind":"textbox","id":"sh/6p8n6tkb","slide":4,"text":"技術スタック","textPreview":"技術スタック","textChars":6,"textLines":1,"bbox":[72,52,620,58]}
+{"kind":"textbox","id":"sh/tsj6h832","slide":4,"text":"TypeScript / JavaScriptを中心に、必要な場所へ広げていくタイプです。","textPreview":"TypeScript / JavaScriptを中心に、必要な場所へ広げていくタイプです。","textChars":45,"textLines":1,"bbox":[72,125,930,42]}
+{"kind":"shape","id":"sh/8rq5832h","slide":4,"bbox":[72,225,230,220]}
+{"kind":"textbox","id":"sh/vu1ojils","slide":4,"text":"Frontend","textPreview":"Frontend","textChars":8,"textLines":1,"bbox":[94,255,185,34]}
+{"kind":"textbox","id":"sh/utsnadkn","slide":4,"text":"React\nNext.js","textPreview":"React | Next.js","textChars":13,"textLines":2,"bbox":[94,320,185,80]}
+{"kind":"shape","id":"sh/hgj6ls3y","slide":4,"bbox":[342,225,230,220]}
+{"kind":"textbox","id":"sh/gfapcn2d","slide":4,"text":"Backend / Edge","textPreview":"Backend / Edge","textChars":14,"textLines":1,"bbox":[364,255,185,34]}
+{"kind":"textbox","id":"sh/byxo7elo","slide":4,"text":"Hono\nCloudflare Workers","textPreview":"Hono | Cloudflare Workers","textChars":23,"textLines":2,"bbox":[364,320,185,80]}
+{"kind":"shape","id":"sh/axony9k3","slide":4,"bbox":[612,225,230,220]}
+{"kind":"textbox","id":"sh/sz650jex","slide":4,"text":"Desktop / Local","textPreview":"Desktop / Local","textChars":15,"textLines":1,"bbox":[634,255,185,34]}
+{"kind":"textbox","id":"sh/d0f69ofi","slide":4,"text":"Tauri\nRust","textPreview":"Tauri | Rust","textChars":10,"textLines":2,"bbox":[634,320,185,80]}
+{"kind":"shape","id":"sh/qx4ny9wr","slide":4,"bbox":[882,225,230,220]}
+{"kind":"textbox","id":"sh/rydo7exc","slide":4,"text":"Other","textPreview":"Other","textChars":5,"textLines":1,"bbox":[904,255,185,34]}
+{"kind":"textbox","id":"sh/036543e9","slide":4,"text":"Go\nPython","textPreview":"Go | Python","textChars":9,"textLines":2,"bbox":[904,320,185,80]}
+{"kind":"textbox","id":"sh/14f6dofu","slide":4,"text":"関心: Agent連携 / 開発体験 / セキュリティ / OSS","textPreview":"関心: Agent連携 / 開発体験 / セキュリティ / OSS","textChars":33,"textLines":1,"bbox":[72,520,900,42]}
+{"kind":"textbox","id":"sh/e1on2tw3","slide":4,"text":"自己紹介 / tanahiro2010    4","textPreview":"自己紹介 / tanahiro2010    4","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/q1tu18","slide":4,"text":""}
+{"kind":"slide","id":"sl/4zppk6","slide":5,"title":"最近つくっているもの","textShapes":11}
+{"kind":"textbox","id":"sh/7u9cj658","slide":5,"text":"最近つくっているもの","textPreview":"最近つくっているもの","textChars":10,"textLines":1,"bbox":[72,52,760,58]}
+{"kind":"textbox","id":"sh/svidcb6t","slide":5,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[86,155,56,34]}
+{"kind":"shape","id":"sh/twbulgne","slide":5,"bbox":[154,150,900,58]}
+{"kind":"textbox","id":"sh/uxkveloz","slide":5,"text":"WebMCPとAI Agentを連携するCLI・ブラウザ拡張","textPreview":"WebMCPとAI Agentを連携するCLI・ブラウザ拡張","textChars":30,"textLines":1,"bbox":[182,165,830,30]}
+{"kind":"textbox","id":"sh/fytwn65k","slide":5,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[86,251,56,34]}
+{"kind":"shape","id":"sh/gz2dgbm5","slide":5,"bbox":[154,246,900,58]}
+{"kind":"textbox","id":"sh/h0bepgna","slide":5,"text":"学校向け統合認証基盤","textPreview":"学校向け統合認証基盤","textChars":10,"textLines":1,"bbox":[182,261,830,30]}
+{"kind":"textbox","id":"sh/a1gv2hof","slide":5,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[86,347,56,34]}
+{"kind":"shape","id":"sh/v2pcbm50","slide":5,"bbox":[154,342,900,58]}
+{"kind":"textbox","id":"sh/nq94fu50","slide":5,"text":"Google ADK・A2Aを使ったAI Agentハンズオン","textPreview":"Google ADK・A2Aを使ったAI Agentハンズオン","textChars":31,"textLines":1,"bbox":[182,357,830,30]}
+{"kind":"textbox","id":"sh/mp036p4f","slide":5,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[86,443,56,34]}
+{"kind":"shape","id":"sh/9srmh4nq","slide":5,"bbox":[154,438,900,58]}
+{"kind":"textbox","id":"sh/8ril8zm5","slide":5,"text":"SQLインジェクション講義用の教材・デモ環境","textPreview":"SQLインジェクション講義用の教材・デモ環境","textChars":22,"textLines":1,"bbox":[182,453,830,30]}
+{"kind":"textbox","id":"sh/zmp4bu5o","slide":5,"text":"「実際に動くもの」に落とし込むところまでやるのが好きです。","textPreview":"「実際に動くもの」に落とし込むところまでやるのが好きです。","textChars":29,"textLines":1,"bbox":[154,560,820,44]}
+{"kind":"textbox","id":"sh/ylg32p43","slide":5,"text":"自己紹介 / tanahiro2010    5","textPreview":"自己紹介 / tanahiro2010    5","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/4zppk6","slide":5,"text":""}
+{"kind":"slide","id":"sl/4trfbn","slide":6,"title":"公開情報から見える軸","textShapes":6}
+{"kind":"textbox","id":"sh/ihsji9o7","slide":6,"text":"公開情報から見える軸","textPreview":"公開情報から見える軸","textChars":10,"textLines":1,"bbox":[72,52,760,58]}
+{"kind":"shape","id":"sh/5k32do7y","slide":6,"bbox":[72,150,430,330]}
+{"kind":"textbox","id":"sh/4ja1kj6d","slide":6,"text":"GitHub: tanahiro2010","textPreview":"GitHub: tanahiro2010","textChars":20,"textLines":1,"bbox":[100,188,360,36]}
+{"kind":"textbox","id":"sh/r6lkfy54","slide":6,"text":"15 y/o. Student Full-Stack Engineer / Scenario Writer.\n\nWeb / API / Discord Bot / 自動化など幅広い実験。\nリポジトリ数は100件規模。","textPreview":"15 y/o. Student Full-Stack Engineer / Scenario Writer. |  | Web / API / Discord Bot / 自動化など幅広い実験。 | リポジトリ数は100件規模。","textChars":108,"textLines":4,"bbox":[100,255,350,160]}
+{"kind":"textbox","id":"sh/65cjmtoj","slide":6,"text":"外から見える活動と、今回のプロフィールを重ねると、中心にあるのは Webフルスタック・開発体験・自動化・コミュニティです。","textPreview":"外から見える活動と、今回のプロフィールを重ねると、中心にあるのは Webフルスタック・開発体験・自動化・コミュニティです。","textChars":61,"textLines":1,"bbox":[570,165,560,160]}
+{"kind":"textbox","id":"sh/t832honu","slide":6,"text":"公開情報は補助情報として整理し、最新の活動内容は本人プロフィールを優先しています。","textPreview":"公開情報は補助情報として整理し、最新の活動内容は本人プロフィールを優先しています。","textChars":41,"textLines":1,"bbox":[570,405,520,70]}
+{"kind":"textbox","id":"sh/s7u18j69","slide":6,"text":"自己紹介 / tanahiro2010    6","textPreview":"自己紹介 / tanahiro2010    6","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/4trfbn","slide":6,"text":""}
+{"kind":"slide","id":"sl/5rdin1","slide":7,"title":"作るだけでは終わらない","textShapes":6}
+{"kind":"textbox","id":"sh/lg3294ve","slide":7,"text":"作るだけでは終わらない","textPreview":"作るだけでは終わらない","textChars":11,"textLines":1,"bbox":[72,52,820,58]}
+{"kind":"shape","id":"sh/ydcjepwn","slide":7,"bbox":[86,169,42,5]}
+{"kind":"textbox","id":"sh/jel07ud8","slide":7,"text":"OSSのコードを読み、脆弱性や改善点を探す","textPreview":"OSSのコードを読み、脆弱性や改善点を探す","textChars":21,"textLines":1,"bbox":[154,160,860,42]}
+{"kind":"shape","id":"sh/cba1cfeh","slide":7,"bbox":[86,257,42,5]}
+{"kind":"textbox","id":"sh/xcji5kv2","slide":7,"text":"報告やフィードバックを通じて開発者と関わる","textPreview":"報告やフィードバックを通じて開発者と関わる","textChars":21,"textLines":1,"bbox":[154,248,860,42]}
+{"kind":"shape","id":"sh/apsja5wr","slide":7,"bbox":[86,345,42,5]}
+{"kind":"textbox","id":"sh/bq103adc","slide":7,"text":"ハンズオンや講義資料として、学びを他の人に渡す","textPreview":"ハンズオンや講義資料として、学びを他の人に渡す","textChars":23,"textLines":1,"bbox":[154,336,860,42]}
+{"kind":"shape","id":"sh/ona18fel","slide":7,"bbox":[86,433,42,5]}
+{"kind":"textbox","id":"sh/poji1kv6","slide":7,"text":"イベント運営側として、学ぶ場そのものを作る","textPreview":"イベント運営側として、学ぶ場そのものを作る","textChars":21,"textLines":1,"bbox":[154,424,860,42]}
+{"kind":"textbox","id":"sh/dw7mpob6","slide":7,"text":"自己紹介 / tanahiro2010    7","textPreview":"自己紹介 / tanahiro2010    7","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/5rdin1","slide":7,"text":""}
+{"kind":"slide","id":"sl/921ape","slide":8,"title":"話しかけてもらえると嬉しいこと","textShapes":9}
+{"kind":"textbox","id":"sh/crixcj6t","slide":8,"text":"話しかけてもらえると嬉しいこと","textPreview":"話しかけてもらえると嬉しいこと","textChars":15,"textLines":1,"bbox":[72,52,980,58]}
+{"kind":"shape","id":"sh/bq9wje58","slide":8,"bbox":[100,165,440,58]}
+{"kind":"textbox","id":"sh/qp0va9o3","slide":8,"text":"CLI・開発支援ツール","textPreview":"CLI・開発支援ツール","textChars":11,"textLines":1,"bbox":[122,181,390,28]}
+{"kind":"shape","id":"sh/lgbep8nq","slide":8,"bbox":[620,165,440,58]}
+{"kind":"textbox","id":"sh/kf2xg365","slide":8,"text":"AI Agent / MCP / A2A","textPreview":"AI Agent / MCP / A2A","textChars":20,"textLines":1,"bbox":[642,181,390,28]}
+{"kind":"shape","id":"sh/zutwny5k","slide":8,"bbox":[100,257,440,58]}
+{"kind":"textbox","id":"sh/yt0fetoz","slide":8,"text":"TypeScript / Workers / Tauri","textPreview":"TypeScript / Workers / Tauri","textChars":28,"textLines":1,"bbox":[122,273,390,28]}
+{"kind":"shape","id":"sh/9kbet8nm","slide":8,"bbox":[620,257,440,58]}
+{"kind":"textbox","id":"sh/8j2xk361","slide":8,"text":"セキュリティリサーチ","textPreview":"セキュリティリサーチ","textChars":10,"textLines":1,"bbox":[642,273,390,28]}
+{"kind":"shape","id":"sh/ylsvydgv","slide":8,"bbox":[100,349,440,58]}
+{"kind":"textbox","id":"sh/zm1wryxg","slide":8,"text":"学生エンジニアの活動","textPreview":"学生エンジニアの活動","textChars":10,"textLines":1,"bbox":[122,365,390,28]}
+{"kind":"shape","id":"sh/0nad03y1","slide":8,"bbox":[620,349,440,58]}
+{"kind":"textbox","id":"sh/lojet8fm","slide":8,"text":"コミュニティ参加","textPreview":"コミュニティ参加","textChars":8,"textLines":1,"bbox":[642,365,390,28]}
+{"kind":"textbox","id":"sh/mpsf2dgr","slide":8,"text":"今日はよろしくお願いします。","textPreview":"今日はよろしくお願いします。","textChars":14,"textLines":1,"bbox":[72,558,820,58]}
+{"kind":"textbox","id":"sh/nq1wvixc","slide":8,"text":"自己紹介 / tanahiro2010    8","textPreview":"自己紹介 / tanahiro2010    8","textChars":24,"textLines":1,"bbox":[72,674,420,24]}
+{"kind":"notes","id":"nt/921ape","slide":8,"text":""}
