@@ -306,13 +306,23 @@ Serverless LT
 
 <div class="center">
 
-# PoWで殴る
+# PoW(Proof of Work)で殴る
 
 </div>
 
 以前Discord Botで
 
 PoWを書いた記憶が蘇った。
+
+---
+
+# Proof of Workとは？
+
+<div class="center">
+
+![pow](./outputs/whatispow.png)
+
+</div>
 
 ---
 
