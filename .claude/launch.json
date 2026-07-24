@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "webmcp-booking-web",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["webmcp-agent-booking/_repos/example/web/server.mjs"],
+      "port": 4000
+    },
+    {
+      "name": "webmcp-booking-api",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["webmcp-agent-booking/_repos/example/booking-api/src/index.js"],
+      "port": 3001
+    },
+    {
+      "name": "webmcp-booking-admin",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "webmcp-agent-booking/_repos/example/admin", "run", "dev"],
+      "port": 5174
+    },
+    {
+      "name": "webmcp-booking-web-template",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["webmcp-agent-booking/_repos/template/web/server.mjs"],
+      "port": 4001
+    },
+    {
+      "name": "webmcp-booking-api-template",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["webmcp-agent-booking/_repos/template/booking-api/src/index.js"],
+      "port": 3001
+    }
+  ]
+}

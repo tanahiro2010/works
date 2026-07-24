@@ -1,0 +1,8 @@
+{
+  "markdown.validate.enabled": true,
+  "editor.formatOnSave": false,
+  "markdown.marp.themes": [
+    "./.marp/gdg.css"
+  ],
+  "markdown.marp.enableHtml": true
+}
