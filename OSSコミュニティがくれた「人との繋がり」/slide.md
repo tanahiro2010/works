@@ -172,10 +172,33 @@ section:not(.title):not(.lead):not(.section):not(.invert):not(.split) ol {
   font-size: 0.9em;
 }
 
+.tiny-note {
+  color: var(--gdg-muted);
+  font-size: 0.78em !important;
+  font-weight: 400 !important;
+  line-height: 1.35;
+  margin-top: 14px;
+}
+
 .support {
   font-size: 1.34em;
   font-weight: 500;
   line-height: 1.42;
+}
+
+.url {
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--gdg-blue);
+  margin-top: 10px;
+}
+
+.qr {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+  margin: 18px auto 0;
 }
 
 .with-image .big {
@@ -689,6 +712,16 @@ Serverless LT会
 
 <!-- _class: lead -->
 
+# 画面が<br>うまく共有できていなかった
+
+<div class="tiny-note">
+具体的には、スライドが進んでいなかった
+</div>
+
+---
+
+<!-- _class: lead -->
+
 # もちろん<br>私は憤りました
 
 ---
@@ -1164,6 +1197,10 @@ GitHubでPublicにしたら<br>もうOSS開発者では?
 OSS = Open Source Software なので<br>直訳だけなら、たぶんそう
 </div>
 
+<div class="note">
+※ 厳密にはライセンスも大事です
+</div>
+
 ---
 
 ## 明日できる一歩
@@ -1198,6 +1235,12 @@ Starも立派な貢献です
 Kotobで何か作る / 感想をIssueで投げる  
 まずはStarでも大歓迎です
 </div>
+
+<div class="url">
+https://github.com/kotob-project
+</div>
+
+<img src="img/kotob_qr.png" class="qr" alt="Kotob GitHub QR code">
 
 ---
 
