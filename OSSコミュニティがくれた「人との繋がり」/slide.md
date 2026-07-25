@@ -1154,6 +1154,18 @@ OSS開発者と繋がれた
 
 ---
 
+## というか
+
+<div class="big">
+GitHubでPublicにしたら<br>もうOSS開発者では?
+</div>
+
+<div class="note">
+OSS = Open Source Software なので<br>直訳だけなら、たぶんそう
+</div>
+
+---
+
 ## 明日できる一歩
 
 <div class="flow">
