@@ -138,12 +138,13 @@ section:not(.title):not(.lead):not(.section):not(.invert):not(.split) h2 {
 }
 
 section.lead h1 {
-  font-size: 2.45em;
+  font-size: 2.75em !important;
   line-height: 1.16;
 }
 
 section.lead p {
-  font-size: 1.25em;
+  font-size: 1.72em !important;
+  font-weight: 600;
   line-height: 1.45;
 }
 
@@ -169,6 +170,12 @@ section:not(.title):not(.lead):not(.section):not(.invert):not(.split) ol {
 .note {
   color: var(--gdg-muted);
   font-size: 0.9em;
+}
+
+.support {
+  font-size: 1.34em;
+  font-weight: 500;
+  line-height: 1.42;
 }
 
 .with-image .big {
@@ -233,6 +240,38 @@ section:not(.title):not(.lead):not(.section):not(.invert):not(.split) ol {
   object-fit: contain;
   display: block;
   margin: 22px auto 0;
+}
+
+.brand-logo {
+  width: 56%;
+  max-height: 160px;
+  object-fit: contain;
+  display: block;
+  margin: 28px auto 0;
+}
+
+.icon-img {
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  display: block;
+  margin: 22px auto 0;
+}
+
+.image-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  width: 68%;
+  margin: 22px auto 0;
+  align-items: center;
+}
+
+.image-pair img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .flow {
@@ -580,11 +619,15 @@ Gemini APIを使ったCLI翻訳ツール
 
 ---
 
+<!-- _class: with-image -->
+
 ## そして
 
 <div class="big">
 GDGスタッフになりました
 </div>
+
+<img src="img/gdg_kwansai.png" class="brand-logo" alt="GDG Kwansai logo">
 
 ---
 
@@ -709,6 +752,8 @@ Bokuchiの開発者さん
 <div class="big">
 GHSAをもらいました
 </div>
+
+<img src="img/github.png" class="icon-img" alt="GitHub logo">
 
 ---
 
@@ -886,10 +931,17 @@ PRはその先の一歩
 
 ---
 
+<!-- _class: with-image -->
+
 ## 一番大きい物
 
 <div class="big">
 BokuchiのTシャツ
+</div>
+
+<div class="image-pair">
+<img src="img/bokuchi_front.jpeg" alt="Bokuchi Tシャツの前面">
+<img src="img/bokuchi_back.jpeg" alt="Bokuchi Tシャツの背面">
 </div>
 
 ---
@@ -990,6 +1042,40 @@ OSS開発者と繋がれた
 
 ---
 
+## 就職 / 進学にも
+
+<div class="big">
+有利になることがあります
+</div>
+
+<div class="note">
+ちゃんと話せる経験になるから
+</div>
+
+---
+
+## なぜなら
+
+<div class="big">
+行動の証拠が残る
+</div>
+
+登壇 / Issue / 報告 / OSS活動
+
+---
+
+## 実際に
+
+<div class="big">
+今、インターンに行けています
+</div>
+
+<div class="note">
+登壇やOSS活動がきっかけのひとつになりました
+</div>
+
+---
+
 ## 本音
 
 <div class="big">
@@ -1082,7 +1168,9 @@ OSS開発者と繋がれた
 Starも立派な貢献です
 </div>
 
+<div class="support">
 共同創設者の僕が認めます
+</div>
 
 <img src="img/kotob.png" class="kotob-logo-small" alt="Kotob logo">
 
@@ -1094,8 +1182,10 @@ Starも立派な貢献です
 初OSSコントリビュート、<br>Kotobでどうですか?
 </div>
 
+<div class="support">
 Kotobで何か作る / 感想をIssueで投げる  
 まずはStarでも大歓迎です
+</div>
 
 ---
 
