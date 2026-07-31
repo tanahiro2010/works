@@ -43,7 +43,7 @@ def create_project_structure():
     current_directory = os.getcwd()
     print(f"Current working directory: {current_directory}")
 
-    proj_name = input("Enter the project name: ").encode('utf-8').decode('utf-8').strip()
+    proj_name = input("Enter the project name: ").strip()
     proj_path = os.path.join(current_directory, proj_name)
 
     if not os.path.exists(proj_path):
