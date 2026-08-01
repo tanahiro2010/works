@@ -1198,7 +1198,7 @@ OSSでも、あなたは<br>誰かに出会うかもしれない
 ## というか
 
 <div class="big">
-GitHubでPublicにしたら<br>もうOSS開発者では?
+GitHubでライセンスをつけてPublicにしたら<br>もうOSS開発者では?
 </div>
 
 <div class="note">
@@ -1206,7 +1206,7 @@ OSS = Open Source Software なので<br>直訳だけなら、たぶんそう
 </div>
 
 <div class="note">
-※ 厳密にはライセンスも大事です
+※ ライセンスはきっちり選びましょう
 </div>
 
 ---
