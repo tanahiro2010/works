@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">好みと流行の距離を示すマップ</title>
+  <desc id="desc">自分の癖と市場の流行の距離を、2つの島と橋で示した図</desc>
+  <rect width="1280" height="720" fill="#F8F9FA"/>
+  <rect x="94" y="92" width="480" height="520" rx="42" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+  <rect x="706" y="92" width="480" height="520" rx="42" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+  <circle cx="335" cy="298" r="124" fill="#FCE8E6"/>
+  <circle cx="945" cy="298" r="124" fill="#E6F4EA"/>
+  <path d="M470 358 C575 468 704 468 810 358" fill="none" stroke="#4285F4" stroke-width="20" stroke-linecap="round"/>
+  <path d="M788 325 L835 348 L796 382" fill="none" stroke="#4285F4" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M266 255 C315 210 388 226 417 286 C448 352 388 401 326 386 C272 373 226 320 266 255 Z" fill="#EA4335" opacity="0.9"/>
+  <path d="M897 236 L973 206 L1047 258 L1022 354 L930 390 L862 326 Z" fill="#34A853" opacity="0.9"/>
+  <g fill="#FFFFFF">
+    <rect x="290" y="292" width="108" height="18" rx="9"/>
+    <rect x="290" y="324" width="70" height="18" rx="9"/>
+    <rect x="906" y="286" width="118" height="18" rx="9"/>
+    <rect x="906" y="318" width="78" height="18" rx="9"/>
+  </g>
+  <text x="335" y="512" font-family="Arial, sans-serif" font-size="58" font-weight="700" fill="#1A1A1A" text-anchor="middle">自分の癖</text>
+  <text x="945" y="512" font-family="Arial, sans-serif" font-size="58" font-weight="700" fill="#1A1A1A" text-anchor="middle">読まれる型</text>
+  <text x="640" y="584" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#4285F4" text-anchor="middle">全部合わせる必要はない</text>
+</svg>

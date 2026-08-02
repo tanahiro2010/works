@@ -15,9 +15,9 @@ slide:
 		exit 1; \
 	fi; \
 	mkdir -p "$$name/slide" "$$name/outputs"; \
-	$(MARP) "$$name/slide.md" -o "$$name/slide/index.html" && \
+	$(MARP) "$$name/slide.md" -o "$$name/index.html" && \
 	$(MARP) --pdf "$$name/slide.md" -o "$$name/outputs/$$name.pdf" && \
-	echo "Built $$name/slide/index.html" && \
+	echo "Built $$name/index.html" && \
 	echo "Built $$name/outputs/$$name.pdf"
 
 # Swallow the content-name so make doesn't treat it as an unknown target.

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">小説分析エージェントの今後の展望</title>
+  <desc id="desc">Discordに流れる単発分析から、データベースに蓄積し、チャットで相談できるエージェントへ進化する流れ</desc>
+  <rect width="1280" height="720" fill="#F8F9FA"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="94" y="156" width="292" height="310" rx="28" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+    <rect x="494" y="156" width="292" height="310" rx="28" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+    <rect x="894" y="156" width="292" height="310" rx="28" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+    <rect x="132" y="200" width="216" height="58" rx="16" fill="#FCE8E6"/>
+    <rect x="532" y="200" width="216" height="58" rx="16" fill="#E8F0FE"/>
+    <rect x="932" y="200" width="216" height="58" rx="16" fill="#E6F4EA"/>
+    <text x="240" y="238" font-size="30" font-weight="700" fill="#EA4335" text-anchor="middle">今のBot</text>
+    <text x="640" y="238" font-size="30" font-weight="700" fill="#4285F4" text-anchor="middle">DBに蓄積</text>
+    <text x="1040" y="238" font-size="30" font-weight="700" fill="#34A853" text-anchor="middle">相談相手へ</text>
+    <path d="M160 314 H320" stroke="#DADCE0" stroke-width="12" stroke-linecap="round"/>
+    <path d="M160 350 H280" stroke="#DADCE0" stroke-width="12" stroke-linecap="round"/>
+    <path d="M160 386 H304" stroke="#DADCE0" stroke-width="12" stroke-linecap="round"/>
+    <rect x="560" y="300" width="160" height="118" rx="24" fill="#E8F0FE" stroke="#4285F4" stroke-width="4"/>
+    <path d="M560 324 C560 294 720 294 720 324" fill="none" stroke="#4285F4" stroke-width="4"/>
+    <path d="M560 354 C560 384 720 384 720 354" fill="none" stroke="#4285F4" stroke-width="4"/>
+    <path d="M560 386 C560 416 720 416 720 386" fill="none" stroke="#4285F4" stroke-width="4"/>
+    <rect x="954" y="306" width="172" height="86" rx="22" fill="#FFFFFF" stroke="#34A853" stroke-width="4"/>
+    <circle cx="998" cy="350" r="16" fill="#34A853"/>
+    <path d="M1030 334 H1090" stroke="#DADCE0" stroke-width="10" stroke-linecap="round"/>
+    <path d="M1030 364 H1070" stroke="#DADCE0" stroke-width="10" stroke-linecap="round"/>
+    <path d="M406 310 H472" stroke="#4285F4" stroke-width="14" stroke-linecap="round"/>
+    <path d="M458 282 L488 310 L458 338" fill="none" stroke="#4285F4" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M806 310 H872" stroke="#4285F4" stroke-width="14" stroke-linecap="round"/>
+    <path d="M858 282 L888 310 L858 338" fill="none" stroke="#4285F4" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="240" y="526" font-size="28" font-weight="700" fill="#5F6368" text-anchor="middle">流れて終わり</text>
+    <text x="640" y="526" font-size="28" font-weight="700" fill="#5F6368" text-anchor="middle">過去傾向を横断検索</text>
+    <text x="1040" y="526" font-size="28" font-weight="700" fill="#5F6368" text-anchor="middle">チャットで相談</text>
+  </g>
+</svg>

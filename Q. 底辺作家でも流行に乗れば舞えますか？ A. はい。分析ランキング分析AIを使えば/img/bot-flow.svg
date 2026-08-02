@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">ランキング分析Botの流れ</title>
+  <desc id="desc">ランキングAPI、分析AI、Discord通知の3ステップを示す図</desc>
+  <rect width="1280" height="720" fill="#F8F9FA"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="90" y="190" width="300" height="250" rx="32" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+    <rect x="490" y="190" width="300" height="250" rx="32" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+    <rect x="890" y="190" width="300" height="250" rx="32" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+    <circle cx="240" cy="275" r="48" fill="#E8F0FE"/>
+    <circle cx="640" cy="275" r="48" fill="#FEF7E0"/>
+    <circle cx="1040" cy="275" r="48" fill="#E6F4EA"/>
+    <path d="M220 278 H260 M228 258 H252 M230 298 H250" stroke="#4285F4" stroke-width="12" stroke-linecap="round"/>
+    <path d="M620 252 L667 276 L620 300 Z" fill="#FBBC04"/>
+    <rect x="1010" y="252" width="62" height="48" rx="12" fill="#34A853"/>
+    <path d="M1010 300 L1030 280 L1050 300" fill="#34A853"/>
+    <text x="240" y="370" font-size="38" font-weight="700" fill="#1A1A1A" text-anchor="middle">ランキングAPI</text>
+    <text x="640" y="370" font-size="38" font-weight="700" fill="#1A1A1A" text-anchor="middle">AIで要約</text>
+    <text x="1040" y="370" font-size="38" font-weight="700" fill="#1A1A1A" text-anchor="middle">Discord通知</text>
+    <path d="M410 315 H470" stroke="#4285F4" stroke-width="14" stroke-linecap="round"/>
+    <path d="M455 286 L488 315 L455 344" fill="none" stroke="#4285F4" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M810 315 H870" stroke="#4285F4" stroke-width="14" stroke-linecap="round"/>
+    <path d="M855 286 L888 315 L855 344" fill="none" stroke="#4285F4" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="170" y="500" width="940" height="76" rx="38" fill="#FFFFFF" stroke="#DADCE0" stroke-width="4"/>
+    <text x="640" y="552" font-size="36" font-weight="700" fill="#5F6368" text-anchor="middle">毎日、自動で「今日読まれている型」を拾いにいく</text>
+  </g>
+</svg>
