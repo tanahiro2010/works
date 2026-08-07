@@ -265,12 +265,13 @@ pre {
 
 ## 自己紹介
 
-- 田中博悠 / tanahiro2010 / サブカル性癖博士
-- 株式会社KOMPEITO  
-  システム開発グループ インターン
-- GDG Greater Kwansai
-- 趣味: 読書 / バンジージャンプ / プログラミング
-- 最近: 一緒にバンジー飛んでくれる人を探してます
+- 田中博悠 / tanahiro2010
+- サブカル性癖博士
+- 三田学園高等学校 1年生
+- システム開発グループ インターン
+- GDG Greater Kwansai / Alpha+ Project
+- 自認DevRel
+- 読書 / バンジージャンプ / プログラミング
 
 <img class="profile" src="img/tanaka.png" alt="田中博悠の写真">
 
@@ -622,4 +623,5 @@ pipx run --spec https://github.com/tanahiro2010/php-vuln-scanner.git \
 
 # Thanks for Listening!
 
-聞いてくれてありがとう
+聞いてくれてありがとう。
+一緒にバンジー飛んでくれる人を探してます！
