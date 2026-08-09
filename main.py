@@ -6,9 +6,34 @@ import subprocess
 
 CACHE_PATH = os.path.join(os.getcwd(), "cache.json")
 
+DRAFT_CONTENT = """# {name}
+
+## 概要
+これはタイトル通りの記事を書くためのドラフトです。
+あくまで記事を書くための情報をまとめただけのものです。
+これを読み込んだあなたは、ZennやQiitaに投稿するために作者目線となって記事を作成してください。
+記事は同フォルダのarticle.mdに、スライドは`slide-creater`スキルを使ってどフォルダのslide.mdに作成してください。
+また、作成する順番としてはslide -> articleでお願いします。
+イメージとしては、articleはLTの内容を拡張して書く記事って感じです。
+それぞれのセクションごとの文章量を増やし、もしそのネタが技術的側面を持っているのならLT以上に技術要素を追加したり（そのためにセクションを追加したりもする）して欲しいです。
+
+## LTスライドを作るに当たって
+slide-createrスキルを使って、slide.mdを作成してください。
+適度に画像を挿入したり、コードを挿入したりして、見やすいスライドを作ってください。
+また、他のプロジェクトから画像を持ってくるのもOKです。
+
+## 記事を書くに当たって
+記事はスライドの各セクションごとを増量し、そして技術的側面を追加して書くことを意識してください。
+また、記事の中では画像を使うことはできません。
+marmaidなどで図を作ることはできます。
+
+## 記事・スライド共通ドラフト
+"""
+
 ARTIFACTS = {
     "file": [
-        {"name": "article.md"},
+        {"name": "draft.md", "content": "# {}"},
+        {"name": "article.md", "content": "# {name}"},
         {"name": "slide.md", "content": "---\ntitle: {name}\ndescription: \"\"\nauthor: \"\"\ndate: \"\"\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n"},
         {"name": "README.md", "content": "# {name}"},
         {"name": "codelab/claat.md"}
