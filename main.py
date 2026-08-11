@@ -81,7 +81,7 @@ def create_project_structure():
 
         for file in ARTIFACTS["file"]:
             file_path = os.path.join(proj_path, file["name"])
-            with open(file_path, 'w') as f:
+            with open(file_path, 'w', encoding='utf-8') as f:
                 if "content" in file:
                     f.write(file["content"].format(name=proj_name))
                 else:
