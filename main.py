@@ -32,7 +32,7 @@ marmaidなどで図を作ることはできます。
 
 ARTIFACTS = {
     "file": [
-        {"name": "draft.md", "content": "# {}"},
+        {"name": "draft.md", "content": DRAFT_CONTENT},
         {"name": "article.md", "content": "# {name}"},
         {"name": "slide.md", "content": "---\ntitle: {name}\ndescription: \"\"\nauthor: \"\"\ndate: \"\"\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n"},
         {"name": "README.md", "content": "# {name}"},
