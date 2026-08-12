@@ -1,0 +1,1 @@
+# PHPの命名規則、結局camelCaseとsnake_caseどっちなんだ
