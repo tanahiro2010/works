@@ -90,6 +90,16 @@ section {
   letter-spacing: 0;
 }
 
+section::before,
+section.title::before {
+  content: none !important;
+  background-image: none !important;
+}
+
+section.title::after {
+  content: none !important;
+}
+
 section:not(.title):not(.lead):not(.section):not(.invert):not(.split) {
   padding: 72px 92px !important;
   justify-content: center;
