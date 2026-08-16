@@ -2,12 +2,12 @@ MARP := npx -p @marp-team/marp-cli@latest marp --allow-local-files --theme-set .
 
 .PHONY: slide $(filter-out slide,$(MAKECMDGOALS))
 
-# Usage: make slide <content-name>
+# Usage: make slide '<content-name>'
 # Builds <content-name>/slide/index.html and <content-name>/outputs/<content-name>.pdf
 slide:
 	@name="$(strip $(filter-out slide,$(MAKECMDGOALS)))"; \
 	if [ -z "$$name" ]; then \
-		echo "Usage: make slide <content-name>" >&2; \
+		echo "Usage: make slide '<content-name>'" >&2; \
 		exit 1; \
 	fi; \
 	if [ ! -f "$$name/slide.md" ]; then \
