@@ -93,12 +93,9 @@ section::before {
 
 section.title::before {
   content: '' !important;
-  background-image: url('img/gdg_kwansai.png') !important;
-  background-repeat: no-repeat !important;
-  background-size: contain !important;
-  background-position: left center !important;
-  width: 260px !important;
-  height: 80px !important;
+  background-image: none !important;
+  width: 0 !important;
+  height: 0 !important;
   padding-left: 0 !important;
 }
 
@@ -378,9 +375,10 @@ section.lead p {
 
 <ul>
 <li>田中博悠 / tanahiro2010</li>
-<li>株式会社KOMPEITO</li>
+<li>三田学園高等学校 1年生</li>
 <li>GDG Greater Kwansai</li>
-<li>Web / AI / なんか気になったやつ / とあるサイトで契約作家</li>
+<li>Alpha+ Project</li>
+<li>Web / AI / なんか気になったやつ</li>
 </ul>
 </div>
 
@@ -644,6 +642,11 @@ WebMCP対応ページを<br>MCP経由で既存Agentから呼べるようにし�
 
 ---
 
+# 宣伝
+
+
+---
+
 <!-- _class: lead -->
 
-# Thanks for listening!
+# Thanks for listening
