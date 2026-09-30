@@ -1,0 +1,580 @@
+---
+marp: true
+theme: default
+paginate: true
+size: 16:9
+style: |
+  
+  :root {
+    --hono-red: #e8392f;
+    --hono-red-hot: #ff5a3d;
+    --hono-red-dark: #8f1114;
+    --hono-ink: #12090a;
+    --hono-panel: #211012;
+    --hono-paper: #fff8f4;
+    --hono-line: rgba(255, 248, 244, 0.22);
+    --hono-muted: #cdb7af;
+    --hono-code: #0d090a;
+    --hono-cyan: #40e0d0;
+    --hono-yellow: #ffd166;
+  }
+  
+  section {
+    box-sizing: border-box;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 74px 88px 76px;
+    background:
+      linear-gradient(120deg, rgba(232, 57, 47, 0.12), transparent 34%),
+      radial-gradient(circle at 88% 18%, rgba(255, 90, 61, 0.22), transparent 30%),
+      linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+    color: var(--hono-ink);
+    font-family: Inter, "SF Pro Display", "Helvetica Neue", Arial, "Hiragino Sans",
+      "Yu Gothic UI", Meiryo, sans-serif;
+    font-size: 28px;
+    line-height: 1.5;
+    letter-spacing: 0;
+    word-break: keep-all;
+    line-break: strict;
+    overflow-wrap: anywhere;
+  }
+  
+  section::before {
+    content: "Hono Conference";
+    position: absolute;
+    left: 42px;
+    bottom: 30px;
+    color: rgba(18, 9, 10, 0.54);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  
+  section::after {
+    content: attr(data-marpit-pagination);
+    position: absolute;
+    right: 42px;
+    bottom: 30px;
+    color: rgba(18, 9, 10, 0.5);
+    font-size: 14px;
+    font-weight: 900;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: inherit;
+    margin: 0;
+    text-wrap: balance;
+  }
+  
+  h1 {
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+    border-bottom: 8px solid var(--hono-red);
+    font-size: 66px;
+    line-height: 1.02;
+    font-weight: 950;
+  }
+  
+  h2 {
+    margin-bottom: 22px;
+    font-size: 46px;
+    line-height: 1.12;
+    font-weight: 920;
+  }
+  
+  h3 {
+    margin: 16px 0 10px;
+    color: var(--hono-red-dark);
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 850;
+  }
+  
+  p {
+    margin: 0 0 18px;
+  }
+  
+  strong {
+    color: var(--hono-red-dark);
+    font-weight: 950;
+  }
+  
+  a {
+    color: var(--hono-red-dark);
+    font-weight: 850;
+    text-decoration: none;
+    border-bottom: 3px solid rgba(232, 57, 47, 0.36);
+  }
+  
+  ul,
+  ol {
+    margin: 8px 0 0 1.15em;
+    padding: 0;
+  }
+  
+  li {
+    margin: 10px 0;
+  }
+  
+  li::marker {
+    color: var(--hono-red);
+    font-weight: 950;
+  }
+  
+  blockquote {
+    margin: 18px 0 0;
+    padding: 22px 28px;
+    border-left: 10px solid var(--hono-red);
+    background: rgba(232, 57, 47, 0.08);
+    font-weight: 800;
+  }
+  
+  code {
+    padding: 0.08em 0.28em;
+    border-radius: 4px;
+    background: rgba(232, 57, 47, 0.12);
+    color: var(--hono-red-dark);
+    font-family: "SF Mono", "Roboto Mono", Menlo, Consolas, monospace;
+    font-size: 0.86em;
+  }
+  
+  pre {
+    margin: 16px 0 0;
+    padding: 28px 30px;
+    border: 1px solid rgba(255, 248, 244, 0.16);
+    border-left: 10px solid var(--hono-red-hot);
+    border-radius: 0;
+    background:
+      linear-gradient(90deg, rgba(232, 57, 47, 0.14), transparent 46%),
+      var(--hono-code);
+    color: var(--hono-paper);
+    font-size: 21px;
+    line-height: 1.48;
+    box-shadow: 0 24px 60px rgba(18, 9, 10, 0.2);
+  }
+  
+  pre code {
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 16px;
+    border-collapse: collapse;
+    font-size: 23px;
+  }
+  
+  th,
+  td {
+    padding: 14px 18px;
+    border-bottom: 2px solid rgba(18, 9, 10, 0.12);
+    text-align: left;
+  }
+  
+  th {
+    background: var(--hono-ink);
+    color: var(--hono-paper);
+    font-weight: 900;
+  }
+  
+  footer {
+    position: absolute;
+    right: 76px;
+    bottom: 32px;
+    color: rgba(18, 9, 10, 0.5);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  
+  section.title,
+  section.section,
+  section.lead,
+  section.invert {
+    background:
+      linear-gradient(102deg, rgba(255, 90, 61, 0.22), transparent 40%),
+      radial-gradient(circle at 76% 26%, rgba(255, 209, 102, 0.16), transparent 28%),
+      linear-gradient(145deg, #1a0809 0%, #4a0b0f 48%, #e8392f 100%);
+    color: var(--hono-paper);
+  }
+  
+  section.title::before,
+  section.section::before,
+  section.lead::before,
+  section.invert::before {
+    color: rgba(255, 248, 244, 0.76);
+  }
+  
+  section.title::after,
+  section.section::after,
+  section.lead::after,
+  section.invert::after {
+    color: rgba(255, 248, 244, 0.66);
+  }
+  
+  section.title {
+    justify-content: center;
+    padding: 96px 104px 90px;
+  }
+  
+  section.title h1 {
+    max-width: 980px;
+    margin: 0;
+    border: none;
+    font-size: 92px;
+    line-height: 0.96;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  
+  section.title h1::before {
+    content: "SIGNAL RED";
+    display: block;
+    margin-bottom: 22px;
+    color: var(--hono-yellow);
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 950;
+    letter-spacing: 0.16em;
+  }
+  
+  section.title h2 {
+    max-width: 740px;
+    margin-top: 28px;
+    color: rgba(255, 248, 244, 0.86);
+    font-size: 30px;
+    font-weight: 760;
+  }
+  
+  section.title p {
+    margin-top: 50px;
+    color: rgba(255, 248, 244, 0.72);
+    font-size: 18px;
+    font-weight: 850;
+  }
+  
+  section.title::before {
+    top: 42px;
+    bottom: auto;
+    left: 52px;
+  }
+  
+  section.title::after {
+    top: 42px;
+    bottom: auto;
+  }
+  
+  section.title .burst,
+  section.section .burst,
+  section.lead .burst {
+    position: absolute;
+    inset: auto 80px 74px auto;
+    width: 300px;
+    height: 300px;
+    border: 2px solid rgba(255, 248, 244, 0.28);
+    transform: rotate(-10deg);
+  }
+  
+  section.title .burst::before,
+  section.section .burst::before,
+  section.lead .burst::before {
+    content: "";
+    position: absolute;
+    inset: 26px;
+    border: 16px solid var(--hono-yellow);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+  
+  section.section {
+    justify-content: center;
+    padding-left: 120px;
+  }
+  
+  section.section h1 {
+    max-width: 960px;
+    border: none;
+    font-size: 82px;
+    line-height: 0.98;
+  }
+  
+  section.section h1::before {
+    content: attr(data-marpit-pagination);
+    display: block;
+    margin-bottom: 18px;
+    color: var(--hono-yellow);
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 950;
+  }
+  
+  section.lead {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  section.lead h1 {
+    margin: 0 auto;
+    border: none;
+    font-size: 82px;
+    line-height: 1.02;
+  }
+  
+  section.lead p {
+    max-width: 760px;
+    margin: 26px auto 0;
+    color: rgba(255, 248, 244, 0.8);
+    font-size: 29px;
+    font-weight: 740;
+  }
+  
+  section.invert {
+    background:
+      linear-gradient(90deg, rgba(232, 57, 47, 0.18), transparent 50%),
+      #100708;
+  }
+  
+  section.invert h1,
+  section.invert h2,
+  section.invert h3,
+  section.invert strong {
+    color: var(--hono-paper);
+  }
+  
+  section.invert h1 {
+    border-bottom-color: var(--hono-red-hot);
+  }
+  
+  section.invert code {
+    background: rgba(255, 248, 244, 0.1);
+    color: var(--hono-yellow);
+  }
+  
+  section.invert pre {
+    box-shadow: none;
+  }
+  
+  section.split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 72px;
+  }
+  
+  section.split h1,
+  section.split h2 {
+    grid-column: 1 / -1;
+  }
+  
+  section.split h3 {
+    margin-top: 0;
+  }
+  
+  .stage-panel {
+    padding: 28px 30px;
+    border-top: 8px solid var(--hono-red);
+    background: rgba(18, 9, 10, 0.06);
+  }
+  
+  .stage-panel.dark {
+    border-color: var(--hono-yellow);
+    background: rgba(255, 248, 244, 0.08);
+  }
+  
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    color: var(--hono-red-dark);
+    font-size: 18px;
+    font-weight: 950;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  
+  .kicker::before {
+    content: "";
+    width: 46px;
+    height: 10px;
+    background: var(--hono-red);
+  }
+  
+  section.title .kicker,
+  section.section .kicker,
+  section.lead .kicker,
+  section.invert .kicker {
+    color: var(--hono-yellow);
+  }
+  
+  section.title .kicker::before,
+  section.section .kicker::before,
+  section.lead .kicker::before,
+  section.invert .kicker::before {
+    background: var(--hono-yellow);
+  }
+  
+  .metric {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 18px;
+    align-items: center;
+    margin-top: 18px;
+  }
+  
+  .metric strong {
+    color: var(--hono-red);
+    font-size: 58px;
+    line-height: 1;
+  }
+  
+  .metric span {
+    font-size: 22px;
+    font-weight: 760;
+  }
+  
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+  
+  .signal-grid > div {
+    min-height: 116px;
+    padding: 22px;
+    background: rgba(18, 9, 10, 0.07);
+    border-left: 7px solid var(--hono-red);
+    font-weight: 820;
+  }
+  
+  .signal-grid strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hono-red-dark);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+  }
+---
+
+<style>
+</style>
+
+<!-- _class: title -->
+<!-- _paginate: false -->
+
+# Hono Conference
+
+## 個人開発者のための、速い Web バックエンド
+
+2026 / Main Stage
+
+<div class="burst"></div>
+
+---
+
+<!-- _class: section -->
+
+# 01<br>赤を合図に、速く始めましょう!
+
+<div class="burst"></div>
+
+---
+
+# Hono が刺さる瞬間
+
+<span class="kicker">Normal Layout</span>
+
+- API を小さく始めたい
+- Edge / Node / Bun をまたいで動かしたい
+- ルーティング、ミドルウェア、型を軽く保ちたい
+
+<div class="metric">
+<strong>3</strong>
+<span>ファイル未満でも、プロダクションの形に近づけます</span>
+</div>
+
+---
+
+<!-- _class: invert -->
+
+# Code First
+
+```ts
+import { Hono } from "hono";
+
+const app = new Hono();
+
+app.get("/", (c) => {
+  return c.json({
+    message: "Hello Hono Conference!",
+    runtime: c.env.RUNTIME,
+  });
+});
+
+export default app;
+```
+
+---
+
+<!-- _class: split -->
+
+# 2 カラムで見せる
+
+<div class="stage-panel">
+
+### 作る人の視点
+
+- まず動く API を置けます
+- 型の補助が自然に効きます
+- デプロイ先を後から選べます
+
+</div>
+
+<div class="stage-panel">
+
+### イベントの見え方
+
+- 赤を主役にした強い視線誘導
+- 大きな見出しで遠くから読めます
+- 画像なしでもステージ感が残ります
+
+</div>
+
+---
+
+# セッションの山場
+
+<span class="kicker">Conference Rhythm</span>
+
+<div class="signal-grid">
+<div><strong>OPEN</strong>最小のルートで火を入れます</div>
+<div><strong>BUILD</strong>ミドルウェアで現実の要件に寄せます</div>
+<div><strong>SHIP</strong>Cloudflare Workers へそのまま出します</div>
+</div>
+
+> 迷ったら、小さい `app.get()` から始めれば OK!
+
+---
+
+<!-- _class: lead -->
+<!-- _paginate: false -->
+
+# Thank you!
+
+次は、あなたの小さな API をステージに上げましょう
+
+<div class="burst"></div>

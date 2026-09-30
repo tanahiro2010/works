@@ -1,0 +1,8 @@
+{
+  "markdown.marp.enableHtml": true,
+  "markdown.marp.themes": [
+    "./examples/signal-red/theme.css",
+    "./examples/runtime-dark/theme.css",
+    "./examples/paper-flame/theme.css"
+  ]
+}

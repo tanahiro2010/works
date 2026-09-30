@@ -2,7 +2,14 @@
   "markdown.validate.enabled": true,
   "editor.formatOnSave": false,
   "markdown.marp.themes": [
-    "./.marp/gdg.css"
+    "./.marp/gdg.css",
+    "./個人開発者よ、Honoを使え/examples/signal-red/theme.css",
+    "./個人開発者よ、Honoを使え/examples/runtime-dark/theme.css",
+    "./個人開発者よ、Honoを使え/examples/paper-flame/theme.css"
   ],
-  "markdown.marp.enableHtml": true
+  "markdown.marp.enableHtml": true,
+  "editor.tabSize": 2,
+  "[Markdown]": {
+    "editor.tabSize": 2
+  }
 }
