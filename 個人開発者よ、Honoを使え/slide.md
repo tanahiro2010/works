@@ -54,6 +54,12 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 ---
 
 <!-- _class: lead -->
+## Hono ≒ バンジージャンプの数学的検証だヨ〜
+### 発表しようとしたら別のプロポーザルが採択されたんだナ😅
+
+---
+
+<!-- _class: lead -->
 # なんとネ <span class="red">66%成立😳</span>
 ## Hono ≒ バンジー、なんだナ😉
 
@@ -74,29 +80,27 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 
 ## 好きな <span class="red">フレームワーク</span> ありますか？
 
-<div class="feature-grid favorite-frameworks-grid" style="margin-top: 18px; gap: 28px;">
-
-
-  <div class="mini-panel"><b>Hono</b><span>今日の主役です</span></div>
-  <div class="mini-panel"><b>React</b><span>UIを作るならこれ</span></div>
-  <div class="mini-panel"><b>Ruby on Rails</b><span>育てながら作る</span></div>
-
-</div>
+- **Hono**: 今日の主役
+- **React**: UIを作るときの選択肢
+- **Ruby on Rails**: 育てながら作れる一体型
 
 <div class="big-statement favorite-message">でも技術選定には<br><em>何度も失敗</em>しました</div>
 
+- 好きな技術と、必要な技術は同じとは限らない
+- 「あとで使うかも」を先に実装してしまう
+
 ---
 
-## アンケートしてみた結果、個人開発では...
+## アンケートの結果 個人開発では...
 
-<div class="choice-grid">
-  <div class="mini-panel"><b>Next.js</b><span>大きなReactエコシステム</span></div>
-  <div class="mini-panel"><b>Nuxt</b><span>Vueのフルスタック体験</span></div>
-  <div class="mini-panel"><b>TanStack Start</b><span>型付きルートとServer Functions</span></div>
-  <div class="mini-panel"><b>React SPA</b><span>自由なクライアント構成</span></div>
-  <div class="mini-panel"><b>Rails</b><span>成熟した一体型の開発体験</span></div>
-  <div class="mini-panel"><b>Hono</b><span>Web標準に近い小さな入口</span></div>
-</div>
+- **Next.js**: 大きなReactエコシステム
+- **Nuxt**: Vueのフルスタック体験
+- **TanStack Start**: 型付きルートとServer Functions
+- **React SPA**: 自由なクライアント構成
+- **Rails**: 成熟した一体型の開発体験
+- **Hono**: Web標準に近い小さな入口
+
+> 選択肢の多さではなく、必要な複雑さの量で選ぶ
 
 ---
 
@@ -106,21 +110,26 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 
 # 個人開発の敵は<strong>複雑さ</strong>
 
+- 境界が増える
+- 状態を同期する
+- 実行場所(デプロイ先)を考える
+- **お金**
+
 ---
 
 # 「あとで必要かも」
 ## 最初から背負っていませんか？
 
-<div class="type-ghost stats-word">STATE / CACHE / HYDRATION</div>
+<div class="type-ghost stats-word">増やす前に考える</div>
 
-<div class="feature-grid">
-  <div class="mini-panel"><b>境界</b><span>フロントエンドとAPI</span></div>
-  <div class="mini-panel"><b>同期</b><span>状態とデータ取得</span></div>
-  <div class="mini-panel"><b>実行</b><span>hydrationとブラウザJS</span></div>
-  <div class="mini-panel"><b>性能</b><span>キャッシュ戦略</span></div>
-  <div class="mini-panel"><b>配備</b><span>複数のデプロイ先</span></div>
-  <div class="mini-panel"><b>運用</b><span>増えていく手数</span></div>
-</div>
+- **境界**: フロントエンドとAPIを分ける
+- **同期**: 状態とデータ取得を揃える
+- **実行**: hydrationとブラウザJSを管理する
+- **性能**: キャッシュ戦略を考える
+- **配備**: 複数のデプロイ先を扱う
+- **運用**: 増えていく手数を引き受ける
+
+> 便利な仕組みを必要になる前から持っていないか
 
 ---
 
@@ -135,6 +144,9 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 </div>
 
 <div class="failure-transition">当時の構成を見てみます。</div>
+
+- ブラウザで取得してから画面を組み立てる
+- API・アプリ・DBの距離をあとから考える
 
 ---
 
@@ -152,6 +164,8 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 
 <div class="failure-takeaway">Next.jsが悪いという話ではありません。<br>当時の自分の実装と構成の問題です。</div>
 
+<div class="note">非同期処理とリージョンを十分に設計せず、原因を測る前に複雑さだけ増やしていました。</div>
+
 ---
 
 <!-- _class: lead -->
@@ -159,7 +173,7 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 <div class="geo solid-square closing-square"></div>
 
 # 初期表示<br><strong>最悪で約1分。</strong>
-### 言い過ぎではあるかもだけど、少なくとも30秒以上はした
+### 言い過ぎかもしれないけど少なくとも30秒以上はした
 
 ---
 
@@ -176,6 +190,10 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
   <div class="flow-step"><b>収益</b><span>どこぞのAdsence</span></div>
 </div>
 
+- 計算はブラウザで完結できる
+- 毎回APIへ送る理由がない
+- 待ち時間だけが増えていく
+
 <div class="note">広告収益化まで考えると、無料プランの利用条件も気になります。</div>
 
 ---
@@ -184,7 +202,11 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 
 <div class="big-statement">ページは複数。ブログもある。<br>でも<em>metaはいつも同じ</em></div>
 
-<div class="type-ghost stats-word">SEO / TITLE / DESCRIPTION</div>
+<div class="type-ghost stats-word">ページごとの情報</div><br>
+
+- ページは複数ある
+- ブログもある
+- でもmetaはページごとに変わらない
 
 ---
 
@@ -202,30 +224,38 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
   <img src="img/renovel-home.png" alt="Renovelのホーム画面">
 </div>
 
+- 投稿 / 閲覧 / 認証 / 検索
+- 本棚 / いいね / 通知
+- 見た目は、Honoだから制限されない
+
 ---
 
 ## この見た目はHonoで動いています
 
-<div class="big-statement">約1万行のアプリを<br><em>React / Next.jsなし</em>で動かす</div>
+<div class="big-statement">割と中規模なアプリを<br><em>React / Next.jsなし</em> で動かす</div>
 
 <div class="type-ghost stats-word">27 JSX VIEW / 9 ROUTE MODULE</div>
+
+<br /><br />
+
+
+- React / Next.jsなし
+- HTML / Hono JSX中心で育てられる
 
 ---
 
 ## 構成はまずこれだけ
 
-<div class="choice-grid">
-  <div class="mini-panel"><b>Bun + Hono</b><span>Runtime / Web</span></div>
-  <div class="mini-panel"><b>PostgreSQL</b><span>Drizzle ORM</span></div>
-  <div class="mini-panel"><b>Hono JSX</b><span>SSR + Kiwa UI</span></div>
-</div>
+- **Runtime / Web**: Bun + Hono
+- **Database / ORM**: PostgreSQL + Drizzle
+- **View**: Hono JSX + Kiwa UI
 
 ---
 
 <!-- _class: section -->
 <!-- _paginate: false -->
 
-<div class="chapter-label">Chapter 02 / Pay complexity later</div>
+<div class="chapter-label">Chapter 02 / 必要になってから複雑にしよう</div>
 <div class="chapter-number">02</div>
 <div class="geo ring chapter-ring"></div>
 
@@ -234,9 +264,13 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
 最初からAPIとかゴリゴリに設計しなくても、
 個人開発だからこそまずは〝単純〟に始めれる
 
+- まずHTMLを返す
+- 必要になったらフォームを強化する
+- さらに必要なら、その部分だけJSを足す
+
 ---
 
-## HonoならまずHTMLを返せます
+## まずはHTMLを返せばいい
 
 <div class="flow">
   <div class="flow-step"><b>GET /novel</b><span>URL + HTTP</span></div>
@@ -248,63 +282,84 @@ description: Hono Conference 2026のおじさん構文版だヨ😊
   <div class="flow-step"><b>BROWSER</b><span>HTML</span></div>
 </div>
 
+<br /><br />
+
+
+- 初期表示はサーバーで完了(SSG)
+- ブラウザ側の仕事を増やさない
+
 ---
 
 <!-- _class: lead -->
 
 <div class="geo ring chapter-ring"></div>
 
-<div class="big-statement">初期表示のためだけに<br><em>JSON API</em>を作らなくていい</div>
+<div class="big-statement">初期表示のために<br><em>APIを作りすぎない</em></div>
+
+- SSGだからこそ、HTMLで返せるものはHTMLで返す
+- APIは、APIが必要なところに使う
 
 ---
 
-## `hono/jsx`はHTMLを返す
+## `hono/jsx`でHTMLを返す
 
 <div class="big-statement">JSXを書いて、<br><em>サーバーでHTML</em>を作る</div>
 
 ```tsx
 /** @jsxImportSource hono/jsx */
-
 app.get('/novel', (c) => c.html(
   <NovelPage novel={novel} />
 ))
 ```
 
+- JSXを書く
+- サーバーでHTMLを作る
+- ブラウザには完成したページを返す
+
 ---
 
-## アプリは一つ。設計は分ける
+## 一つのアプリで責務は混ぜない
 
 <div class="layers">
-  <div class="layer"><b>Presentation</b><span>Hono route / controller / JSX view</span></div>
-  <div class="layer"><b>Application</b><span>use case / query / service</span></div>
-  <div class="layer"><b>Domain</b><span>entity / value object / policy</span></div>
-  <div class="layer"><b>Infrastructure</b><span>Drizzle / PostgreSQL / repository</span></div>
+  <div class="layer"><b>画面</b><span>route / controller / JSX view</span></div>
+  <div class="layer"><b>処理</b><span>use case / query / service</span></div>
+  <div class="layer"><b>データ</b><span>Drizzle / PostgreSQL</span></div>
 </div>
 
-<div class="type-ghost stats-word">ONE APP / CLEAR BOUNDARIES</div>
+<div class="type-ghost stats-word">一つのアプリで育てる</div>
+
+- 最初からサービスを分割しない
+- でも、画面・処理・データは混ぜない
+- 必要になった境界だけ、あとから深くする
 
 ---
 
-## SSRはページ全体。islandは一部分
+## ページ全体はSSR。動くのは一部分
 
-<div class="feature-grid">
-  <div class="mini-panel"><b>SSR</b><span>ページ全体をHTMLで返す</span></div>
-  <div class="mini-panel"><b>Forms</b><span>リンクとHTMLフォームで動かす</span></div>
-  <div class="mini-panel"><b>Island</b><span>操作する部分だけJSを足す</span></div>
-</div>
+- **SSR**: ページ全体をHTMLで返す
+- **Forms**: リンクとHTMLフォームで動かす
+- **Island**: 操作する部分だけJSを足す
+
+- ページ全体: SSR
+- 遷移や送信: HTML
+- 局所的な操作: Island
 
 ---
 
-## islandって何？
+## islandはHTMLの中の小さな島
 
 <!--  -->
 <div class="big-statement">HTMLの海に浮かぶ、<br><em>小さなインタラクション</em></div>
 
-<div class="type-ghost stats-word">SERVER HTML / LOCAL JS</div>
+<div class="type-ghost stats-word">まずHTML / 必要なJS</div>
+
+- HTMLの海に浮かぶ小さなUI
+- ページ全体は動かさない
+- 必要な場所だけブラウザで実行する
 
 ---
 
-## `hono/jsx/dom`はそこだけ動かす
+## `hono/jsx/dom`でそこだけ動かす
 
 <div class="big-statement">ページ全体を動かさない。<br><em>必要な部分だけ</em>動かす</div>
 
@@ -315,23 +370,35 @@ export function LikeButton() {
 }
 ```
 
+- 全体をhydrationしない
+- ボタン単位でJavaScriptを送る
+- 操作する場所だけ状態を持つ
+
 ---
 
-## JSを足したのはここだけ
+## 動かしたいところだけJSを足す
 
-<div class="type-ghost stats-word">LIKE / FOLLOW / RATE / BOOKSHELF</div>
+<div class="type-ghost stats-word">ReNovelで実際に使った場所</div>
 
 <div class="big-statement">動かしたい場所だけ、<br><em>island</em>にする</div>
 
 いいね　/　フォロー　/　評価　/　本棚追加　/　本棚削除
 
+- 本文の表示: サーバー
+- ページ遷移: HTML
+- 局所的な操作: JavaScript
+
 ---
 
 <!-- _class: small-code -->
 
-## まずJavaScriptなしで動くようにする
+## まずはJavaScriptなしで動かす
 
 <div class="vertical-type">No-JS fallback / Server HTML</div>
+
+- JavaScriptなしでもPOSTできる
+- 失敗しても基本の操作は残る
+- JavaScriptは操作感のために足す
 
 ```tsx
 <span
@@ -344,11 +411,15 @@ export function LikeButton() {
 </span>
 ```
 
+- 状態をローカルで更新する
+- 必要なエンドポイントだけ呼ぶ
+- 失敗時の扱いは別途設計する
+
 ---
 
 <!-- _class: small-code -->
 
-## 動かしたい部分だけブラウザで強化する
+## 必要な場所だけブラウザで強化する
 
 ```tsx
 /** @jsxImportSource hono/jsx/dom */
@@ -371,18 +442,22 @@ export function LikeButton({ action, liked: initial, count: initialCount }) {
 
 ---
 
-## 送るJSはこのくらいです
+## ブラウザに送るJSを絞る
 
 <div class="measure-grid">
   <div class="measure"><b>34750B</b><span>islands bundle<br>圧縮前</span></div>
   <div class="measure"><b>13301B</b><span>islands bundle<br>gzip</span></div>
 </div>
 
-<div class="type-ghost stats-word">SHIP ONLY WHAT MOVES</div>
+<div class="type-ghost stats-word">測った結果</div>
+
+- 圧縮前: 34,750 bytes
+- gzip: 13,301 bytes
+- 動く部分だけを送る
 
 ---
 
-## サーバー側も測ってみました
+## サーバー側も測ってみる
 
 <div class="measure-grid">
   <div class="measure"><b>0.33MB</b><span>server bundle<br>Bun minify</span></div>
@@ -391,31 +466,41 @@ export function LikeButton({ action, liked: initial, count: initialCount }) {
 
 <div class="note">2026-09-23 ローカル開発環境で計測 / 初回home TTFB 117.7ms / 数値は登壇直前に再計測します</div>
 
+- ローカル開発環境での計測
+- ウォーム中央値: 3.2ms
+- 本番性能の保証ではない
+
 ---
 
 <!-- _class: lead -->
 
 <div class="geo ring chapter-ring"></div>
 
-## SEOはフレームワーク名で決まらない
+## SEOは最初のHTMLから始まる
 
 <div class="big-statement">各URLの情報が、<em>最初のHTML</em>に入っているか</div>
+
+- 本文
+- title / description
+- canonical / OGP
 
 ---
 
 ## 最初のHTMLに何を入れる？
 
-<div class="choice-grid">
-  <div class="mini-panel"><b>Content</b><span>本文 / title / description</span></div>
-  <div class="mini-panel"><b>Identity</b><span>canonical / OGP</span></div>
-  <div class="mini-panel"><b>Delivery</b><span>JS実行を待たずに返す</span></div>
-</div>
+- **Content**: 本文 / title / description
+- **Identity**: canonical / OGP
+- **Delivery**: JS実行を待たずに返す
 
 ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydrationを前提にせず選べます
 
+- フレームワーク名ではなく、返すHTMLを見る
+- 各URLの情報を各URLで持つ
+- 必要なJSだけを選ぶ
+
 ---
 
-## HonoはCloudflare Workersに載せられる
+## Honoを小さく公開する
 
 <div class="flow">
   <div class="flow-step"><b>APP</b><span>Hono appをexport</span></div>
@@ -427,9 +512,13 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 
 <div class="big-statement">まずはアプリを<br><em>小さく公開する</em></div>
 
+- Hono appをexport
+- `wrangler deploy`で公開
+- 公開までの距離を短くする
+
 ---
 
-## データはD1にbindingでつなぐ
+## データが必要ならD1につなぐ
 
 <div class="flow">
   <div class="flow-step"><b>REQUEST</b><span>Hono route</span></div>
@@ -441,9 +530,13 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 
 <div class="note">Renovel本体はBun + PostgreSQLです。Workers + D1は持ち帰り用の別サンプルです。</div>
 
+- Renovel本体: Bun + PostgreSQL
+- ここで紹介する構成: Workers + D1
+- 別の選択肢として考える
+
 ---
 
-## デプロイ先どうしますか？
+## 個人開発のデプロイ先どうする？
 
 <div class="flow">
   <div class="flow-step"><b>Next.js</b><span>Vercel / AWS など</span></div>
@@ -455,9 +548,13 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 
 <div class="note">Vercel Hobbyは商用利用に制限があります。Cloudflare Workersには無料枠があります。プランと利用条件は公開前に確認します。</div>
 
+- 料金だけで決めない
+- 商用利用の条件を確認する
+- 無料枠・制限は公開前に確認する
+
 ---
 
-## 個人開発の基盤にCloudflare
+## Cloudflareであとから払える基盤を作る
 
 <div class="flow">
   <div class="flow-step"><b>FREE</b><span>無料枠から始める</span></div>
@@ -469,19 +566,28 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 
 <div class="big-statement">だからHonoは<br><em>Cloudflareと相性がいい</em></div>
 
----
-
-## どれが上かではなく何が必要か
-
-| Choice | 向いている場面 |
-| --- | --- |
-| Next.js | Reactの大きなエコシステム、RSC、Server Actions、画像最適化を使いたい |
-| TanStack Start | 型付きroute tree、loader、client navigation、Server Functionsが欲しい |
-| Hono | SSR中心、局所的な操作、Web標準とランタイムを近い距離で扱いたい |
+- Web標準に近い
+- 小さく公開しやすい
+- 必要になったら構成を広げる
 
 ---
 
-## Honoが合う個人開発
+## どれが上かではなく必要なものを見る
+
+- **Next.js**
+  Reactの大きなエコシステム、RSC、Server Actions、画像最適化を使いたいとき
+
+- **TanStack Start**
+  型付きroute tree、loader、client navigation、Server Functionsが欲しいとき
+
+- **Hono**
+  SSR中心で、局所的な操作とWeb標準に近い実装をしたいとき
+
+今の自分に必要なものを選びます。
+
+---
+
+## Honoが合うのはこんな個人開発
 
 <div class="panel">
 
@@ -494,11 +600,11 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 
 </div>
 
-<div class="type-ghost stats-word">LOCAL INTERACTION / SIMPLE OPS</div>
+<div class="type-ghost stats-word">Renovelでの判断</div>
 
 ---
 
-## もちろん別の選択肢もあります
+## こういうときは別の選択肢
 
 <div class="panel">
 
@@ -516,32 +622,32 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 <!-- _class: section -->
 <!-- _paginate: false -->
 
-<div class="chapter-label">Chapter 03 / Take it home</div>
+<div class="chapter-label">Chapter 03 / まず小さく作ってみる</div>
 <div class="chapter-number">03</div>
 
 # 小さく作ろうネ😊<br>必要な分だけ育てよ🌱
 
 ---
 
-## まずサーバーだけで動かす
+## まずはサーバーだけで動かしてみる
 
 <div class="steps">
   <div class="step"><b>01</b><span>まずHTMLを返す</span></div>
   <div class="step"><b>02</b><span>まずフォームで動かす</span></div>
 </div>
 
-<div class="type-ghost stats-word">HTML FIRST</div>
+<div class="type-ghost stats-word">最初に返すもの</div>
 
 ---
 
-## 必要になったら足していく
+## 必要になったらそこだけ足す
 
 <div class="steps">
   <div class="step"><b>03</b><span>必要な場所だけJSを足す</span></div>
   <div class="step"><b>04</b><span>そのまま公開する</span></div>
 </div>
 
-<div class="type-ghost stats-word">START SMALL / GROW WHEN NEEDED</div>
+<div class="type-ghost stats-word">必要な分だけ育てる</div>
 
 ---
 
@@ -550,7 +656,7 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 
 <div class="geo solid-square closing-square"></div>
 
-# Honoを盲目的に使え<br>という話ではありません
+# Honoを使え、<br>という話ではありません
 
 ---
 
