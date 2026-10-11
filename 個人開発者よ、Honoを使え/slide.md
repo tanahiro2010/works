@@ -3,8 +3,8 @@ marp: true
 theme: honoconf
 paginate: true
 size: 16:9
-title: HonoConf 2026 theme preview
-description: honoconf.devの2026サイトをモチーフにしたMarpテーマ
+title: 個人開発者チャン、Honoを使ってみないカナ？
+description: Hono Conference 2026のおじさん構文版だヨ😊
 ---
 
 <!-- _class: title -->
@@ -16,12 +16,12 @@ description: honoconf.devの2026サイトをモチーフにしたMarpテーマ
 
 <div class="top-meta">
   <span class="event">Hono Conference 2026</span>
-  <span>30 min session</span>
+  <span>30分、お付き合いしてネ😉</span>
 </div>
 
 <div class="title-wrap">
 
-# 個人開発者よ<br><span class="outline">Honoを</span><span class="accent">使え。</span>
+# 開発者チャン💕<br><span class="outline">Honoを</span><span class="accent">使お😘</span>
 
 </div>
 
@@ -32,43 +32,43 @@ description: honoconf.devの2026サイトをモチーフにしたMarpテーマ
 
 ---
 
-## 田中博悠です
+## 田中博悠ですヨ〜😊
 
 <div class="panel intro-panel">
 
-### 高校1年生です
+### 高校1年生なんだヨ😅
 
-- 三田学園高等学校生
-- Hono Conference 2026 コアスタッフ
-- GDG Greater Kwansai
-- Alpha+ Project 4期生
-- 個人開発 / インターン / 競プロ
-- 音楽 / バンジージャンプ
+- 三田学園高等学校に通ってるヨ🏫
+- Hono Conference 2026のコアスタッフです😊
+- GDG Greater Kwansaiにもいるヨ✨
+- Alpha+ Projectの4期生なんだナ😉
+- 個人開発も、インターンも、競プロも💪
+- 音楽とバンジーも好きなんだヨ🎵
 
 </div>
 
 <img class="intro-photo" src="img/flying_tanaka.jpg" alt="バンジージャンプをする田中博悠">
 
-<div class="type-ghost stats-word">STUDENT / BUILDER / SPEAKER</div>
+<div class="type-ghost stats-word">学生ダヨ / 作るヨ / 話すヨ</div>
 
 ---
 
 <!-- _class: lead -->
-# なんと <span class="red">66%成立</span>
-## Hono ≒ バンジージャンプ
+# なんとネ <span class="red">66%成立😳</span>
+## Hono ≒ バンジー、なんだナ😉
 
 ---
 
 <!-- _class: lead -->
-# しかし！！
+# ところが、ドッコイ‼️😅
 
 ---
 
 <!-- _class: lead -->
 
-# ここではその話はしません！
-## なぜならそのプロポーザルは採択されなかったから
-### 気になったら懇親会で話しかけてください！
+# その話は、しないヨ〜😅
+## プロポーザル、採択されなかったんだナ💦
+### 気になったら、懇親会で声かけてネ😉
 
 ---
 
@@ -229,7 +229,7 @@ description: honoconf.devの2026サイトをモチーフにしたMarpテーマ
 <div class="chapter-number">02</div>
 <div class="geo ring chapter-ring"></div>
 
-# 〝複雑〟さは あとで払おう
+# 複雑さは<br>あとで払おうネ😘
 
 最初からAPIとかゴリゴリに設計しなくても、
 個人開発だからこそまずは〝単純〟に始めれる
@@ -519,7 +519,7 @@ ReactやNext.jsでもSSRで実現できます。Honoではページ全体のhydr
 <div class="chapter-label">Chapter 03 / Take it home</div>
 <div class="chapter-number">03</div>
 
-# まず小さく作る<br>必要な分だけ育てる
+# 小さく作ろうネ😊<br>必要な分だけ育てよ🌱
 
 ---
 
