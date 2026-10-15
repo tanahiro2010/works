@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terraformで素数をマイニングしたら、ブロックチェーンが生まれた</title>
+<meta name="description" content="〜 Infrastructure as Code。つまりCode。なら何でもできますよね？ 〜">
+<meta name="author" content="田中博悠 / tanahiro2010">
+<meta name="generator" content="ippon-slides">
+<style>:root {
+  --slide-bg: #000;
+  --slide-fg: #fff;
+  --slide-accent: #7b42bc; /* Terraform purple */
+  --slide-accent-2: #ff6a00;
+  --slide-muted: #8a8a8a;
+  --slide-code-bg: #0d0d0d;
+  --slide-border: rgba(255, 255, 255, 0.12);
+  --slide-font: -apple-system, 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif;
+  /* macOS には凸版文久見出しゴシックが入っている。ない環境では本文フォントに落ちる */
+  --slide-display-font: 'Toppan Bunkyu Midashi Gothic', '凸版文久見出しゴシック', var(--slide-font);
+  --slide-mono: 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* 1280x720 で 16px。画面の短い辺に合わせて rem ごと拡大縮小する */
+html {
+  font-size: max(16px, min(1.25vw, 2.223vh));
+  touch-action: manipulation;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  background: var(--slide-bg);
+  color: var(--slide-fg);
+  font-family: var(--slide-font);
+  overflow: hidden;
+}
+#deck {
+  position: fixed;
+  inset: 0;
+}
+
+/* ---------- slide ---------- */
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 9vw;
+  box-sizing: border-box;
+  overflow: auto;
+  /* 日本語を文節で改行する（Chrome 119+） */
+  word-break: auto-phrase;
+}
+.slide pre {
+  word-break: normal;
+}
+.slide.active {
+  display: flex;
+  animation: slide-in 0.25s ease;
+}
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.slide > :first-child {
+  margin-top: 0;
+}
+
+.slide h1 {
+  font-family: var(--slide-display-font);
+  font-size: calc(clamp(2.2rem, 5vw, 3.6rem) * var(--slide-size, 1));
+  line-height: 1.15;
+  margin: 0 0 1.5rem;
+}
+.slide h2 {
+  font-family: var(--slide-display-font);
+  font-size: calc(clamp(1.8rem, 4vw, 2.6rem) * var(--slide-size, 1));
+  line-height: 1.2;
+  margin: 0 0 2.2rem;
+}
+.slide h3 {
+  font-size: calc(clamp(1.4rem, 3vw, 1.9rem) * var(--slide-size, 1));
+  margin: 0 0 1rem;
+}
+.slide p,
+.slide li {
+  font-size: calc(clamp(1.1rem, 2.2vw, 1.5rem) * var(--slide-size, 1));
+  line-height: 1.6;
+}
+.slide ul,
+.slide ol {
+  padding-left: 1.4em;
+  margin: 0 0 1rem;
+}
+.slide li {
+  margin: 0.35em 0;
+}
+.slide li > ul {
+  margin: 0;
+}
+.slide li li {
+  font-size: 0.85em;
+  color: var(--slide-muted);
+}
+.slide a {
+  color: inherit;
+  text-underline-offset: 0.15em;
+}
+/* 太字 = アクセントカラー */
+.slide strong {
+  font-weight: 700;
+  color: var(--slide-accent-2);
+}
+.slide strong code {
+  color: inherit;
+}
+.slide .arrow {
+  color: var(--slide-muted);
+  font-family: 'Hiragino Sans', system-ui, sans-serif;
+  font-weight: 800;
+}
+.slide img {
+  max-height: 58vh;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 6px;
+}
+.img-caption {
+  display: block;
+  text-align: center;
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  color: var(--slide-muted);
+}
+
+/* `::wide::` 左右の余白を詰める */
+.slide.wide {
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+
+/* `::right::` 2 カラム */
+.slide .cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4vw;
+  align-items: start;
+  width: 100%;
+}
+.slide .cols > * > :first-child {
+  margin-top: 0;
+}
+.slide .cols pre {
+  margin-top: 0;
+}
+
+/* `::center::` 1 枚 1 メッセージ */
+.slide.center {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.slide.center h1,
+.slide.center h2 {
+  margin-bottom: 0.4em;
+}
+.slide.center p {
+  font-family: var(--slide-display-font);
+  font-size: calc(clamp(1.8rem, 4.5vw, 3.5rem) * var(--slide-size, 1));
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0.2em 0;
+}
+.slide.center ul,
+.slide.center ol {
+  text-align: left;
+}
+.slide.center pre {
+  text-align: left;
+  max-width: 100%;
+}
+
+/* `-# ` で始まる段落は小さい注釈 */
+.slide .note,
+.slide.center p.note {
+  font-family: var(--slide-font);
+  font-weight: 400;
+  color: var(--slide-muted);
+}
+.slide .note {
+  font-size: calc(clamp(0.95rem, 1.8vw, 1.25rem) * var(--slide-size, 1));
+}
+.slide.center p.note {
+  font-size: clamp(1.2rem, 2.6vw, 2.1rem);
+}
+
+/* `::title::` 表紙 */
+.slide.title {
+  padding-bottom: 8vh;
+}
+.slide.title h1 {
+  margin-top: auto;
+  font-size: calc(clamp(2.6rem, 7vw, 5.2rem) * var(--slide-size, 1));
+  line-height: 1.2;
+}
+.slide.title p {
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  font-weight: 600;
+  margin: 0.2em 0;
+}
+.slide.title p:last-child {
+  margin-top: auto;
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  color: var(--slide-muted);
+}
+
+/* `::bg=white::` 明るい背景 */
+.slide.light {
+  --slide-fg: #1f1f1f;
+  --slide-accent-2: #e85d00;
+  --slide-muted: #777;
+  --slide-border: rgba(0, 0, 0, 0.12);
+  --slide-code-bg: #f0f0f0;
+  color: var(--slide-fg);
+}
+
+.slide blockquote {
+  border-left: 4px solid var(--slide-accent-2);
+  margin: 0 0 1rem;
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  color: var(--slide-muted);
+}
+
+.slide table {
+  border-collapse: collapse;
+  font-size: calc(clamp(1rem, 2vw, 1.35rem) * var(--slide-size, 1));
+  margin: 0 auto 1rem 0;
+}
+.slide.center table {
+  margin: 0 auto;
+}
+.slide th,
+.slide td {
+  padding: 0.5em 1.2em;
+  border-bottom: 1px solid var(--slide-border);
+  text-align: left;
+}
+.slide th {
+  color: var(--slide-muted);
+  font-weight: 600;
+}
+.slide td.num,
+.slide th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- code ---------- */
+
+.slide pre {
+  position: relative;
+  font-family: var(--slide-mono);
+  font-size: calc(clamp(0.8rem, 1.35vw, 1rem) * var(--slide-size, 1));
+  background: var(--slide-code-bg);
+  border: 1px solid var(--slide-border);
+  padding: 1.2rem 1.5rem;
+  border-radius: 10px;
+  overflow: auto;
+  max-height: 64vh;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+.slide pre code {
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.slide pre[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  font-size: 0.7rem;
+  color: var(--slide-muted);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.slide :not(pre) > code {
+  font-family: var(--slide-mono);
+  background: rgba(127, 127, 127, 0.18);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* ハイライト（atom-one-dark 寄り） */
+.hl-c {
+  color: #7f848e;
+  font-style: italic;
+}
+.hl-s {
+  color: #98c379;
+}
+.hl-k {
+  color: #c678dd;
+}
+.hl-n {
+  color: #d19a66;
+}
+.hl-f {
+  color: #61afef;
+}
+.hl-t {
+  color: #e5c07b;
+}
+.hl-i {
+  color: #56b6c2;
+}
+/* console */
+.hl-prompt {
+  color: var(--slide-accent-2);
+  user-select: none;
+}
+.hl-cmd {
+  color: #fff;
+  font-weight: 600;
+}
+.light .hl-cmd {
+  color: #1f1f1f;
+}
+.hl-out {
+  color: #abb2bf;
+}
+.hl-err {
+  color: #ef5350;
+  font-weight: 600;
+}
+.hl-ok {
+  color: #98c379;
+}
+/* `!! ` を付けた行は行全体を帯でハイライト */
+.hl-mark {
+  display: inline-block;
+  width: calc(100% + 3rem);
+  margin: 0 -1.5rem;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  background: rgba(255, 106, 0, 0.16);
+  box-shadow: inset 3px 0 0 var(--slide-accent-2);
+}
+
+/* ---------- chrome ---------- */
+
+#progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 0;
+  background: var(--slide-accent);
+  transition: width 0.2s ease;
+  z-index: 10;
+}
+#counter,
+#timer,
+#hint {
+  font-family: system-ui, -apple-system, 'Hiragino Sans', sans-serif;
+  position: fixed;
+  color: var(--slide-muted);
+  font-variant-numeric: tabular-nums;
+  z-index: 10;
+}
+#counter {
+  bottom: 12px;
+  right: 18px;
+  font-size: 0.9rem;
+}
+#timer {
+  bottom: 34px;
+  right: 18px;
+  font-size: 0.95rem;
+}
+#hint {
+  bottom: 12px;
+  left: 18px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+:fullscreen #hint {
+  display: none;
+}
+@media (pointer: coarse) {
+  #hint {
+    display: none;
+  }
+}
+
+/* ---------- overview（o / Esc） ---------- */
+
+#overview {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 20px;
+  padding: 28px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: #29292c;
+}
+body.overview #overview {
+  display: flex;
+}
+body.overview #deck,
+body.overview #progress,
+body.overview #counter,
+body.overview #timer,
+body.overview #hint {
+  display: none;
+}
+.ov-item {
+  cursor: pointer;
+}
+.ov-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--slide-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+.ov-item.current .ov-frame {
+  outline: 3px solid var(--slide-accent);
+  outline-offset: 2px;
+}
+.ov-item:hover .ov-frame {
+  border-color: var(--slide-accent);
+}
+.ov-scale {
+  position: relative;
+  transform-origin: 0 0;
+}
+#overview .slide {
+  display: flex;
+  animation: none;
+  overflow: hidden;
+}
+.ov-num {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--slide-muted);
+  font-variant-numeric: tabular-nums;
+}
+.ov-item.current .ov-num {
+  color: var(--slide-fg);
+  font-weight: 600;
+}
+
+/* ---------- PDF（ブラウザの印刷 → PDF に保存） ---------- */
+
+@media print {
+  @page {
+    size: 1280px 720px;
+    margin: 0;
+  }
+  html {
+    font-size: 16px;
+  }
+  html,
+  body {
+    height: auto;
+    overflow: visible;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #deck {
+    position: static;
+  }
+  .slide {
+    display: flex !important;
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    padding: 43px 115px;
+    animation: none !important;
+    overflow: hidden;
+    break-after: page;
+    background: var(--slide-bg);
+  }
+  .slide.wide {
+    padding-left: 38px;
+    padding-right: 38px;
+  }
+  .slide.center p {
+    font-size: calc(3.5rem * var(--slide-size, 1));
+  }
+  .slide.title h1 {
+    font-size: calc(5.2rem * var(--slide-size, 1));
+  }
+  #progress,
+  #counter,
+  #timer,
+  #hint,
+  #overview {
+    display: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="deck">
+<section class="slide title"><h1>Terraformで素数をマイニングしたら、ブロックチェーンが生まれた</h1><p>〜 Infrastructure as Code。つまりCode。なら何でもできますよね？ 〜</p><p>田中博悠 / tanahiro2010</p></section>
+<section class="slide"><h2>田中博悠 / tanahiro2010</h2><ul><li>三田学園高等学校 1年</li><li>TypeScript / Web / CLI / AI Agent / Security</li><li>個人開発・OSS・脆弱性調査・イベント運営</li></ul></section>
+<section class="slide center"><p>Terraform、使ってますか？</p></section>
+<section class="slide center"><p>インフラをコードで管理するやつ</p></section>
+<section class="slide center"><p>Infrastructure as Code</p></section>
+<section class="slide center"><p>Infrastructure as <strong>Code</strong></p></section>
+<section class="slide center"><p>つまり</p></section>
+<section class="slide center" style="--slide-size:2;"><p><strong>Code</strong></p></section>
+<section class="slide center"><p>Code なら</p></section>
+<section class="slide center"><p>素数のマイニングもできますよね？</p></section>
+<section class="slide center" style="--slide-size:2;"><p>🤔</p></section>
+<section class="slide center" style="background:#5c2d91;"><p>できました</p></section>
+<section class="slide"><h2>今日の話</h2><ol><li><strong>Prime Discovery</strong> — HCL だけで素数を探す</li><li><strong>Recursive Terraform</strong> — Terraform が Terraform を起動する</li><li><strong>Distributed Prime Mining</strong> — Terraform を並列で動かす</li><li><strong>PrimeChain</strong> — 素数でブロックチェーンを作る</li><li><strong>Terraform Destroy</strong> — 全部壊す</li></ol></section>
+<section class="slide"><h2>ルール</h2><ul><li>計算ロジックは <strong>すべて HCL</strong></li><li>Python / JS / Go などで計算するのは禁止</li><li>シェルは「Terraform の起動」と「ファイル配置」だけ</li><li>Provider は Terraform 組み込みのものだけ<ul><li><code>terraform_data</code> / <code>terraform_remote_state</code></li></ul></li></ul></section>
+<section class="slide center"><p><strong>Terraform 以外に計算させたら負け</strong></p></section>
+<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>Phase 1</p><p>Prime Discovery</p></section>
+<section class="slide center"><p>HCL にはループがない</p></section>
+<section class="slide center"><p>でも <code>for</code> 式はある</p></section>
+<section class="slide center"><p><code>n</code> が素数 ⇔ <code>2..√n</code> のどれでも割り切れない</p></section>
+<section class="slide"><pre data-lang="hcl"><code><span class="hl-k">locals</span> {
+  <span class="hl-t">candidates</span> = <span class="hl-f">range</span>(<span class="hl-i">var</span>.start, <span class="hl-i">var</span>.end)
+
+  <span class="hl-c"># n が素数 ⇔ 2..floor(√n) のどれでも割り切れない</span>
+  <span class="hl-t">primes</span> = [
+    <span class="hl-k">for</span> n <span class="hl-k">in</span> <span class="hl-i">local</span>.candidates : n
+<span class="hl-mark">    <span class="hl-k">if</span> <span class="hl-f">alltrue</span>([<span class="hl-k">for</span> d <span class="hl-k">in</span> <span class="hl-f">range</span>(<span class="hl-n">2</span>, <span class="hl-f">floor</span>(<span class="hl-f">pow</span>(n, <span class="hl-n">0.5</span>)) + <span class="hl-n">1</span>) : n % d != <span class="hl-n">0</span>])</span>
+  ]
+}</code></pre></section>
+<section class="slide center"><p><code>terraform apply</code> すると</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">terraform apply -var start=1 -var end=100</span>
+<span class="hl-out"></span>
+<span class="hl-ok">Apply complete! Resources: 0 added, 0 changed, 0 destroyed.</span>
+<span class="hl-out"></span>
+<span class="hl-out">Outputs:</span>
+<span class="hl-out"></span>
+<span class="hl-out">primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,</span>
+<span class="hl-out">          43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]</span>
+<span class="hl-out">summary = &quot;[1, 100) の 98 個の整数を判定し、25 個の素数を発見しました（最大: 97）&quot;</span></code></pre></section>
+<section class="slide center"><p><strong>Resources: 0 added</strong></p></section>
+<section class="slide center"><p>インフラは何も作っていない</p><p class="note">terraform apply が素数を計算しているだけ</p></section>
+<section class="slide center" style="background:#0d76bc;"><p>ハマりポイント</p></section>
+<section class="slide center"><p><code>range()</code> は <strong>1024 要素</strong> までしか作れない</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">echo 'length(range(1025))' | terraform console</span>
+<span class="hl-out"></span>
+<span class="hl-err">Error: Error in function call</span></code></pre></section>
+<section class="slide"><pre data-lang="hcl"><code><span class="hl-k">locals</span> {
+  <span class="hl-c"># range() は 1 回で最大 1024 要素まで</span>
+  <span class="hl-c"># → 探索範囲を 1024 ずつのチャンクに分割してから flatten する</span>
+<span class="hl-mark">  <span class="hl-t">chunk_starts</span> = <span class="hl-f">range</span>(<span class="hl-i">local</span>.lower, <span class="hl-i">var</span>.end, <span class="hl-n">1024</span>)</span>
+  <span class="hl-t">candidates</span> = <span class="hl-f">flatten</span>([
+    <span class="hl-k">for</span> s <span class="hl-k">in</span> <span class="hl-i">local</span>.chunk_starts : <span class="hl-f">range</span>(s, <span class="hl-f">min</span>(s + <span class="hl-n">1024</span>, <span class="hl-i">var</span>.end))
+  ])
+}</code></pre><p class="note">除数側の range(2, √n) も 1024 以内 <span class="arrow">→</span> n は 1024² = 1,048,576 まで</p></section>
+<section class="slide center"><p>10 万までやってみた</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">make prime START=1 END=100000</span>
+<span class="hl-out"></span>
+<span class="hl-out">summary = &quot;[1, 100000) の 99998 個の整数を判定し、9592 個の素数を発見しました（最大: 99991）&quot;</span>
+<span class="hl-out"></span>
+<span class="hl-out">real  2:02.14</span></code></pre></section>
+<section class="slide center" style="--slide-size:2;"><p><strong>2 分</strong></p></section>
+<section class="slide center"><p>遅い</p></section>
+<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>Phase 2</p><p>Recursive Terraform</p></section>
+<section class="slide center"><p>範囲を分割したい</p></section>
+<section class="slide center"><p>でも HCL には再帰関数もない</p></section>
+<section class="slide center"><p>なら</p></section>
+<section class="slide center"><p><strong>Terraform を再帰起動すればいい</strong></p></section>
+<section class="slide"><h2>自分自身を子 Terraform として起動する</h2><pre data-lang="hcl"><code><span class="hl-k">module</span> <span class="hl-s">&quot;child&quot;</span> {
+  <span class="hl-t">source</span>   = <span class="hl-s">&quot;../modules/spawn&quot;</span>
+  <span class="hl-k">for_each</span> = <span class="hl-i">local</span>.is_leaf ? {} : {
+    L = { <span class="hl-t">start</span> = <span class="hl-i">var</span>.start, <span class="hl-t">end</span> = <span class="hl-i">local</span>.mid }
+    R = { <span class="hl-t">start</span> = <span class="hl-i">local</span>.mid, <span class="hl-t">end</span> = <span class="hl-i">var</span>.end }
+  }
+
+  <span class="hl-t">name</span>       = <span class="hl-s">&quot;${var.node_id}.${each.key}&quot;</span>
+<span class="hl-mark">  <span class="hl-t">config_dir</span> = <span class="hl-f">abspath</span>(<span class="hl-i">path</span>.root) <span class="hl-c"># ← 自分自身</span></span>
+  <span class="hl-t">vars</span> = {
+    <span class="hl-t">start</span> = <span class="hl-f">tostring</span>(<span class="hl-i">each</span>.value.start)
+    <span class="hl-t">end</span>   = <span class="hl-f">tostring</span>(<span class="hl-i">each</span>.value.end)
+  }
+}</code></pre></section>
+<section class="slide"><h2>spawn モジュール</h2><pre data-lang="hcl"><code><span class="hl-k">resource</span> <span class="hl-s">&quot;terraform_data&quot;</span> <span class="hl-s">&quot;process&quot;</span> {
+  <span class="hl-t">triggers_replace</span> = <span class="hl-i">var</span>.vars
+  <span class="hl-t">input</span>            = { <span class="hl-t">env</span> = <span class="hl-i">local</span>.env } <span class="hl-c"># TF_VAR_* と TF_DATA_DIR</span>
+
+  <span class="hl-k">provisioner</span> <span class="hl-s">&quot;local-exec&quot;</span> {
+    <span class="hl-t">environment</span> = <span class="hl-i">self</span>.input.env
+    <span class="hl-t">command</span>     = <span class="hl-s">&lt;&lt;-EOT</span>
+      <span class="hl-k">terraform</span> -<span class="hl-t">chdir</span>=<span class="hl-s">&quot;$CONFIG_DIR&quot;</span> init \
+        -<span class="hl-k">backend</span>-<span class="hl-t">config</span>=<span class="hl-s">&quot;path=$RUN_DIR/terraform.tfstate&quot;</span>
+<span class="hl-mark">      <span class="hl-k">terraform</span> -<span class="hl-t">chdir</span>=<span class="hl-s">&quot;$CONFIG_DIR&quot;</span> apply -auto-approve</span>
+    EOT
+  }
+}</code></pre></section>
+<section class="slide"><h2>子の結果は子の State から読む</h2><pre data-lang="hcl"><code><span class="hl-k">data</span> <span class="hl-s">&quot;terraform_remote_state&quot;</span> <span class="hl-s">&quot;process&quot;</span> {
+  <span class="hl-k">backend</span> = <span class="hl-s">&quot;local&quot;</span>
+  <span class="hl-t">config</span> = {
+    <span class="hl-t">path</span> = <span class="hl-s">&quot;${local.run_dir}/terraform.tfstate&quot;</span>
+  }
+
+<span class="hl-mark">  <span class="hl-k">depends_on</span> = [terraform_data.process] <span class="hl-c"># 子の apply が終わってから読む</span></span>
+}</code></pre><p class="note">引数は TF_VAR_*、戻り値は terraform_remote_state。プロセス間通信です</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">make recursive END=8000 LEAF=1000</span>
+<span class="hl-out"></span>
+<span class="hl-out">🚀 23:33:14 spawn terraform: root.L</span>
+<span class="hl-out">🚀 23:33:14 spawn terraform: root.R</span>
+<span class="hl-ok">✅ 23:33:15 done:            root.L</span>
+<span class="hl-ok">✅ 23:33:15 done:            root.R</span>
+<span class="hl-out"></span>
+<span class="hl-out">tree = [</span>
+<span class="hl-out">  &quot;root [1, 8000) → split&quot;,</span>
+<span class="hl-out">  &quot;    root.L [1, 4000) → split&quot;,</span>
+<span class="hl-out">  &quot;        root.L.L [1, 2000) → split&quot;,</span>
+<span class="hl-out">  &quot;            root.L.L.L [1, 1000) → 168 primes&quot;,</span>
+<span class="hl-out">  &quot;            root.L.L.R [1000, 2000) → 135 primes&quot;,</span>
+<span class="hl-out">  &quot;        root.L.R [2000, 4000) → split&quot;,</span>
+<span class="hl-out">  ...</span>
+<span class="hl-out">  &quot;            root.R.R.R [7000, 8000) → 107 primes&quot;,</span>
+<span class="hl-out">]</span></code></pre></section>
+<section class="slide center"><p><strong>15 個の Terraform</strong> が</p><p>自分自身を起動している</p></section>
+<section class="slide center" style="background:#0d76bc;"><p>ハマりポイント</p></section>
+<section class="slide center"><p>1 回目は動くのに</p><p>2 回目の apply で子が全滅</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">terraform apply -var end=3000</span>
+<span class="hl-out"></span>
+<span class="hl-out">🚀 23:31:35 spawn terraform: root.L</span>
+<span class="hl-err">Error: Error acquiring the state lock</span>
+<span class="hl-err">Error message: resource temporarily unavailable</span>
+<span class="hl-out">Lock Info:</span>
+<span class="hl-out">  Path:      terraform.tfstate</span>
+<span class="hl-out">  Operation: OperationTypeApply</span></code></pre></section>
+<section class="slide center"><p>子の <code>terraform init</code> が</p><p>親の <code>terraform.tfstate</code> を見つけて</p></section>
+<section class="slide center"><p>「<strong>古い State を移行しなきゃ！</strong>」</p><p class="note"><span class="arrow">→</span> 親が掴んでいるロックとぶつかる</p></section>
+<section class="slide"><pre data-lang="hcl"><code><span class="hl-k">terraform</span> {
+  <span class="hl-c"># 直接 apply したときの State も config_dir 直下に置かない</span>
+  <span class="hl-c"># （./terraform.tfstate があると子の init が「移行」しに行く）</span>
+<span class="hl-mark">  <span class="hl-k">backend</span> <span class="hl-s">&quot;local&quot;</span> {</span>
+<span class="hl-mark">    <span class="hl-t">path</span> = <span class="hl-s">&quot;.runs/root/terraform.tfstate&quot;</span></span>
+<span class="hl-mark">  }</span>
+}</code></pre></section>
+<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>Phase 3</p><p>Distributed Prime Mining</p></section>
+<section class="slide center"><p>再帰できるなら</p><p>並列もできる</p></section>
+<section class="slide"><h2>Pool と Miner</h2><pre data-lang="hcl"><code><span class="hl-k">locals</span> {
+  <span class="hl-t">assignments</span> = {
+    <span class="hl-k">for</span> i <span class="hl-k">in</span> <span class="hl-f">range</span>(<span class="hl-i">var</span>.miners) : <span class="hl-f">format</span>(<span class="hl-s">&quot;miner-%02d&quot;</span>, i + <span class="hl-n">1</span>) =&gt; {
+      <span class="hl-t">start</span> = <span class="hl-i">var</span>.start + i * <span class="hl-i">local</span>.span
+      <span class="hl-t">end</span>   = <span class="hl-f">min</span>(<span class="hl-i">var</span>.start + (i + <span class="hl-n">1</span>) * <span class="hl-i">local</span>.span, <span class="hl-i">var</span>.end)
+    }
+  }
+}
+
+<span class="hl-k">module</span> <span class="hl-s">&quot;miner&quot;</span> {
+  <span class="hl-t">source</span>   = <span class="hl-s">&quot;../modules/spawn&quot;</span>
+<span class="hl-mark">  <span class="hl-k">for_each</span> = <span class="hl-i">local</span>.assignments</span>
+  <span class="hl-t">name</span>     = <span class="hl-i">each</span>.key
+}</code></pre><p class="note">Miner ごとに State を分けるので、ロック競合は起きない</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">make pool</span>
+<span class="hl-out"></span>
+<span class="hl-out">🚀 23:33:44 spawn terraform: miner-04</span>
+<span class="hl-out">🚀 23:33:44 spawn terraform: miner-01</span>
+<span class="hl-out">🚀 23:33:44 spawn terraform: miner-03</span>
+<span class="hl-out">🚀 23:33:44 spawn terraform: miner-02</span>
+<span class="hl-ok">✅ 23:33:46 done:            miner-01</span>
+<span class="hl-ok">✅ 23:33:47 done:            miner-02</span>
+<span class="hl-ok">✅ 23:33:48 done:            miner-03</span>
+<span class="hl-ok">✅ 23:33:48 done:            miner-04</span>
+<span class="hl-out"></span>
+<span class="hl-out">summary = &quot;4 台の Terraform Miner が [1, 20000) から 2262 個の素数を発見しました（最大: 19997）&quot;</span></code></pre></section>
+<section class="slide center"><p>Terraform はリソースを <strong>10 並列</strong> で作る</p></section>
+<section class="slide center"><p>= Miner が勝手に並列で動く</p></section>
+<section class="slide"><h2>[1, 100000) の素数 9592 個</h2><table><thead><tr><th>構成</th><th class="num">時間</th></tr></thead><tbody><tr><td>Phase 1: 1 プロセス</td><td class="num">2 分 02 秒</td></tr><tr><td>Phase 3: 8 Miner</td><td class="num"><strong>38 秒</strong></td></tr></tbody></table></section>
+<section class="slide center" style="--slide-size:2;"><p><strong>3.2 倍</strong></p></section>
+<section class="slide center"><p>（Python なら一瞬）</p><p class="note">言わない約束</p></section>
+<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>Phase 4</p><p>PrimeChain</p></section>
+<section class="slide center"><p>素数が掘れるようになった</p></section>
+<section class="slide center"><p>掘る（マイニング）といえば</p></section>
+<section class="slide center" style="--slide-size:1.5;"><p>ブロックチェーン</p></section>
+<section class="slide"><h2>ブロック</h2><table><thead><tr><th>フィールド</th><th>中身</th></tr></thead><tbody><tr><td><code>height</code></td><td>ブロック番号</td></tr><tr><td><code>prev_hash</code></td><td>前ブロックのハッシュ</td></tr><tr><td><code>miner</code></td><td>掘った Miner</td></tr><tr><td><code>prime</code></td><td>発見した素数</td></tr><tr><td><code>nonce</code></td><td>Nonce</td></tr><tr><td><code>hash</code></td><td><code>sha256(&quot;height|prev_hash|miner|prime|nonce&quot;)</code></td></tr></tbody></table></section>
+<section class="slide center"><p><code>terraform apply</code> 1 回 = <strong>ブロック 1 個</strong></p></section>
+<section class="slide"><h2>採掘も HCL</h2><pre data-lang="hcl"><code><span class="hl-k">locals</span> {
+  <span class="hl-c"># 見つけた素数 × nonce の全組み合わせで sha256 を計算</span>
+  <span class="hl-t">attempts</span> = <span class="hl-f">flatten</span>([
+    <span class="hl-k">for</span> p <span class="hl-k">in</span> <span class="hl-i">module</span>.prime.primes : [
+      <span class="hl-k">for</span> n <span class="hl-k">in</span> <span class="hl-f">range</span>(<span class="hl-i">var</span>.max_nonce) : {
+        <span class="hl-t">prime</span> = p
+        <span class="hl-t">nonce</span> = n
+        <span class="hl-t">hash</span>  = <span class="hl-f">sha256</span>(<span class="hl-f">format</span>(<span class="hl-s">&quot;%d|%s|%s|%d|%d&quot;</span>,
+          <span class="hl-i">var</span>.height, <span class="hl-i">var</span>.prev_hash, <span class="hl-i">var</span>.miner_id, p, n))
+      }
+    ]
+  ])
+
+  <span class="hl-c"># 先頭が 0 * difficulty のものだけ残す</span>
+<span class="hl-mark">  <span class="hl-t">hits</span> = [<span class="hl-k">for</span> a <span class="hl-k">in</span> <span class="hl-i">local</span>.attempts : a <span class="hl-k">if</span> <span class="hl-f">startswith</span>(a.hash, <span class="hl-i">local</span>.target)]</span>
+}</code></pre></section>
+<section class="slide center"><p>採用ルール：</p><p>ハッシュ値が <strong>いちばん小さい</strong> 候補</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">make mine BLOCKS=3</span>
+<span class="hl-out"></span>
+<span class="hl-out">🚀 23:37:49 spawn terraform: miner-04</span>
+<span class="hl-out">🚀 23:37:49 spawn terraform: miner-01</span>
+<span class="hl-out">...</span>
+<span class="hl-out">⛏️ Block #0 mined by miner-01: prime=101 nonce=23 hash=001817dc39715b1f... (4 candidates, 5056 hashes)</span>
+<span class="hl-out">⛏️ Block #1 mined by miner-02: prime=593 nonce=19 hash=0008d290675e22b3... (4 candidates, 3840 hashes)</span>
+<span class="hl-out">⛏️ Block #2 mined by miner-04: prime=1103 nonce=48 hash=001d824ab4d1be8c... (4 candidates, 3712 hashes)</span>
+<span class="hl-out"></span>
+<span class="hl-prompt">$ </span><span class="hl-cmd">make explorer</span>
+<span class="hl-out"></span>
+<span class="hl-out">#0   001817dc39715b1f ← 0000000000000000  miner-01 prime=101    nonce=23</span>
+<span class="hl-out">#1   0008d290675e22b3 ← 001817dc39715b1f  miner-02 prime=593    nonce=19</span>
+<span class="hl-out">#2   001d824ab4d1be8c ← 0008d290675e22b3  miner-04 prime=1103   nonce=48</span></code></pre></section>
+<section class="slide center"><p>チェーンの検証も HCL</p></section>
+<section class="slide"><pre data-lang="hcl"><code><span class="hl-t">verifications</span> = [
+  <span class="hl-k">for</span> i, b <span class="hl-k">in</span> <span class="hl-i">local</span>.chain : {
+    <span class="hl-t">height</span> = b.height == i
+    <span class="hl-t">link</span>   = b.prev_hash == <span class="hl-f">try</span>(<span class="hl-i">local</span>.chain[i - <span class="hl-n">1</span>].hash, <span class="hl-i">local</span>.genesis_hash)
+    <span class="hl-t">hash</span>   = b.hash == <span class="hl-f">sha256</span>(<span class="hl-f">format</span>(<span class="hl-s">&quot;%d|%s|%s|%d|%d&quot;</span>,
+               b.height, b.prev_hash, b.miner, b.prime, b.nonce))
+    <span class="hl-t">work</span>   = <span class="hl-f">startswith</span>(b.hash, <span class="hl-f">join</span>(<span class="hl-s">&quot;&quot;</span>, [<span class="hl-k">for</span> _ <span class="hl-k">in</span> <span class="hl-f">range</span>(b.difficulty) : <span class="hl-s">&quot;0&quot;</span>]))
+    <span class="hl-t">prime</span>  = b.prime &gt;= <span class="hl-n">2</span> &amp;&amp; <span class="hl-f">alltrue</span>([
+      <span class="hl-k">for</span> d <span class="hl-k">in</span> <span class="hl-f">range</span>(<span class="hl-n">2</span>, <span class="hl-f">max</span>(<span class="hl-n">2</span>, <span class="hl-f">floor</span>(<span class="hl-f">pow</span>(b.prime, <span class="hl-n">0.5</span>)) + <span class="hl-n">1</span>)) : b.prime % d != <span class="hl-n">0</span>
+    ])
+  }
+]</code></pre></section>
+<section class="slide"><h2>1 ブロック = 1 リソース</h2><pre data-lang="hcl"><code><span class="hl-k">resource</span> <span class="hl-s">&quot;terraform_data&quot;</span> <span class="hl-s">&quot;block&quot;</span> {
+  <span class="hl-k">for_each</span> = { <span class="hl-k">for</span> i <span class="hl-k">in</span> <span class="hl-f">range</span>(<span class="hl-i">local</span>.height + <span class="hl-n">1</span>) : <span class="hl-f">format</span>(<span class="hl-s">&quot;%04d&quot;</span>, i) =&gt; i }
+  <span class="hl-t">input</span>    = <span class="hl-i">local</span>.chain[<span class="hl-i">each</span>.value]
+
+  <span class="hl-k">lifecycle</span> {
+<span class="hl-mark">    <span class="hl-k">precondition</span> {</span>
+<span class="hl-mark">      <span class="hl-t">condition</span>     = <span class="hl-f">alltrue</span>(<span class="hl-f">values</span>(<span class="hl-i">local</span>.verifications[<span class="hl-i">each</span>.value]))</span>
+<span class="hl-mark">      <span class="hl-t">error_message</span> = <span class="hl-s">&quot;ブロック #${each.value} の検証に失敗しました&quot;</span></span>
+<span class="hl-mark">    }</span>
+  }
+}</code></pre></section>
+<section class="slide center" style="background:#c0392b;"><p>改ざんしてみる</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">make tamper BLOCK=1</span>
+<span class="hl-out">😈 Block #1 の prime を 4 に書き換えました</span>
+<span class="hl-out"></span>
+<span class="hl-prompt">$ </span><span class="hl-cmd">make mine</span>
+<span class="hl-out"></span>
+<span class="hl-err">Error: Resource precondition failed</span>
+<span class="hl-out"></span>
+<span class="hl-out">  on main.tf line 173, in resource &quot;terraform_data&quot; &quot;block&quot;:</span>
+<span class="hl-out"> 173:       condition     = try(alltrue(values(local.verifications[each.value])), false)</span>
+<span class="hl-out"></span>
+<span class="hl-out">ブロック #1 の検証に失敗しました:</span>
+<span class="hl-out">{&quot;hash&quot;:false,&quot;height&quot;:true,&quot;link&quot;:true,&quot;prime&quot;:false,&quot;work&quot;:true}</span>
+<span class="hl-err">make: *** [mine] Error 1</span></code></pre></section>
+<section class="slide center"><p><strong>plan の時点でバレる</strong></p><p class="note">Miner を起動する前に止まる</p></section>
+<section class="slide center" style="background:#0d76bc;"><p>ハマりポイント</p></section>
+<section class="slide center"><p>台帳をどこに置くか</p></section>
+<section class="slide center"><p>最初の案：</p><p>自分自身の <code>terraform.tfstate</code> を</p><p><code>jsondecode(file())</code> で読む</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">terraform apply</span>
+<span class="hl-out"></span>
+<span class="hl-err">Error: Error in function call</span>
+<span class="hl-out"></span>
+<span class="hl-err">Call to function &quot;try&quot; failed: panic in function implementation:</span>
+<span class="hl-out">returned value cty.EmptyTupleVal does not conform to expected return type</span>
+<span class="hl-out">...</span>
+<span class="hl-out">goroutine 397 [running]:</span>
+<span class="hl-out">runtime/debug.Stack()</span></code></pre></section>
+<section class="slide center" style="--slide-size:2;"><p><strong>panic</strong></p></section>
+<section class="slide center"><p>apply 中に Terraform が State を書き換える</p><p class="note"><span class="arrow">→</span> plan と apply で読める値が変わる</p></section>
+<section class="slide center"><p>検証済みのチェーンだけを</p><p><strong>ledger.json</strong> に書き出すことにした</p><p class="note">中身は HCL が jsonencode した JSON。シェルはファイルに置くだけ</p></section>
+<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>Phase 5</p><p>Terraform Destroy</p></section>
+<section class="slide center"><p>最後に</p></section>
+<section class="slide center"><p>Terraform 本来の機能を使います</p></section>
+<section class="slide center" style="--slide-size:1.5;"><p><code>terraform destroy</code></p></section>
+<section class="slide"><h2>親が消えたら子も消す</h2><pre data-lang="hcl"><code><span class="hl-k">provisioner</span> <span class="hl-s">&quot;local-exec&quot;</span> {
+<span class="hl-mark">  <span class="hl-k">when</span>        = destroy</span>
+  <span class="hl-t">environment</span> = <span class="hl-i">self</span>.input.env
+  <span class="hl-t">command</span>     = <span class="hl-s">&lt;&lt;-EOT</span>
+    <span class="hl-k">terraform</span> -<span class="hl-t">chdir</span>=<span class="hl-s">&quot;$CONFIG_DIR&quot;</span> destroy -auto-approve
+    rm -rf <span class="hl-s">&quot;$RUN_DIR&quot;</span>
+    echo <span class="hl-s">&quot;💥 destroyed: $RUN_NAME&quot;</span>
+  EOT
+}</code></pre><p class="note">子が孫を持っていれば、孫も連鎖して destroy される</p></section>
+<section class="slide"><pre><code><span class="hl-prompt">$ </span><span class="hl-cmd">make destroy</span>
+<span class="hl-out"></span>
+<span class="hl-out">== terraform destroy: chain</span>
+<span class="hl-out">💥 ledger.json destroyed. PrimeChain is gone.</span>
+<span class="hl-out">💥 Block #0 destroyed. prime 101 is gone.</span>
+<span class="hl-out">💥 Block #2 destroyed. prime 1103 is gone.</span>
+<span class="hl-out">💥 Block #1 destroyed. prime 593 is gone.</span>
+<span class="hl-out">💥 23:39:16 destroyed:       miner-02</span>
+<span class="hl-out">💥 23:39:16 destroyed:       miner-04</span>
+<span class="hl-out">💥 23:39:16 destroyed:       miner-01</span>
+<span class="hl-out">💥 23:39:16 destroyed:       miner-03</span>
+<span class="hl-ok">Destroy complete! Resources: 9 destroyed.</span></code></pre></section>
+<section class="slide"><pre><code><span class="hl-out">== terraform destroy: recursive</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.R.L.L</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.R.L.R</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.R.L</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.R.R.L</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.R.R.R</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.R.R</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.L.L.L</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.L.L.R</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.L.L</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.L.R.R</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.L.R.L</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.L.R</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.R</span>
+<span class="hl-out">💥 23:39:19 destroyed:       root.L</span>
+<span class="hl-ok">Destroy complete! Resources: 2 destroyed.</span></code></pre></section>
+<section class="slide center"><p>親から見ると <strong>リソース 2 個</strong></p></section>
+<section class="slide center"><p>その裏で <strong>14 個の Terraform</strong> が消えていく</p></section>
+<section class="slide center"><p>そして Phase 1 の素数は</p></section>
+<section class="slide"><pre><code><span class="hl-out">== terraform destroy: prime-discovery</span>
+<span class="hl-ok">Destroy complete! Resources: 0 destroyed.</span></code></pre></section>
+<section class="slide center"><p>そもそもリソースじゃなかった</p></section>
+<section class="slide center" style="background:#5c2d91;"><p>Terraform で素数を構築し、</p><p>Terraform で素数を破壊する</p></section>
+<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>まとめ</p></section>
+<section class="slide"><h2>分かったこと</h2><ul><li>HCL は思ったより書ける<ul><li><code>for</code> 式・<code>alltrue</code>・<code>sha256</code>・<code>precondition</code></li></ul></li><li><code>local-exec</code> + <code>TF_VAR_*</code> + <code>terraform_remote_state</code> で <strong>プロセス間通信</strong> ができる</li><li>Terraform は <strong>State を中心に</strong> 動いている<ul><li>init は State の移行を気にするし、apply 中は State を書き換え続ける</li></ul></li><li><code>range()</code> の 1024 制限など、計算基盤ではない前提が随所にある</li></ul></section>
+<section class="slide center"><p>技術的に可能なことと</p><p>技術的に適切なことは違う</p></section>
+<section class="slide center"><p>しかし、それを知るためには</p><p>時として技術を間違った方向に</p><p><strong>全力で使う</strong> 必要がある</p></section>
+<section class="slide center" style="--slide-size:2;"><p>All You Need Is Terraform.</p></section>
+<section class="slide title"><h1>ありがとうございました</h1><p>Terraform PrimeChain</p><p>田中博悠 / tanahiro2010</p></section>
+</div>
+<div id="overview"></div>
+<div id="progress"></div>
+<div id="timer"></div>
+<div id="counter"></div>
+<div id="hint">← → 移動 ・ f フルスクリーン ・ o 一覧</div>
+<script>// スライドのナビゲーション。ippon が HTML に埋め込む。
+//   → / Space / PageDown / クリック右側     次へ
+//   ← / PageUp / クリック左側              前へ
+//   Home / End                              最初 / 最後
+//   f                                       フルスクリーン
+//   o / Esc                                 一覧
+;(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('#deck .slide'))
+  if (!slides.length) return
+
+  var idx = 0
+  var progress = document.getElementById('progress')
+  var counter = document.getElementById('counter')
+  var timerEl = document.getElementById('timer')
+
+  function clamp(n) {
+    return Math.max(0, Math.min(slides.length - 1, n))
+  }
+
+  // ---------- タイマー（表紙から進んだら開始、表紙に戻ったらリセット） ----------
+
+  var startedAt = null
+  var ticking = null
+  function fmt(ms) {
+    var s = Math.floor(ms / 1000)
+    var m = Math.floor(s / 60)
+    s = s % 60
+    return m + ':' + (s < 10 ? '0' : '') + s
+  }
+  function syncTimer() {
+    if (idx === 0) {
+      startedAt = null
+      clearInterval(ticking)
+      ticking = null
+      timerEl.textContent = ''
+      return
+    }
+    if (startedAt === null) startedAt = Date.now()
+    if (!ticking) {
+      ticking = setInterval(function () {
+        timerEl.textContent = fmt(Date.now() - startedAt)
+      }, 500)
+    }
+    timerEl.textContent = fmt(Date.now() - startedAt)
+  }
+
+  // ---------- 描画 ----------
+
+  function render() {
+    slides.forEach(function (s, i) {
+      s.classList.toggle('active', i === idx)
+    })
+    slides[idx].scrollTop = 0
+    counter.textContent = idx + 1 + ' / ' + slides.length
+    progress.style.width = ((idx + 1) / slides.length) * 100 + '%'
+    syncTimer()
+  }
+  function go(n) {
+    n = clamp(n)
+    if (n === idx) return
+    idx = n
+    render()
+    history.replaceState(null, '', '#' + (idx + 1))
+  }
+  window.addEventListener('hashchange', function () {
+    var n = parseInt(location.hash.slice(1), 10)
+    if (n) go(n - 1)
+  })
+
+  // ---------- 一覧 ----------
+
+  var overview = document.getElementById('overview')
+  var ovItems = null
+  var ovOpen = false
+  var THUMB = 240
+
+  function buildOverview() {
+    ovItems = slides.map(function (s, i) {
+      var item = document.createElement('div')
+      item.className = 'ov-item'
+      var frame = document.createElement('div')
+      frame.className = 'ov-frame'
+      var scale = document.createElement('div')
+      scale.className = 'ov-scale'
+      var clone = s.cloneNode(true)
+      clone.classList.remove('active')
+      scale.appendChild(clone)
+      frame.appendChild(scale)
+      var num = document.createElement('div')
+      num.className = 'ov-num'
+      num.textContent = i + 1
+      item.appendChild(frame)
+      item.appendChild(num)
+      item.addEventListener('click', function () {
+        idx = i
+        closeOverview()
+        render()
+        history.replaceState(null, '', '#' + (idx + 1))
+      })
+      overview.appendChild(item)
+      return { item: item, frame: frame, scale: scale }
+    })
+  }
+  function layoutOverview() {
+    var w = window.innerWidth
+    var h = window.innerHeight
+    var k = THUMB / w
+    ovItems.forEach(function (t) {
+      t.frame.style.width = THUMB + 'px'
+      t.frame.style.height = h * k + 'px'
+      t.scale.style.width = w + 'px'
+      t.scale.style.height = h + 'px'
+      t.scale.style.transform = 'scale(' + k + ')'
+    })
+  }
+  function openOverview() {
+    if (!ovItems) buildOverview()
+    layoutOverview()
+    ovItems.forEach(function (t, i) {
+      t.item.classList.toggle('current', i === idx)
+    })
+    ovOpen = true
+    document.body.classList.add('overview')
+    ovItems[idx].item.scrollIntoView({ block: 'center' })
+  }
+  function closeOverview() {
+    ovOpen = false
+    document.body.classList.remove('overview')
+  }
+  window.addEventListener('resize', function () {
+    if (ovOpen) layoutOverview()
+  })
+
+  // ---------- 入力 ----------
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return
+    if (ovOpen) {
+      if (e.key === 'Escape' || e.key === 'o') closeOverview()
+      return
+    }
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'PageDown':
+      case ' ':
+        e.preventDefault()
+        go(idx + 1)
+        break
+      case 'ArrowLeft':
+      case 'PageUp':
+        e.preventDefault()
+        go(idx - 1)
+        break
+      case 'Home':
+        go(0)
+        break
+      case 'End':
+        go(slides.length - 1)
+        break
+      case 'f':
+        if (document.fullscreenElement) document.exitFullscreen()
+        else document.documentElement.requestFullscreen()
+        break
+      case 'o':
+        openOverview()
+        break
+      case 'Escape':
+        if (!document.fullscreenElement) openOverview()
+        break
+    }
+  })
+
+  // 画面の右 3 割で次へ、左 3 割で前へ（リンクと文字選択は邪魔しない）
+  var deck = document.getElementById('deck')
+  deck.addEventListener('click', function (e) {
+    if (e.target.closest('a, button')) return
+    if (String(window.getSelection() || '')) return
+    var x = e.clientX / window.innerWidth
+    if (x > 0.7) go(idx + 1)
+    else if (x < 0.3) go(idx - 1)
+  })
+
+  // 横スワイプ
+  var tx = null
+  var ty = null
+  deck.addEventListener(
+    'touchstart',
+    function (e) {
+      if (e.touches.length !== 1) return (tx = null)
+      tx = e.touches[0].clientX
+      ty = e.touches[0].clientY
+    },
+    { passive: true }
+  )
+  deck.addEventListener(
+    'touchend',
+    function (e) {
+      if (tx === null) return
+      var t = e.changedTouches[0]
+      var dx = t.clientX - tx
+      var dy = t.clientY - ty
+      tx = null
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? idx + 1 : idx - 1)
+    },
+    { passive: true }
+  )
+
+  var start = parseInt(location.hash.slice(1), 10)
+  if (start) idx = clamp(start - 1)
+  render()
+})()
+</script>
+</body>
+</html>

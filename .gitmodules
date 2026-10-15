@@ -1,0 +1,8 @@
+[submodule "ippon-slides"]
+	path = ippon-slides
+	url = https://github.com/tanahiro2010/ippon-slides.git
+	branch = main
+[submodule "Terraformで素数をマイニングしたら、ブロックチェーンが生まれた/sandbox"]
+	path = Terraformで素数をマイニングしたら、ブロックチェーンが生まれた/sandbox
+	url = https://github.com/tanahiro2010/terraform-primechain.git
+	branch = main
