@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Cloudflare Pages project name. Must match the project created in the
+  // Cloudflare dashboard (or on the first `wrangler pages deploy`).
+  "name": "slides",
+  "compatibility_date": "2026-10-12",
+  // Output of `vp run build` — the prerendered static site.
+  "pages_build_output_dir": "dist",
+}

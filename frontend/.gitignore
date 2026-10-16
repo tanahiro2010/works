@@ -33,3 +33,6 @@ dist-ssr
 
 # Vite+ SSG intermediate server bundle
 .vite-ssg
+
+# Wrangler
+.wrangler

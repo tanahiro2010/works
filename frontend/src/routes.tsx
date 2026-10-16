@@ -10,7 +10,7 @@ export interface Route {
 }
 
 /** Every route listed here gets its own static HTML file at build time. */
-export const routes: Route[] = [{ path: "/", title: "frontend", Component: App }];
+export const routes: Route[] = [{ path: "/", title: "slides / tanahiro2010", Component: App }];
 
 export function matchRoute(pathname: string): Route | undefined {
   const normalized = pathname.replace(/\/index\.html$/, "/").replace(/(.+)\/$/, "$1");

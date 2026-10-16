@@ -35,3 +35,12 @@ This app is React 19 prerendered to static HTML at build time — there is no se
 - `src/entry-server.tsx` is the SSR entry, built to the gitignored `.vite-ssg/` and consumed by `scripts/prerender.ts`.
 - `vp run build` runs all four steps: `tsc`, client build, SSR build, prerender. Plain `vp build` only produces the unrendered client bundle.
 - Keep components render-safe on the server: no `window`/`document` access outside effects, or the prerender step throws.
+
+## Deploy (Cloudflare Pages)
+
+`wrangler.jsonc` points Pages at `dist/`, which only exists after the full prerender.
+
+- `vp run deploy` — build + `wrangler pages deploy` from your machine.
+- `vp run preview:cf` — serve `dist/` through workerd, the closest local match to production.
+- `.github/workflows/deploy.yaml` deploys `main` on every change under `frontend/`. It needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repo secrets.
+- `compatibility_date` must not be newer than the bundled workerd supports, or `wrangler pages dev` refuses to start.
