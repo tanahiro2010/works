@@ -20,6 +20,11 @@ author: 田中博悠 / tanahiro2010
 - TypeScript / Web / CLI / AI Agent / Security
 - 個人開発・OSS・脆弱性調査・イベント運営
 
+バンジージャンプ
+
+::right::
+![tanahiro2010](./img/tanahiro_hono.jpg)
+
 ---
 
 ::center::
