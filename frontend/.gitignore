@@ -30,3 +30,6 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Vite+ SSG intermediate server bundle
+.vite-ssg

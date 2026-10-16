@@ -1,1 +1,3 @@
-vp staged
+# The git repo root is the parent of this package, so point vp at frontend/
+# where vite.config.ts (and its `staged` config) actually lives.
+vp -C "$(git rev-parse --show-toplevel)/frontend" staged
