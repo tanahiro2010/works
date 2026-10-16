@@ -20,7 +20,7 @@ author: 田中博悠 / tanahiro2010
 - TypeScript / Web / CLI / AI Agent / Security
 - 個人開発・OSS・脆弱性調査・イベント運営
 
-バンジージャンプ
+# バンジージャンプ
 
 ::right::
 ![tanahiro2010](./img/tanahiro_hono.jpg)
@@ -913,3 +913,5 @@ All You Need Is Terraform.
 Terraform PrimeChain
 
 田中博悠 / tanahiro2010
+https://github.com/tanahiro2010/terraform-primechain
+https://github.com/tanahiro2010/ippon-slides

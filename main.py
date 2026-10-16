@@ -5,6 +5,7 @@ import hashlib
 import subprocess
 
 CACHE_PATH = os.path.join(os.getcwd(), "cache.json")
+PROJECT_ROOTS = ("slides/speakerdeck", "slides/slides")
 
 DRAFT_CONTENT = """# {name}
 
@@ -70,7 +71,7 @@ def create_project_structure():
     print(f"Current working directory: {current_directory}")
 
     proj_name = input("Enter the project name: ").strip()
-    proj_path = os.path.join(current_directory, proj_name)
+    proj_path = os.path.join(current_directory, PROJECT_ROOTS[0], proj_name)
 
     if not os.path.exists(proj_path):
         os.makedirs(proj_path)
@@ -100,7 +101,13 @@ def delete_project_structure():
     print(f"Current working directory: {current_directory}")
 
     proj_name = input("Enter the project name to delete: ")
-    proj_path = os.path.join(current_directory, proj_name)
+    proj_path = proj_name
+    if not os.path.isdir(proj_path):
+        for project_root in PROJECT_ROOTS:
+            candidate = os.path.join(current_directory, project_root, proj_name)
+            if os.path.isdir(candidate):
+                proj_path = candidate
+                break
 
     if os.path.exists(proj_path) and os.path.isdir(proj_path):
         confirm = input(
@@ -120,9 +127,17 @@ def delete_project_structure():
 
 
 def export_marp():
-    projects = [d for d in os.listdir(".") if os.path.isdir(d)]
+    projects = []
+    for project_root in PROJECT_ROOTS:
+        root_path = os.path.join(os.getcwd(), project_root)
+        if not os.path.isdir(root_path):
+            continue
+        for project in os.listdir(root_path):
+            project_path = os.path.join(root_path, project)
+            if os.path.isdir(project_path):
+                projects.append((project, project_path))
     if not projects:
-        print("No projects found in the current directory.")
+        print("No projects found in the configured project directories.")
         return 1
 
     cache = {}
@@ -133,8 +148,7 @@ def export_marp():
         with open(CACHE_PATH, "r") as cache_file:
             cache = json.loads(cache_file.read() or "{}")
 
-    for project in projects:
-        project_path = os.path.join(os.getcwd(), project)
+    for project, project_path in projects:
         slide_file = os.path.join(project_path, "slide.md")
         if os.path.exists(slide_file):
             if slide_file in cache and cache[slide_file]["date"] == os.path.getmtime(
