@@ -25,16 +25,16 @@ The older codelab look used thin bordered cards, dashed grouping boxes, many pas
 
 Pick the form by the learner's need, not by what looks interesting.
 
-| Purpose                                 | Form                  | Current Google-style treatment                                                                      |
-| --------------------------------------- | --------------------- | --------------------------------------------------------------------------------------------------- |
-| Show what to click in real software     | Screenshot            | Real UI screenshot, cropped; use dimmed overlay and a focused callout only when useful              |
-| Explain a product capability            | Concept illustration  | Big labels, simple icons/avatars, speech bubbles or feature circles                                 |
-| Show how systems fit together           | Architecture diagram  | Large rounded gray canvas with white/gray modules, blue primary rail or gateway, product icon chips |
-| Show request/data movement              | Flow chart / sequence | Horizontal or top-to-bottom path, sparse arrows, short labels above arrows                          |
-| Show governance/security/control planes | Layered architecture  | Top capability row, middle runtime path, bottom observability/control strip                         |
-| Show parent-child structure             | Hierarchy tree        | Simple circles or chips connected by thin lines; keep the tree sparse                               |
-| Compare two modes                       | Two-panel or table    | Use a table for precise distinctions; use side-by-side panels only for visual differences           |
-| Introduce a protocol or brand topic     | Header graphic        | Dark or image-rich header is acceptable, but keep body diagrams light                               |
+| Purpose | Form | Current Google-style treatment |
+|---|---|---|
+| Show what to click in real software | Screenshot | Real UI screenshot, cropped; use dimmed overlay and a focused callout only when useful |
+| Explain a product capability | Concept illustration | Big labels, simple icons/avatars, speech bubbles or feature circles |
+| Show how systems fit together | Architecture diagram | Large rounded gray canvas with white/gray modules, blue primary rail or gateway, product icon chips |
+| Show request/data movement | Flow chart / sequence | Horizontal or top-to-bottom path, sparse arrows, short labels above arrows |
+| Show governance/security/control planes | Layered architecture | Top capability row, middle runtime path, bottom observability/control strip |
+| Show parent-child structure | Hierarchy tree | Simple circles or chips connected by thin lines; keep the tree sparse |
+| Compare two modes | Two-panel or table | Use a table for precise distinctions; use side-by-side panels only for visual differences |
+| Introduce a protocol or brand topic | Header graphic | Dark or image-rich header is acceptable, but keep body diagrams light |
 
 Screenshots stay screenshots. Do not redraw a product UI as a diagram when an actual screenshot is more truthful.
 
