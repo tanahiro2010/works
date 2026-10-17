@@ -3,6 +3,8 @@ import slidesData from "../data/slides.json";
 type Slide = {
   name: string;
   slug: string;
+  /** frontmatter の summary。一覧と OGP はこちらを優先する。 */
+  summary: string;
   date: string;
   updated: string;
   path: string;
@@ -39,8 +41,11 @@ const sections = SECTIONS.map(({ key, heading, note }) => ({
   slides: [...(groups[key]?.slides ?? [])].sort(byDate),
 })).filter((section) => section.slides.length > 0);
 
-/** 「メインタイトル――サブタイトル」は一覧ではメインだけ出す。 */
-const mainTitle = (name: string) => name.split("――")[0].trim() || name;
+/**
+ * 一覧に出す見出し。frontmatter の summary があればそれを使う。
+ * 無ければ「メインタイトル――サブタイトル」のメインだけ出す。
+ */
+const listTitle = (slide: Slide) => slide.summary || slide.name.split("――")[0].trim() || slide.name;
 
 const Index = () => (
   <main>
@@ -68,8 +73,7 @@ const Index = () => (
         <ul className="slide-list">
           {section.slides.map((slide) => (
             <li key={slide.slug}>
-              <a href={slide.path}>{mainTitle(slide.name)}</a>{" "}
-              <span className="meta">{slide.date}</span>
+              <a href={slide.path}>{listTitle(slide)}</a> <span className="meta">{slide.date}</span>
             </li>
           ))}
         </ul>
