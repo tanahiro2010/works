@@ -4,14 +4,15 @@ type Slide = {
   name: string;
   slug: string;
   date: string;
+  updated: string;
   path: string;
 };
 
 const slides: Slide[] = Object.values(slidesData)
   .flatMap((group) => group.slides as Slide[])
-  .sort((a, b) => b.date.localeCompare(a.date));
+  .sort((a, b) => b.updated.localeCompare(a.updated) || b.date.localeCompare(a.date));
 
-/** 年ごとに切る。デッキが増えても見出しが自然に増えていく。 */
+/** 年ごとに切る。見出しは「発表年」なので date のまま。並び順だけが更新順。 */
 const byYear = slides.reduce<Record<string, Slide[]>>((acc, slide) => {
   const year = slide.date.slice(0, 4) || "Undated";
   (acc[year] ??= []).push(slide);

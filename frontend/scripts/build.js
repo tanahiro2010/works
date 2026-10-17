@@ -50,14 +50,15 @@ const getSlides = () => {
         slug: meta.slug,
         title: meta.title,
         date: meta.date,
+        updated: meta.updated,
         dir: relDir,
         path: `/slides/${meta.slug}/`,
         renderer: group.renderer,
       });
     });
 
-    // 新しい順。
-    group.slides.sort((a, b) => b.date.localeCompare(a.date));
+    // 最近さわったフォルダが先頭。同時刻なら発表日が新しい方を先に。
+    group.slides.sort((a, b) => b.updated.localeCompare(a.updated) || b.date.localeCompare(a.date));
     group.slides.forEach((slide, idx) => {
       slide.index = `${key}_${idx}`;
     });

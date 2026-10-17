@@ -2,6 +2,7 @@
 title: コミュニティ活動のすゝめ
 description: 〜 学校の外に、もうひとつの世界を。 〜
 author: 田中博悠 / tanahiro2010
+date: 2026-10-17
 slug: community-activity
 ---
 

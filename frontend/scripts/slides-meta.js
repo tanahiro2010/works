@@ -7,9 +7,12 @@
 //   title : frontmatter の `title:` → 無ければフォルダ名
 //   date  : frontmatter の `date:` → 無ければ slide.md が git に入った日
 //           → git が無い環境ではファイルの更新日時
+//   updated: デッキのフォルダを最後にさわったコミットの時刻（並び替え用）
+//           → git が無い環境ではフォルダ内で一番新しいファイルの更新時刻
 
 import { execFileSync } from "node:child_process";
 import * as fs from "node:fs";
+import * as path from "node:path";
 
 /** 「2026年7月17日」「2026/08/06」「2026-07-30」などを YYYY-MM-DD に揃える。 */
 export const normalizeDate = (raw) => {
@@ -47,6 +50,39 @@ const gitAddedDate = (repoRoot, relPath) => {
   }
 };
 
+/** デッキのフォルダを最後にさわったコミットの時刻。 */
+const gitUpdatedAt = (repoRoot, relDir) => {
+  try {
+    return execFileSync("git", ["log", "-1", "--format=%cI", "--", relDir], {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {
+    return "";
+  }
+};
+
+/** フォルダ内で一番新しいファイルの更新時刻。git が使えない環境向け。 */
+const newestMtime = (dir) => {
+  let newest = 0;
+  const walk = (d) => {
+    for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
+      const p = path.join(d, entry.name);
+      if (entry.isDirectory()) walk(p);
+      else newest = Math.max(newest, fs.statSync(p).mtimeMs);
+    }
+  };
+  walk(dir);
+  return newest ? new Date(newest).toISOString() : "";
+};
+
+/** `+09:00` 付きと `Z` 付きが混ざると文字列比較で並び順が壊れるので UTC に揃える。 */
+const toUtc = (iso) => {
+  const t = Date.parse(iso);
+  return Number.isNaN(t) ? "" : new Date(t).toISOString();
+};
+
 export const readSlideMeta = ({ repoRoot, relDir, folder, file }) => {
   const md = fs.readFileSync(file, "utf8");
   const fm = parseFrontmatter(md);
@@ -56,10 +92,16 @@ export const readSlideMeta = ({ repoRoot, relDir, folder, file }) => {
     gitAddedDate(repoRoot, `${relDir}/slide.md`) ||
     fs.statSync(file).mtime.toISOString().slice(0, 10);
 
+  const updated =
+    toUtc(gitUpdatedAt(repoRoot, relDir)) ||
+    newestMtime(path.join(repoRoot, relDir)) ||
+    toUtc(`${date}T00:00:00Z`);
+
   return {
     slug: fm.slug || folder,
     title: fm.title || folder,
     date,
+    updated,
     hasSlug: Boolean(fm.slug),
   };
 };

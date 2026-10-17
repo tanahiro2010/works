@@ -3,6 +3,7 @@ import sys
 import json
 import hashlib
 import subprocess
+from datetime import date
 
 CACHE_PATH = os.path.join(os.getcwd(), "cache.json")
 PROJECT_ROOTS = ("slides/speakerdeck", "slides/slides")
@@ -41,7 +42,7 @@ ARTIFACTS = {
         {"name": "article.md", "content": "# {name}"},
         {
             "name": "slide.md",
-            "content": '---\ntitle: {name}\ndescription: ""\nauthor: ""\ndate: ""\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n',
+            "content": '---\ntitle: {name}\ndescription: ""\nauthor: ""\ndate: "{today}"\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n',
         },
         {"name": "README.md", "content": "# {name}"},
         {"name": "codelab/claat.md"},
@@ -85,7 +86,11 @@ def create_project_structure():
             file_path = os.path.join(proj_path, file["name"])
             with open(file_path, "w", encoding="utf-8") as f:
                 if "content" in file:
-                    f.write(file["content"].format(name=proj_name))
+                    f.write(
+                        file["content"].format(
+                            name=proj_name, today=date.today().isoformat()
+                        )
+                    )
                 else:
                     f.write("")
 
