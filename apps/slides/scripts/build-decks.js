@@ -92,6 +92,22 @@ const site = JSON.parse(
  * marp も ippon も <title> しか出さないので、このままだと
  * サイトの大半のページが検索結果で説明文を持てない。
  */
+/**
+ * 記事版への導線。デッキ本体はスライドショーなので本文に差し込めない。
+ * 右上に小さく固定表示し、全画面表示中は消す（操作の邪魔になるため）。
+ */
+const articleBadge = (slide) =>
+  slide.articleUrl
+    ? `<style>
+#to-article{position:fixed;top:12px;right:12px;z-index:9999;padding:6px 12px;
+border:1px solid rgba(128,128,128,.4);border-radius:999px;background:rgba(255,255,255,.92);
+color:#111;font:500 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(4px)}
+#to-article:hover{border-color:#0645ad;color:#0645ad}
+:fullscreen #to-article,body:fullscreen #to-article{display:none}
+@media print{#to-article{display:none}}</style>
+<a id="to-article" href="${slide.articleUrl}">記事版を読む &rarr;</a>`
+    : "";
+
 const addSeo = (html, slide) =>
   injectHead(
     html,
@@ -276,6 +292,8 @@ const build = () => {
         if (slide.renderer === "marp") buildMarp(srcDir, outDir);
         else buildIppon(srcDir, outDir);
         html = addSeo(fs.readFileSync(outFile, "utf8"), slide);
+        const badge = articleBadge(slide);
+        if (badge) html = html.replace(/<\/body>/i, `${badge}\n</body>`);
         fs.writeFileSync(outFile, html);
         fs.mkdirSync(cacheDir, { recursive: true });
         fs.writeFileSync(cached, html);

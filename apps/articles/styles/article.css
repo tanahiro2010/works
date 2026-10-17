@@ -171,3 +171,60 @@ footer {
   border-color: #c00;
   color: #c00;
 }
+
+/* 記事上部・下部のナビゲーション。長い本文の行き止まりを作らない。 */
+.article-top {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.article-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+
+.article-top a,
+.article-nav a {
+  color: var(--link);
+}
+
+/* スクロールしたら出る「上へ」。JS が無い環境では hidden のまま出ない。 */
+#to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+  transition: opacity 0.2s ease;
+}
+
+#to-top:hover {
+  color: var(--link);
+  border-color: var(--link);
+}
+
+#to-top[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #to-top {
+    transition: none;
+  }
+}

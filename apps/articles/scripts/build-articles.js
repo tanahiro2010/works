@@ -36,6 +36,24 @@ const copyAssets = (srcDir, outDir) => {
   }
 };
 
+/**
+ * 下まで読んだ人が戻れるようにする。
+ * 本文が長いので、スクロールしたら右下に「上へ」を出す。
+ */
+const TOP_BUTTON = `<button type="button" id="to-top" aria-label="ページ上部へ戻る" hidden>&uarr;</button>
+<script>
+(() => {
+  const btn = document.getElementById("to-top");
+  const onScroll = () => { btn.hidden = window.scrollY < 600; };
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  btn.addEventListener("click", () => {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  });
+})();
+</script>`;
+
 const KATEX_LINK = '<link rel="stylesheet" href="/katex/katex.min.css">';
 
 /** KaTeX の CSS とフォントを dist/katex/ に複製する。CDN には頼らない。 */
@@ -81,7 +99,10 @@ ${hasMermaid ? MERMAID_SCRIPT : ""}
 </head>
 <body>
 <main>
-<a class="back" href="/">&larr; 記事一覧</a>
+<nav class="article-top">
+<a href="/">&larr; 記事一覧</a>
+${article.slideUrl ? `<a href="${esc(article.slideUrl)}">スライド版</a>` : ""}
+</nav>
 <article>
 <header class="article-header">
 <h1>${esc(article.title)}</h1>
@@ -91,8 +112,13 @@ ${hasMermaid ? MERMAID_SCRIPT : ""}
 ${body}
 </div>
 </article>
+<nav class="article-nav">
+<a href="/">&larr; 記事一覧</a>
+${article.slideUrl ? `<a href="${esc(article.slideUrl)}">スライド版を見る &rarr;</a>` : ""}
+</nav>
 <footer>© tanahiro2010</footer>
 </main>
+${TOP_BUTTON}
 </body>
 </html>
 `;

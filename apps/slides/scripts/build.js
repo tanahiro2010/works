@@ -13,6 +13,9 @@ import { readDocMeta } from "@tanahiro2010/ssg/frontmatter";
 // against the repo root rather than whatever directory node was started in.
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
 const outFile = fileURLToPath(new URL("../src/data/slides.json", import.meta.url));
+const site = JSON.parse(
+  fs.readFileSync(fileURLToPath(new URL("../site.config.json", import.meta.url)), "utf8"),
+);
 
 const slides = {
   slides: {
@@ -62,6 +65,14 @@ const excerptOf = (md) => {
   return "";
 };
 
+/** 隣の article.md が公開済みか。公開されていれば記事へのリンクを出す。 */
+const hasPublishedArticle = (dir) => {
+  const file = path.join(dir, "article.md");
+  if (!fs.existsSync(file)) return false;
+  const fm = fs.readFileSync(file, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  return Boolean(fm && /^published:\s*true\s*$/m.test(fm[1]));
+};
+
 const getSlides = () => {
   Object.keys(slides).forEach((key) => {
     const group = slides[key];
@@ -87,6 +98,10 @@ const getSlides = () => {
         // frontmatter の summary を優先する。
         summary: meta.frontmatter.summary || "",
         image: `/og/${meta.slug}.png`,
+        // 両方公開されているときだけ、記事版への導線を出す。
+        articleUrl: hasPublishedArticle(path.join(dir, folder))
+          ? `${site.blogUrl}/articles/${meta.slug}/`
+          : "",
         description:
           meta.frontmatter.description ||
           excerptOf(fs.readFileSync(file, "utf8")) ||

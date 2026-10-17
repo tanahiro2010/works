@@ -13,6 +13,9 @@ import { parseFrontmatter, readDocMeta } from "@tanahiro2010/ssg/frontmatter";
 
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
 const outFile = fileURLToPath(new URL("../src/data/articles.json", import.meta.url));
+const site = JSON.parse(
+  fs.readFileSync(fileURLToPath(new URL("../site.config.json", import.meta.url)), "utf8"),
+);
 
 const GROUPS = ["slides/slides", "slides/speakerdeck"];
 
@@ -118,6 +121,10 @@ const collect = () => {
         description: meta.frontmatter.description || excerptOf(source),
         summary: meta.frontmatter.summary || "",
         image: `/og/${slug}.png`,
+        // 記事は必ずデッキと同じフォルダにあるので、スライド版へ必ず飛べる。
+        slideUrl: fs.existsSync(path.join(dir, folder, "slide.md"))
+          ? `${site.slidesUrl}/slides/${slug}/`
+          : "",
         wordCount: countWords(source),
         keywords: keywordsOf(source, meta.frontmatter),
         dir: relDir,
