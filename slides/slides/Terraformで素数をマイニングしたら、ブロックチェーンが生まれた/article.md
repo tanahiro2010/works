@@ -1,3 +1,7 @@
+---
+published: true
+---
+
 # Terraformで素数をマイニングしたら、ブロックチェーンが生まれた
 
 > Infrastructure as Code。つまり Code。なら何でもできますよね？

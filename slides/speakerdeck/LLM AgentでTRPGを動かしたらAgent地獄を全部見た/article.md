@@ -1,3 +1,7 @@
+---
+published: true
+---
+
 # LLM AgentでTRPGを動かしたら、Agentの地獄を（多分）全部見た
 
 こんにちは。

@@ -1,3 +1,7 @@
+---
+published: true
+---
+
 # PHPの命名規則、結局camelCaseとsnake_caseどっちなんだ
 
 標準実装されてる関数はスネークケース。

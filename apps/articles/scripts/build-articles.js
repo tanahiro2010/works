@@ -27,20 +27,35 @@ const site = JSON.parse(
 
 const { articles } = JSON.parse(fs.readFileSync(articlesJson, "utf8"));
 
-const md = MarkdownIt({ html: true, linkify: true, typographer: false });
-md.use(
-  await Shiki({
-    themes: { light: "github-light", dark: "github-dark" },
-    defaultColor: "light",
-  }),
-);
-
 const esc = (s) =>
   String(s)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+
+const md = MarkdownIt({ html: true, linkify: true, typographer: false });
+md.use(
+  await Shiki({
+    themes: { light: "github-light", dark: "github-dark" },
+    defaultColor: "light",
+    // 記事には gitignore のような Shiki が知らない言語指定も出てくる。
+    // 落とさずプレーンテキストとして出す。
+    fallbackLanguage: "text",
+  }),
+);
+
+// mermaid はコードではなく図。ハイライトせずそのまま渡して、
+// 描画はページ側の mermaid.js に任せる。
+const highlightFence = md.renderer.rules.fence;
+md.renderer.rules.fence = (tokens, idx, options, env, self) => {
+  const token = tokens[idx];
+  if (token.info.trim().toLowerCase() === "mermaid") {
+    env.hasMermaid = true;
+    return `<pre class="mermaid">${esc(token.content)}</pre>\n`;
+  }
+  return highlightFence(tokens, idx, options, env, self);
+};
 
 /** 相対パスの画像を、出力先から見たパスに書き換えつつ実体をコピーする。 */
 const copyAssets = (srcDir, outDir) => {
@@ -50,7 +65,12 @@ const copyAssets = (srcDir, outDir) => {
   }
 };
 
-const page = (article, body) => `<!doctype html>
+const MERMAID_SCRIPT = `<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "neutral" });
+</script>`;
+
+const page = (article, body, hasMermaid) => `<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -67,6 +87,7 @@ ${renderHead({
   jsonLd: blogPostingSchema(site, article),
 })}
 <style>${articleCss}</style>
+${hasMermaid ? MERMAID_SCRIPT : ""}
 </head>
 <body>
 <main>
@@ -126,9 +147,10 @@ const build = () => {
       .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "")
       // 先頭の `# 見出し` はページ上部に別途出すので本文からは落とす。
       .replace(/^\s*#\s+.+$/m, "");
-    const body = md.render(markdown);
+    const env = {};
+    const body = md.render(markdown, env);
 
-    fs.writeFileSync(path.join(outDir, "index.html"), page(article, body));
+    fs.writeFileSync(path.join(outDir, "index.html"), page(article, body, env.hasMermaid));
     copyAssets(srcDir, outDir);
   }
 

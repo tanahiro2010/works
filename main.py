@@ -41,10 +41,17 @@ https://zenn.dev/meijin/articles/tech-article-output-recommend
 ARTIFACTS = {
     "file": [
         {"name": "draft.md", "content": DRAFT_CONTENT},
-        {"name": "article.md", "content": "# {name}"},
+        # published が true の記事だけが blog.tanahiro2010.com に出る。
+        # 書き上がったら true に変えること。
+        {
+            "name": "article.md",
+            "content": "---\npublished: false\n---\n\n# {name}\n",
+        },
+        # slug はそのまま URL になる（/slides/<slug>/ と /articles/<slug>/）。
+        # 記事側は slide.md の slug を借りるので、ここで決めれば両方に効く。
         {
             "name": "slide.md",
-            "content": '---\ntitle: {name}\ndescription: ""\nauthor: ""\ndate: "{today}"\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n',
+            "content": '---\ntitle: {name}\ndescription: ""\nauthor: ""\ndate: "{today}"\nslug: {slug}\nmarp: true\n---\n\n# Slide Title\n\n- Point 1\n- Point 2\n',
         },
         {"name": "README.md", "content": "# {name}"},
         {"name": "codelab/claat.md"},
@@ -74,6 +81,14 @@ def create_project_structure():
     print(f"Current working directory: {current_directory}")
 
     proj_name = input("Enter the project name: ").strip()
+    proj_slug = input("Enter the URL slug (a-z0-9-): ").strip()
+    if not proj_slug:
+        proj_slug = proj_name
+        print(
+            "warning: slug が空なのでフォルダ名を使います。"
+            "日本語のままだと URL がパーセントエンコードされるので、"
+            "あとで slide.md の slug を直してください。"
+        )
     proj_type = input("Enter the project type (speakerdeck: 0 /slides: 1): ").strip().lower()
     proj_path = os.path.join(current_directory, PROJECT_ROOTS[int(proj_type)], proj_name)
 
@@ -91,7 +106,9 @@ def create_project_structure():
                 if "content" in file:
                     f.write(
                         file["content"].format(
-                            name=proj_name, today=date.today().isoformat()
+                            name=proj_name,
+                            slug=proj_slug,
+                            today=date.today().isoformat(),
                         )
                     )
                 else:
