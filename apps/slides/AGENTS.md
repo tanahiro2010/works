@@ -26,6 +26,33 @@ release. Add a tool name to select part of the graph. For example, run
 
 <!--VITE PLUS END-->
 
+## ワークスペース
+
+bun ワークスペース。`apps/slides`（slides.tanahiro2010.com）と
+`apps/articles`（blog.tanahiro2010.com）が `packages/ssg` を共有する。
+lint / fmt / commit フックの設定はリポジトリルートの `vite.config.ts` に集約。
+`vp check` はルートから走らせる。
+
+`packages/ssg` が持っているもの:
+
+- `client` / `server` — routes を渡すと hydrate / renderToString する
+- `routes` — `Route` 型と `matchRoute`
+- `frontmatter` — Markdown の frontmatter から slug / title / date / updated を読む
+- `ssg-prerender` — dist にルートを書き出すコマンド（アプリのディレクトリで実行）
+
+## 記事（apps/articles）
+
+記事は `slides/<group>/<名前>/article.md`。スライドと同じフォルダに同居する。
+
+- **frontmatter に `published: true` が無い記事は出力されない。** 書き忘れは非公開に倒れる。
+- slug は記事の `slug:` → 隣の `slide.md` の `slug:` → フォルダ名、の順で決まる。
+  デッキと URL を揃えたいので slide.md のものを借りる。
+- タイトルは記事の `title:` → 本文先頭の `# 見出し` → フォルダ名。
+  見出しをタイトルに使った場合、本文からは落とす。
+- 本文は `scripts/build-articles.js` が markdown-it + Shiki で HTML にして
+  `dist/articles/<slug>/` に置く。React には載せない（載せると本文が
+  まるごとクライアントのバンドルに入る）。
+
 ## スライドサイト構成
 
 `/` の一覧は React SSG、`/slides/<slug>/` は marp / ippon-slides が吐いた完結 HTML。

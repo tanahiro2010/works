@@ -1,0 +1,8 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // blog.tanahiro2010.com を割り当てる Cloudflare Pages プロジェクト。
+  "name": "blog",
+  "compatibility_date": "2026-10-12",
+  // vp run build の出力（記事HTMLまで含んだもの）。
+  "pages_build_output_dir": "dist",
+}

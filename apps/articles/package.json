@@ -1,0 +1,29 @@
+{
+  "name": "@tanahiro2010/articles",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "node scripts/build.js && tsc && vp build && vp build --ssr src/entry-server.tsx --outDir .vite-ssg && ssg-prerender && node scripts/build-articles.js",
+    "preview": "vp preview",
+    "preview:cf": "wrangler pages dev",
+    "deploy": "vp run build && wrangler pages deploy"
+  },
+  "dependencies": {
+    "@tanahiro2010/ssg": "workspace:*",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@shikijs/markdown-it": "^3.0.0",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "markdown-it": "^14.1.0",
+    "shiki": "^3.0.0",
+    "wrangler": "^4.151.1"
+  }
+}

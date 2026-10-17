@@ -1,4 +1,4 @@
-name: Deploy slides to Cloudflare Pages
+name: Deploy to Cloudflare Pages
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: cloudflare-pages-deploy
+  group: cloudflare-pages-deploy-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -22,6 +22,12 @@ jobs:
     permissions:
       contents: read
       deployments: write
+    strategy:
+      # 片方が落ちてももう片方は出す。
+      fail-fast: false
+      matrix:
+        # Pages のプロジェクト名は各アプリの wrangler.jsonc が持っている。
+        app: [slides, articles]
     steps:
       # 日付は slide.md が git に入った日から引くので、全履歴が要る。
       # 浅いクローンだと全デッキが同じ日付になってしまう。
@@ -29,8 +35,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # scripts/prerender.ts is run directly by node, which needs >= 22.18
-      # for type stripping.
+      # ビルドスクリプトを node が直接実行するので 24 を明示しておく。
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
@@ -43,9 +48,8 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      # tsc -> client build -> SSR build -> prerender into apps/slides/dist
       - name: Build static site
-        working-directory: apps/slides
+        working-directory: apps/${{ matrix.app }}
         run: bun run build
 
       - name: Deploy to Cloudflare Pages
@@ -53,6 +57,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: apps/slides
+          workingDirectory: apps/${{ matrix.app }}
           packageManager: bun
           command: pages deploy
