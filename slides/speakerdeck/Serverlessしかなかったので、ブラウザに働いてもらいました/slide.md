@@ -321,7 +321,7 @@ PoWを書いた記憶が蘇った。
 
 <div class="center">
 
-![pow](./outputs/whatispow.png)
+![pow](img/whatispow.png)
 
 </div>
 

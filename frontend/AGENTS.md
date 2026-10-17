@@ -37,6 +37,11 @@ release. Add a tool name to select part of the graph. For example, run
 - `date:` が無いデッキは slide.md が git に入った日を使う。CI の checkout は `fetch-depth: 0` が必須。
 - `scripts/build.js` — `slides.json`（メタデータのみ）をリポジトリ root に生成。デッキ本文は入れない。
 - `scripts/build-decks.js` — `slides/speakerdeck/*` を marp、`slides/slides/*` を ippon でビルドし `dist/slides/<slug>/` へ。
+- 画像はデッキ直下の `img/`（`images/` `assets/` も可）に置き、slide.md からは `img/x.png` と相対で書くのが基本。
+  デッキ内ならどこに置いてもよく、ビルド時に出力 HTML の参照を読んで `dist/slides/<slug>/` へ自動で複製する
+  （参照どおりの場所に無ければファイル名で探す。`sandbox/` `codelab/` は見ない）。
+- デッキの画像切れはローカルだと隣のフォルダに繋がって気付けないので、ビルド末尾に dist 基準で参照を検査し `WARN` を出す。
+  テーマが使う `../../assets/...` は `.marp/assets/` を置けば `dist/assets/` に複製される（今は実体が無く WARN が出たまま）。
 - `/slides/*` は React のルートではないので `routes.tsx` に足さないこと。
 
 ## React SSG
