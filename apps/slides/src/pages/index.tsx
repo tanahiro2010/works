@@ -25,14 +25,18 @@ const SECTIONS = [
   },
 ] as const;
 
-/** 最近さわったものが先頭。同時刻なら発表日が新しい方を先に。 */
-const byUpdated = (a: Slide, b: Slide) =>
-  b.updated.localeCompare(a.updated) || b.date.localeCompare(a.date);
+/**
+ * 発表日が新しい順。並びと表示する日付は同じものにする。
+ * updated で並べると、誤字を直しただけの資料が先頭に来て、
+ * 表示されている日付と順番が食い違って見える。
+ */
+const byDate = (a: Slide, b: Slide) =>
+  b.date.localeCompare(a.date) || b.updated.localeCompare(a.updated);
 
 const sections = SECTIONS.map(({ key, heading, note }) => ({
   heading,
   note,
-  slides: [...(groups[key]?.slides ?? [])].sort(byUpdated),
+  slides: [...(groups[key]?.slides ?? [])].sort(byDate),
 })).filter((section) => section.slides.length > 0);
 
 /** 「メインタイトル――サブタイトル」は一覧ではメインだけ出す。 */
