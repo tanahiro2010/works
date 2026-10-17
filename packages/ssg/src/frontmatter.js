@@ -1,11 +1,12 @@
-// slide.md の frontmatter から slug / title / date を取り出す。
+// Markdown の frontmatter から slug / title / date を取り出す。slide.md と
+// article.md の両方で使う。
 //
 // 足りないぶんは自動で補う。中央に一覧を持たないので、デッキのフォルダを
 // 足せばそれだけでサイトに載る。
 //
 //   slug  : frontmatter の `slug:` → 無ければフォルダ名（URL エンコードされる）
 //   title : frontmatter の `title:` → 無ければフォルダ名
-//   date  : frontmatter の `date:` → 無ければ slide.md が git に入った日
+//   date  : frontmatter の `date:` → 無ければその Markdown が git に入った日
 //           → git が無い環境ではファイルの更新日時
 //   updated: デッキのフォルダを最後にさわったコミットの時刻（並び替え用）
 //           → git が無い環境ではフォルダ内で一番新しいファイルの更新時刻
@@ -26,7 +27,7 @@ export const normalizeDate = (raw) => {
   return "";
 };
 
-const parseFrontmatter = (md) => {
+export const parseFrontmatter = (md) => {
   const block = md.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!block) return {};
   const fields = {};
@@ -37,7 +38,7 @@ const parseFrontmatter = (md) => {
   return fields;
 };
 
-/** slide.md が最初にコミットされた日。リネームも追う。 */
+/** その Markdown が最初にコミットされた日。リネームも追う。 */
 const gitAddedDate = (repoRoot, relPath) => {
   try {
     return execFileSync(
@@ -50,7 +51,7 @@ const gitAddedDate = (repoRoot, relPath) => {
   }
 };
 
-/** デッキのフォルダを最後にさわったコミットの時刻。 */
+/** そのフォルダを最後にさわったコミットの時刻。 */
 const gitUpdatedAt = (repoRoot, relDir) => {
   try {
     return execFileSync("git", ["log", "-1", "--format=%cI", "--", relDir], {
@@ -83,13 +84,21 @@ const toUtc = (iso) => {
   return Number.isNaN(t) ? "" : new Date(t).toISOString();
 };
 
-export const readSlideMeta = ({ repoRoot, relDir, folder, file }) => {
+/**
+ * @param {object} args
+ * @param {string} args.repoRoot リポジトリのルート
+ * @param {string} args.relDir   リポジトリ相対のフォルダ（例 slides/speakerdeck/foo）
+ * @param {string} args.folder   フォルダ名。slug / title のフォールバックに使う
+ * @param {string} args.file     読む Markdown の絶対パス（slide.md か article.md）
+ */
+export const readDocMeta = ({ repoRoot, relDir, folder, file }) => {
   const md = fs.readFileSync(file, "utf8");
   const fm = parseFrontmatter(md);
+  const relFile = `${relDir}/${path.basename(file)}`;
 
   const date =
     normalizeDate(fm.date) ||
-    gitAddedDate(repoRoot, `${relDir}/slide.md`) ||
+    gitAddedDate(repoRoot, relFile) ||
     fs.statSync(file).mtime.toISOString().slice(0, 10);
 
   const updated =
@@ -103,5 +112,6 @@ export const readSlideMeta = ({ repoRoot, relDir, folder, file }) => {
     date,
     updated,
     hasSlug: Boolean(fm.slug),
+    frontmatter: fm,
   };
 };

@@ -1,0 +1,25 @@
+{
+  "name": "@tanahiro2010/ssg",
+  "version": "0.0.0",
+  "private": true,
+  "bin": {
+    "ssg-prerender": "./bin/prerender.js"
+  },
+  "type": "module",
+  "exports": {
+    "./client": "./src/client.tsx",
+    "./server": "./src/server.tsx",
+    "./routes": "./src/routes.ts",
+    "./frontmatter": "./src/frontmatter.js"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

@@ -7,7 +7,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { readSlideMeta } from "./slides-meta.js";
+import { readDocMeta } from "@tanahiro2010/ssg/frontmatter";
 
 // This script lives in <repo>/apps/slides/scripts, so resolve the slide folders
 // against the repo root rather than whatever directory node was started in.
@@ -40,7 +40,7 @@ const getSlides = () => {
       if (!fs.existsSync(file)) return;
 
       const relDir = `${group.path}/${folder}`;
-      const meta = readSlideMeta({ repoRoot, relDir, folder, file });
+      const meta = readDocMeta({ repoRoot, relDir, folder, file });
       if (!meta.hasSlug) {
         console.warn(`warn: ${folder} に slug: が無いのでフォルダ名を URL に使う`);
       }

@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "build": "node scripts/build.js && tsc && vp build && vp build --ssr src/entry-server.tsx --outDir .vite-ssg && node scripts/prerender.ts && node scripts/build-decks.js",
+    "build": "node scripts/build.js && tsc && vp build && vp build --ssr src/entry-server.tsx --outDir .vite-ssg && ssg-prerender && node scripts/build-decks.js",
     "preview": "vp preview",
     "preview:cf": "wrangler pages dev",
     "deploy": "vp run build && wrangler pages deploy"
   },
   "dependencies": {
+    "@tanahiro2010/ssg": "workspace:*",
     "ippon-slides": "^0.1.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
