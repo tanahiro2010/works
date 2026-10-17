@@ -72,7 +72,8 @@ def create_project_structure():
     print(f"Current working directory: {current_directory}")
 
     proj_name = input("Enter the project name: ").strip()
-    proj_path = os.path.join(current_directory, PROJECT_ROOTS[0], proj_name)
+    proj_type = input("Enter the project type (speakerdeck: 0 /slides: 1): ").strip().lower()
+    proj_path = os.path.join(current_directory, PROJECT_ROOTS[int(proj_type)], proj_name)
 
     if not os.path.exists(proj_path):
         os.makedirs(proj_path)
