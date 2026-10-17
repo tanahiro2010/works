@@ -9,10 +9,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import Shiki from "@shikijs/markdown-it";
-import katex from "katex";
 import { blogPostingSchema, breadcrumbSchema, renderHead } from "@tanahiro2010/ssg/head";
-import MarkdownIt from "markdown-it";
+import { createMarkdown, esc } from "./markdown.js";
 
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
 const distDir = fileURLToPath(new URL("../dist", import.meta.url));
@@ -26,81 +24,9 @@ const site = JSON.parse(
   fs.readFileSync(fileURLToPath(new URL("../site.config.json", import.meta.url)), "utf8"),
 );
 
+const md = await createMarkdown();
+
 const { articles } = JSON.parse(fs.readFileSync(articlesJson, "utf8"));
-
-const esc = (s) =>
-  String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-
-const md = MarkdownIt({ html: true, linkify: true, typographer: false });
-md.use(
-  await Shiki({
-    themes: { light: "github-light", dark: "github-dark" },
-    defaultColor: "light",
-    // 記事には gitignore のような Shiki が知らない言語指定も出てくる。
-    // 落とさずプレーンテキストとして出す。
-    fallbackLanguage: "text",
-  }),
-);
-
-/**
- * `$$` で囲んだ行を数式にする。
- *
- * インラインの `$...$` は実装しない。記事には PHP の `$search` や
- * Makefile の `$$(seq ...)` が普通に出てくるので、拾いにいくと本文が壊れる。
- * ビルド時に KaTeX で HTML + MathML にするため、閲覧側に JS は要らない。
- */
-md.block.ruler.before("fence", "math_block", (state, startLine, endLine, silent) => {
-  const open = state.bMarks[startLine] + state.tShift[startLine];
-  const openEnd = state.eMarks[startLine];
-  if (state.src.slice(open, openEnd).trim() !== "$$") return false;
-
-  let line = startLine;
-  while (++line < endLine) {
-    const from = state.bMarks[line] + state.tShift[line];
-    if (state.src.slice(from, state.eMarks[line]).trim() === "$$") break;
-  }
-  if (line >= endLine) return false; // 閉じが無ければ数式として扱わない
-  if (silent) return true;
-
-  const body = state.getLines(startLine + 1, line, state.blkIndent, false).trim();
-  const token = state.push("math_block", "", 0);
-  token.content = body;
-  token.map = [startLine, line + 1];
-  state.line = line + 1;
-  return true;
-});
-
-md.renderer.rules.math_block = (tokens, idx, _options, env) => {
-  env.hasMath = true;
-  try {
-    return `<div class="math-block">${katex.renderToString(tokens[idx].content, {
-      displayMode: true,
-      output: "htmlAndMathml",
-      throwOnError: true,
-      strict: false,
-    })}</div>\n`;
-  } catch (err) {
-    // 数式が壊れていてもビルドは止めない。原文をそのまま出して警告する。
-    console.warn(`  WARN 数式を解釈できませんでした: ${err.message}`);
-    return `<pre class="math-error">${esc(tokens[idx].content)}</pre>\n`;
-  }
-};
-
-// mermaid はコードではなく図。ハイライトせずそのまま渡して、
-// 描画はページ側の mermaid.js に任せる。
-const highlightFence = md.renderer.rules.fence;
-md.renderer.rules.fence = (tokens, idx, options, env, self) => {
-  const token = tokens[idx];
-  if (token.info.trim().toLowerCase() === "mermaid") {
-    env.hasMermaid = true;
-    return `<pre class="mermaid">${esc(token.content)}</pre>\n`;
-  }
-  return highlightFence(tokens, idx, options, env, self);
-};
 
 /** 相対パスの画像を、出力先から見たパスに書き換えつつ実体をコピーする。 */
 const copyAssets = (srcDir, outDir) => {
