@@ -51,6 +51,10 @@ lint / fmt / commit フックの設定はリポジトリルートの `vite.confi
   デッキと URL を揃えたいので slide.md のものを借りる。
 - タイトルは記事の `title:` → 本文先頭の `# 見出し` → フォルダ名。
   見出しをタイトルに使った場合、本文からは落とす。
+- 数式は `$$` で囲んだブロックのみ。KaTeX でビルド時に HTML + MathML にするので
+  閲覧側に JS は要らない。**インラインの `$...$` は実装しない** —
+  記事には PHP の `$search` や Makefile の `$$(seq ...)` が出てくるので壊れる。
+- mermaid は図なのでハイライトせず、描画スクリプトを使う側のページにだけ足す。
 - 本文は `scripts/build-articles.js` が markdown-it + Shiki で HTML にして
   `dist/articles/<slug>/` に置く。React には載せない（載せると本文が
   まるごとクライアントのバンドルに入る）。

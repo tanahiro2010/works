@@ -158,3 +158,16 @@ footer {
   text-align: center;
   overflow-x: auto;
 }
+
+/* 数式。長い式は折り返せないので、横スクロールを許す。 */
+.prose .math-block {
+  margin: 1.8rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2rem 0;
+}
+
+.prose .math-error {
+  border-color: #c00;
+  color: #c00;
+}

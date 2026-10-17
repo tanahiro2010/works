@@ -25,6 +25,7 @@
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "@vitejs/plugin-react": "^6.1.2",
+        "katex": "^0.19.0",
         "markdown-it": "^14.1.0",
         "shiki": "^3.0.0",
         "wrangler": "^4.151.1",
@@ -51,9 +52,6 @@
     "packages/ssg": {
       "name": "@tanahiro2010/ssg",
       "version": "0.0.0",
-      "bin": {
-        "ssg-prerender": "./bin/prerender.js",
-      },
       "devDependencies": {
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
@@ -510,7 +508,7 @@
 
     "comma-separated-tokens": ["comma-separated-tokens@2.0.3", "https://npm.flatt.tech/comma-separated-tokens/-/comma-separated-tokens-2.0.3.tgz", {}, "sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg=="],
 
-    "commander": ["commander@8.3.0", "https://npm.flatt.tech/commander/-/commander-8.3.0.tgz", {}, "sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww=="],
+    "commander": ["commander@15.0.0", "https://npm.flatt.tech/commander/-/commander-15.0.0.tgz", {}, "sha512-z67u4ZhzCL/Tydu1lJARtEZYWbWaN7oYLHbsuzocr6y4N6WZAagG3RQ4FW61V1/0+jImpj293XfrcYnd1qxtPg=="],
 
     "convert-source-map": ["convert-source-map@2.0.0", "https://npm.flatt.tech/convert-source-map/-/convert-source-map-2.0.0.tgz", {}, "sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg=="],
 
@@ -630,7 +628,7 @@
 
     "json-parse-even-better-errors": ["json-parse-even-better-errors@2.3.1", "https://npm.flatt.tech/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz", {}, "sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w=="],
 
-    "katex": ["katex@0.17.0", "https://npm.flatt.tech/katex/-/katex-0.17.0.tgz", { "dependencies": { "commander": "^8.3.0" }, "bin": { "katex": "cli.js" } }, "sha512-Vdw0ATsQ9V+LuegM/BTwQqV/6cTl5lbGcIrU+BCgLxyf6bo38ybOr372tuSIxir3CN720flu1meYR6XzNMwQnw=="],
+    "katex": ["katex@0.19.0", "https://npm.flatt.tech/katex/-/katex-0.19.0.tgz", { "dependencies": { "commander": "^15.0.0" }, "bin": { "katex": "cli.js" } }, "sha512-v6Tznz3zJ7u3niRCoDTsumM2+HA2XXcCu+WAacCeHD2z3p9A9Ks987o5FzfTGBN0e8A0vjEgIDvLbICrXpdw/Q=="],
 
     "kleur": ["kleur@4.1.5", "https://npm.flatt.tech/kleur/-/kleur-4.1.5.tgz", {}, "sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ=="],
 
@@ -932,6 +930,8 @@
 
     "@cspotcode/source-map-support/@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.9", "https://npm.flatt.tech/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz", { "dependencies": { "@jridgewell/resolve-uri": "^3.0.3", "@jridgewell/sourcemap-codec": "^1.4.10" } }, "sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ=="],
 
+    "@marp-team/marp-core/katex": ["katex@0.17.0", "https://npm.flatt.tech/katex/-/katex-0.17.0.tgz", { "dependencies": { "commander": "^8.3.0" }, "bin": { "katex": "cli.js" } }, "sha512-Vdw0ATsQ9V+LuegM/BTwQqV/6cTl5lbGcIrU+BCgLxyf6bo38ybOr372tuSIxir3CN720flu1meYR6XzNMwQnw=="],
+
     "cosmiconfig/js-yaml": ["js-yaml@4.3.2", "https://npm.flatt.tech/js-yaml/-/js-yaml-4.3.2.tgz", { "dependencies": { "argparse": "^2.0.1" }, "bin": { "js-yaml": "bin/js-yaml.js" } }, "sha512-SFNOvSJ+Dgf/9An904Yx+CgSlIPCkIpao4qo51lpee25TIRejdH3rhR4EZMGoNx3/TP3O+wzWuiTFl4sqbltzA=="],
 
     "js-yaml/argparse": ["argparse@3.0.3", "https://npm.flatt.tech/argparse/-/argparse-3.0.3.tgz", {}, "sha512-Sn98ftV3KfsO8xfLPHG6oT8y+b0yvbrLgZjgPDXsharNY15tTAjqIsIju4S32nl6/iEUNNE4v+yL2Zhm8ooP3w=="],
@@ -945,6 +945,8 @@
     "wrap-ansi/ansi-styles": ["ansi-styles@4.3.0", "https://npm.flatt.tech/ansi-styles/-/ansi-styles-4.3.0.tgz", { "dependencies": { "color-convert": "^2.0.1" } }, "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg=="],
 
     "xss/commander": ["commander@2.20.3", "https://npm.flatt.tech/commander/-/commander-2.20.3.tgz", {}, "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="],
+
+    "@marp-team/marp-core/katex/commander": ["commander@8.3.0", "https://npm.flatt.tech/commander/-/commander-8.3.0.tgz", {}, "sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww=="],
 
     "serve-index/debug/ms": ["ms@2.0.0", "https://npm.flatt.tech/ms/-/ms-2.0.0.tgz", {}, "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="],
   }

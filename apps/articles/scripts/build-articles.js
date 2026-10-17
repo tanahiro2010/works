@@ -10,6 +10,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import Shiki from "@shikijs/markdown-it";
+import katex from "katex";
 import { blogPostingSchema, breadcrumbSchema, renderHead } from "@tanahiro2010/ssg/head";
 import MarkdownIt from "markdown-it";
 
@@ -45,6 +46,50 @@ md.use(
   }),
 );
 
+/**
+ * `$$` で囲んだ行を数式にする。
+ *
+ * インラインの `$...$` は実装しない。記事には PHP の `$search` や
+ * Makefile の `$$(seq ...)` が普通に出てくるので、拾いにいくと本文が壊れる。
+ * ビルド時に KaTeX で HTML + MathML にするため、閲覧側に JS は要らない。
+ */
+md.block.ruler.before("fence", "math_block", (state, startLine, endLine, silent) => {
+  const open = state.bMarks[startLine] + state.tShift[startLine];
+  const openEnd = state.eMarks[startLine];
+  if (state.src.slice(open, openEnd).trim() !== "$$") return false;
+
+  let line = startLine;
+  while (++line < endLine) {
+    const from = state.bMarks[line] + state.tShift[line];
+    if (state.src.slice(from, state.eMarks[line]).trim() === "$$") break;
+  }
+  if (line >= endLine) return false; // 閉じが無ければ数式として扱わない
+  if (silent) return true;
+
+  const body = state.getLines(startLine + 1, line, state.blkIndent, false).trim();
+  const token = state.push("math_block", "", 0);
+  token.content = body;
+  token.map = [startLine, line + 1];
+  state.line = line + 1;
+  return true;
+});
+
+md.renderer.rules.math_block = (tokens, idx, _options, env) => {
+  env.hasMath = true;
+  try {
+    return `<div class="math-block">${katex.renderToString(tokens[idx].content, {
+      displayMode: true,
+      output: "htmlAndMathml",
+      throwOnError: true,
+      strict: false,
+    })}</div>\n`;
+  } catch (err) {
+    // 数式が壊れていてもビルドは止めない。原文をそのまま出して警告する。
+    console.warn(`  WARN 数式を解釈できませんでした: ${err.message}`);
+    return `<pre class="math-error">${esc(tokens[idx].content)}</pre>\n`;
+  }
+};
+
 // mermaid はコードではなく図。ハイライトせずそのまま渡して、
 // 描画はページ側の mermaid.js に任せる。
 const highlightFence = md.renderer.rules.fence;
@@ -65,12 +110,23 @@ const copyAssets = (srcDir, outDir) => {
   }
 };
 
+const KATEX_LINK = '<link rel="stylesheet" href="/katex/katex.min.css">';
+
+/** KaTeX の CSS とフォントを dist/katex/ に複製する。CDN には頼らない。 */
+const copyKatex = () => {
+  const from = fileURLToPath(new URL("../node_modules/katex/dist", import.meta.url));
+  const to = path.join(distDir, "katex");
+  fs.mkdirSync(to, { recursive: true });
+  fs.copyFileSync(path.join(from, "katex.min.css"), path.join(to, "katex.min.css"));
+  fs.cpSync(path.join(from, "fonts"), path.join(to, "fonts"), { recursive: true });
+};
+
 const MERMAID_SCRIPT = `<script type="module">
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 mermaid.initialize({ startOnLoad: true, theme: "neutral" });
 </script>`;
 
-const page = (article, body, hasMermaid) => `<!doctype html>
+const page = (article, body, { hasMermaid, hasMath }) => `<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -93,6 +149,7 @@ ${renderHead({
   ],
 })}
 <style>${articleCss}</style>
+${hasMath ? KATEX_LINK : ""}
 ${hasMermaid ? MERMAID_SCRIPT : ""}
 </head>
 <body>
@@ -156,9 +213,14 @@ const build = () => {
     const env = {};
     const body = md.render(markdown, env);
 
-    fs.writeFileSync(path.join(outDir, "index.html"), page(article, body, env.hasMermaid));
+    fs.writeFileSync(
+      path.join(outDir, "index.html"),
+      page(article, body, { hasMermaid: env.hasMermaid, hasMath: env.hasMath }),
+    );
     copyAssets(srcDir, outDir);
   }
+
+  copyKatex();
 
   fs.writeFileSync(path.join(distDir, "feed.xml"), feed(articles));
   console.log(`built ${articles.length} article(s) -> dist/articles/ (+ feed.xml)`);
