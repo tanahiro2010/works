@@ -6,7 +6,6 @@ on:
     paths:
       - "apps/**"
       - "packages/**"
-      # デッキも dist/slides/ にビルドされるので、スライド本体とテーマの変更でもデプロイする
       - "slides/**"
       - ".marp/**"
       - ".github/workflows/deploy.yaml"
@@ -35,24 +34,77 @@ jobs:
         with:
           fetch-depth: 0
 
+      # このアプリの入力が変わっていなければ、ビルドもデプロイも飛ばす。
+      # 記事だけ直したときに slides を作り直しても出来上がりは同じなので。
+      - name: Check for changes
+        id: changed
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+
+          # 手動実行・初回push・force push の後は判断材料が無いので必ず作る。
+          if [ "${{ github.event_name }}" != "push" ] \
+            || [ -z "$BEFORE" ] \
+            || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+            || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "差分を判定できないのでビルドします"
+            exit 0
+          fi
+
+          files=$(git diff --name-only "$BEFORE" "${{ github.sha }}")
+
+          # 自分のアプリ・共有パッケージ・ワークフローは常に対象。
+          # 記事側が slide.md も見ているのは、slug と date をデッキから
+          # 継承しているため。slide.md だけ直して articles を飛ばすと
+          # 記事の URL が古いままになる。
+          # 画像などの素材は両方が参照しうるので両方の対象に入れる。
+          case "${{ matrix.app }}" in
+            slides)   own='^apps/slides/|^packages/|^\.marp/|^\.github/workflows/|^slides/.*/slide\.md$' ;;
+            articles) own='^apps/articles/|^packages/|^\.github/workflows/|^slides/.*/(article|slide)\.md$' ;;
+          esac
+          shared='^slides/[^/]+/[^/]+/(img|images|assets)/'
+
+          if echo "$files" | grep -qE "$own|$shared"; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "${{ matrix.app }}: 対象の変更あり"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "${{ matrix.app }}: 対象の変更なし。ビルドとデプロイを飛ばします"
+          fi
+
       # ビルドスクリプトを node が直接実行するので 24 を明示しておく。
       - uses: actions/setup-node@v7
+        if: steps.changed.outputs.run == 'true'
         with:
           node-version: "24"
 
       - uses: oven-sh/setup-bun@v2
+        if: steps.changed.outputs.run == 'true'
         with:
           bun-version: "1.4.3"
 
+      - name: Cache bun install
+        if: steps.changed.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+          restore-keys: bun-${{ runner.os }}-
+
       # ワークスペースなので install はルートで。
       - name: Install dependencies
+        if: steps.changed.outputs.run == 'true'
         run: bun install --frozen-lockfile
 
       - name: Build static site
+        if: steps.changed.outputs.run == 'true'
         working-directory: apps/${{ matrix.app }}
         run: bun run build
 
       - name: Deploy to Cloudflare Pages
+        if: steps.changed.outputs.run == 'true'
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
