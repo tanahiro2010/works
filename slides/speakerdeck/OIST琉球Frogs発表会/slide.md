@@ -4,6 +4,7 @@ description: ""
 author: ""
 date: ""
 marp: true
+slug: oist-ryukyu-frogs
 ---
 
 # Slide Title

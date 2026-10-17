@@ -58,6 +58,7 @@ style: |
   tr:nth-child(even) td {
     background: #252525;
   }
+slug: llm-agent-trpg
 ---
  
 

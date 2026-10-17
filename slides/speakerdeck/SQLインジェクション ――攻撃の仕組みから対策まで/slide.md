@@ -49,6 +49,7 @@ style: |
     padding: 0.5em 1em;
     border-radius: 0 4px 4px 0;
   }
+slug: sql-injection
 ---
 
 # SQLインジェクション

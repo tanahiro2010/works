@@ -6,6 +6,7 @@ size: 16:9
 title: PHPの命名規則、結局camelCaseとsnake_caseどっちなんだ
 description: PHPの歴史から、camelCaseとsnake_caseの住み分けを考える
 author: 田中博悠 / tanahiro2010
+slug: php-naming-convention
 ---
 
 <script>

@@ -37,6 +37,7 @@ style: |
     color: #888;
   }
 
+slug: tauri-front-or-back
 --------------
 
 # Tauriで考える「その処理どっちでやる？」

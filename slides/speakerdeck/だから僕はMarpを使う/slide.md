@@ -6,6 +6,7 @@ marp: true
 theme: {{theme}}
 paginate: true
 footer: "だから僕はMarpを使う ――Bokuchiのすゝめ"
+slug: why-marp
 ---
  
 # だから僕はMarpを使う

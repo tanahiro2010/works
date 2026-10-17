@@ -6,6 +6,7 @@ marp: true
 theme: gdg
 paginate: true
 size: 16:9
+slug: php56-zend-vuln-hunting
 ---
 
 <script>

@@ -6,6 +6,7 @@
     "types": ["vite/client", "node"],
     "jsx": "react-jsx",
     "allowArbitraryExtensions": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
 
     /* Bundler mode */

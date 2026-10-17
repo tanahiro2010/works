@@ -56,6 +56,7 @@ style: |
   table {
     font-size: 0.8em;
   }
+slug: react-hooks
 ---
 
 # React Hooksを使いこなせ！

@@ -130,6 +130,7 @@ style: |
     font-size:22px;
   }
 
+slug: browser-does-the-work
 ---
 
 # Serverlessしかなかったので、ブラウザに働いてもらいました

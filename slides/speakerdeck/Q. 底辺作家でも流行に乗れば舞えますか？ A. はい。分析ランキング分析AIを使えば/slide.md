@@ -7,6 +7,7 @@ marp: true
 theme: gdg
 paginate: true
 size: 16:9
+slug: ranking-analysis-ai
 ---
 
 <script>

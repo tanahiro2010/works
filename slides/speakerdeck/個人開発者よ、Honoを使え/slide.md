@@ -5,6 +5,7 @@ paginate: true
 size: 16:9
 title: 個人開発者チャン、Honoを使ってみないカナ？
 description: Hono Conference 2026のおじさん構文版だヨ😊
+slug: use-hono
 ---
 
 <!-- _class: title -->

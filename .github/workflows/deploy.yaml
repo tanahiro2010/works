@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - "frontend/**"
+      # デッキも dist/slides/ にビルドされるので、スライド本体とテーマの変更でもデプロイする
+      - "slides/**"
+      - ".marp/**"
       - ".github/workflows/deploy.yaml"
   workflow_dispatch:
 
@@ -19,7 +22,11 @@ jobs:
       contents: read
       deployments: write
     steps:
+      # 日付は slide.md が git に入った日から引くので、全履歴が要る。
+      # 浅いクローンだと全デッキが同じ日付になってしまう。
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       # scripts/prerender.ts is run directly by node, which needs >= 22.18
       # for type stripping.

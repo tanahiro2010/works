@@ -26,6 +26,19 @@ release. Add a tool name to select part of the graph. For example, run
 
 <!--VITE PLUS END-->
 
+## スライドサイト構成
+
+`/` の一覧は React SSG、`/slides/<slug>/` は marp / ippon-slides が吐いた完結 HTML。
+両者は同じ `dist/` に同居するだけで、React 側はデッキに一切関与しない。
+
+- `scripts/slides-meta.js` — slide.md の frontmatter から slug / title / date を読む。中央の一覧は持たない。
+- デッキを足すときは `slides/speakerdeck/<名前>/slide.md` を置き、frontmatter に `slug:` を書くだけ。
+  `slug:` は URL になるので一度公開したら変えないこと。無い場合はフォルダ名にフォールバックする。
+- `date:` が無いデッキは slide.md が git に入った日を使う。CI の checkout は `fetch-depth: 0` が必須。
+- `scripts/build.js` — `slides.json`（メタデータのみ）をリポジトリ root に生成。デッキ本文は入れない。
+- `scripts/build-decks.js` — `slides/speakerdeck/*` を marp、`slides/slides/*` を ippon でビルドし `dist/slides/<slug>/` へ。
+- `/slides/*` は React のルートではないので `routes.tsx` に足さないこと。
+
 ## React SSG
 
 This app is React 19 prerendered to static HTML at build time — there is no server at runtime.

@@ -41,6 +41,7 @@ style: |
     padding: 0.5em 1em;
     border-radius: 0 4px 4px 0;
   }
+slug: github-beginners
 ---
 
 # GitHub 活用セミナー

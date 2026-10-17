@@ -3,6 +3,7 @@ marp: true
 theme: gdg
 paginate: true
 size: 16:9
+slug: lt-bungee
 ---
 
 <script>
