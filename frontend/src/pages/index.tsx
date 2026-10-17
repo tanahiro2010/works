@@ -21,6 +21,9 @@ const byYear = slides.reduce<Record<string, Slide[]>>((acc, slide) => {
 
 const years = Object.keys(byYear).sort((a, b) => b.localeCompare(a));
 
+/** 「メインタイトル――サブタイトル」は一覧ではメインだけ出す。 */
+const mainTitle = (name: string) => name.split("――")[0].trim() || name;
+
 const Index = () => (
   <main>
     <h1>Slides</h1>
@@ -43,7 +46,8 @@ const Index = () => (
         <ul className="slide-list">
           {byYear[year].map((slide) => (
             <li key={slide.slug}>
-              <a href={slide.path}>{slide.name}</a> <span className="meta">{slide.date}</span>
+              <a href={slide.path}>{mainTitle(slide.name)}</a>{" "}
+              <span className="meta">{slide.date}</span>
             </li>
           ))}
         </ul>
