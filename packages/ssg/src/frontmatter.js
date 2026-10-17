@@ -51,10 +51,18 @@ const gitAddedDate = (repoRoot, relPath) => {
   }
 };
 
-/** そのフォルダを最後にさわったコミットの時刻。 */
-const gitUpdatedAt = (repoRoot, relDir) => {
+/**
+ * 指定したパスを最後にさわったコミットの時刻。
+ *
+ * フォルダ全体ではなく、その成果物を構成するファイルだけを渡すこと。
+ * デッキのフォルダには article.md や README.md、sandbox まで同居しているので、
+ * フォルダ単位で見ると「記事を直しただけ」でスライドの更新日時が動いてしまう。
+ */
+const gitUpdatedAt = (repoRoot, relPaths) => {
+  const targets = relPaths.filter((rel) => fs.existsSync(path.join(repoRoot, rel)));
+  if (targets.length === 0) return "";
   try {
-    return execFileSync("git", ["log", "-1", "--format=%cI", "--", relDir], {
+    return execFileSync("git", ["log", "-1", "--format=%cI", "--", ...targets], {
       cwd: repoRoot,
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
@@ -64,19 +72,31 @@ const gitUpdatedAt = (repoRoot, relDir) => {
   }
 };
 
-/** フォルダ内で一番新しいファイルの更新時刻。git が使えない環境向け。 */
-const newestMtime = (dir) => {
+/** 対象パスの中で一番新しい更新時刻。git が使えない環境向け。 */
+const newestMtime = (repoRoot, relPaths) => {
   let newest = 0;
-  const walk = (d) => {
-    for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
-      const p = path.join(d, entry.name);
-      if (entry.isDirectory()) walk(p);
-      else newest = Math.max(newest, fs.statSync(p).mtimeMs);
+  const walk = (p) => {
+    if (!fs.existsSync(p)) return;
+    const st = fs.statSync(p);
+    if (!st.isDirectory()) {
+      newest = Math.max(newest, st.mtimeMs);
+      return;
+    }
+    for (const entry of fs.readdirSync(p, { withFileTypes: true })) {
+      walk(path.join(p, entry.name));
     }
   };
-  walk(dir);
+  for (const rel of relPaths) walk(path.join(repoRoot, rel));
   return newest ? new Date(newest).toISOString() : "";
 };
+
+/** その成果物を構成するファイル。画像を差し替えたら更新扱いにしたい。 */
+const ownedPaths = (relDir, relFile) => [
+  relFile,
+  `${relDir}/img`,
+  `${relDir}/images`,
+  `${relDir}/assets`,
+];
 
 /** `+09:00` 付きと `Z` 付きが混ざると文字列比較で並び順が壊れるので UTC に揃える。 */
 const toUtc = (iso) => {
@@ -101,9 +121,10 @@ export const readDocMeta = ({ repoRoot, relDir, folder, file }) => {
     gitAddedDate(repoRoot, relFile) ||
     fs.statSync(file).mtime.toISOString().slice(0, 10);
 
+  const owned = ownedPaths(relDir, relFile);
   const updated =
-    toUtc(gitUpdatedAt(repoRoot, relDir)) ||
-    newestMtime(path.join(repoRoot, relDir)) ||
+    toUtc(gitUpdatedAt(repoRoot, owned)) ||
+    newestMtime(repoRoot, owned) ||
     toUtc(`${date}T00:00:00Z`);
 
   return {
