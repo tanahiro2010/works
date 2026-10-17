@@ -31,18 +31,56 @@ const headingOf = (md) => {
   return h1 ? h1[1].trim() : "";
 };
 
-/** 本文の最初の段落を抜き出して一覧の説明文にする。 */
+/** 日本語は単語で区切れないので、タグを除いた文字数を語数の代わりにする。 */
+const countWords = (md) =>
+  md
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "")
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, "").length;
+
+/** 見出しからキーワードを拾う。手で書いた keywords があればそちらを優先。 */
+const keywordsOf = (md, fm) => {
+  if (fm.keywords)
+    return fm.keywords
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean);
+  const heads = [...md.matchAll(/^##\s+(.+)$/gm)].map((m) =>
+    m[1]
+      .replace(/[*_`[\]()#]/g, "")
+      // 「1. 発端：〜」のような採番は見出しの飾りなのでキーワードから外す。
+      .replace(/^\s*(?:\d+[.)]|Step\s*\d+[:：]?)\s*/i, "")
+      .trim(),
+  );
+  return [...new Set(heads.filter((h) => h.length >= 3))].slice(0, 10);
+};
+
+/**
+ * 冒頭の段落をつないで説明文にする。
+ *
+ * 1段落目だけだと「こんにちは。」で終わってしまう記事が多いので、
+ * 検索結果で意味が通る長さになるまで続けて拾う。
+ */
 const excerptOf = (md) => {
-  const body = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
+  const body = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "").replace(/```[\s\S]*?```/g, "");
+
+  const parts = [];
   for (const block of body.split(/\r?\n\s*\r?\n/)) {
-    const text = block.trim();
-    if (!text || text.startsWith("#") || text.startsWith("```") || text.startsWith("<")) continue;
-    return text
+    const text = block
+      .trim()
+      .replace(/<[^>]*>/g, " ")
       .replace(/[*_`[\]()]/g, "")
       .replace(/\s+/g, " ")
-      .slice(0, 120);
+      .trim();
+    if (!text || text.startsWith("#") || text.startsWith(">") || text.startsWith("|")) continue;
+    if (/^[-*+]\s/.test(text)) continue;
+
+    parts.push(text);
+    const joined = parts.join(" ");
+    if (joined.length >= 60) return joined.slice(0, 140);
   }
-  return "";
+  return parts.join(" ").slice(0, 140);
 };
 
 const collect = () => {
@@ -78,6 +116,8 @@ const collect = () => {
         date: meta.date,
         updated: meta.updated,
         description: meta.frontmatter.description || excerptOf(source),
+        wordCount: countWords(source),
+        keywords: keywordsOf(source, meta.frontmatter),
         dir: relDir,
         path: `/articles/${slug}/`,
       });

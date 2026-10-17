@@ -110,6 +110,9 @@ export function blogPostingSchema(site, article) {
     author: personSchema(site),
     publisher: personSchema(site),
     image: new URL(site.ogImage, site.url).href,
+    isAccessibleForFree: true,
+    ...(article.wordCount ? { wordCount: article.wordCount } : {}),
+    ...(article.keywords?.length ? { keywords: article.keywords.join(", ") } : {}),
   };
 }
 
@@ -125,4 +128,61 @@ export function itemListSchema(site, items) {
       url: new URL(item.path, site.url).href,
     })),
   };
+}
+
+/** 発表スライド1本。検索結果で「資料」として扱われるようにする。 */
+export function presentationSchema(site, slide) {
+  const url = new URL(slide.path, site.url).href;
+  return {
+    "@context": "https://schema.org",
+    "@type": "PresentationDigitalDocument",
+    name: slide.title,
+    description: slide.description,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: slide.date,
+    dateModified: slide.updated || slide.date,
+    inLanguage: "ja",
+    author: personSchema(site),
+    publisher: personSchema(site),
+    isAccessibleForFree: true,
+    license: "https://creativecommons.org/licenses/by/4.0/",
+  };
+}
+
+/** パンくず。検索結果にサイト内の階層が出るようになる。 */
+export function breadcrumbSchema(site, trail) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: new URL(item.path, site.url).href,
+    })),
+  };
+}
+
+/**
+ * 既にある <head> に meta を差し込む。
+ *
+ * marp や ippon-slides が吐いた HTML が対象。向こうが入れた title と
+ * og:/twitter: は自前のものと二重になるので先に落とす。
+ */
+export function injectHead(html, headHtml, { lang = "ja" } = {}) {
+  let out = html
+    .replace(/<title>[\s\S]*?<\/title>\s*/i, "")
+    .replace(/<meta\s+[^>]*(?:property|name)="(?:og:|twitter:)[^"]*"[^>]*>\s*/gi, "")
+    .replace(/<meta\s+[^>]*name="description"[^>]*>\s*/gi, "");
+
+  // marp は <html> にも各スライドの <section> にも en-US を付ける。
+  // 中身は日本語なので、文書全体の lang をまとめて直す。
+  out = out
+    .replace(/<html([^>]*)\slang="[^"]*"/i, "<html$1")
+    .replace(/<html(\s|>)/i, `<html lang="${lang}"$1`)
+    .replace(/\slang="en(?:-[A-Za-z]+)?"/g, ` lang="${lang}"`);
+
+  const i = out.search(/<\/head>/i);
+  return i < 0 ? out : out.slice(0, i) + headHtml + "\n" + out.slice(i);
 }

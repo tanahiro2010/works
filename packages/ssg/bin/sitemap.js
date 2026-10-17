@@ -49,16 +49,42 @@ fs.writeFileSync(
   `User-agent: *\nAllow: /\n\nSitemap: ${new URL("/sitemap.xml", site.url).href}\n`,
 );
 
-// llms.txt: クロールする LLM にサイトの地図を平文で渡す。
+// llms.txt: クロールする LLM にサイトの中身を平文で渡す。
+// URL を並べるだけだと何のページか分からないので、タイトルと説明を添える。
+// 一覧用の JSON があればそこから引く。
+const describe = () => {
+  const index = new Map();
+  for (const name of ["src/data/articles.json", "src/data/slides.json"]) {
+    const file = path.join(root, name);
+    if (!fs.existsSync(file)) continue;
+    const data = JSON.parse(fs.readFileSync(file, "utf8"));
+    const items = data.articles ?? Object.values(data).flatMap((g) => g.slides ?? []);
+    for (const item of items) index.set(item.path, item);
+  }
+  return index;
+};
+
+const described = describe();
+
+const entry = (u) => {
+  const item = described.get(u.loc);
+  const url = new URL(u.loc, site.url).href;
+  if (!item) return `- [${u.loc === "/" ? site.title : u.loc}](${url})`;
+  const date = item.date ? ` (${item.date})` : "";
+  const desc = item.description ? `: ${item.description}` : "";
+  return `- [${item.title || item.name}](${url})${date}${desc}`;
+};
+
 const llms = `# ${site.title}
 
 > ${site.description}
 
 著者: ${site.author} (${site.authorUrl})
-
+言語: 日本語
+${site.sameAs?.length ? `関連: ${site.sameAs.join(" / ")}\n` : ""}
 ## ページ
 
-${urls.map((u) => `- ${new URL(u.loc, site.url).href}`).join("\n")}
+${urls.map(entry).join("\n")}
 `;
 fs.writeFileSync(path.join(distDir, "llms.txt"), llms);
 

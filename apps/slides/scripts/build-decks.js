@@ -7,9 +7,16 @@
 // vp build が dist/ を空にするので、必ずプリレンダの後に実行すること。
 
 import { execFileSync } from "node:child_process";
+import * as crypto from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  breadcrumbSchema,
+  injectHead,
+  presentationSchema,
+  renderHead,
+} from "@tanahiro2010/ssg/head";
 import { render } from "ippon-slides";
 
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
@@ -19,6 +26,92 @@ const gdgTheme = path.join(repoRoot, ".marp/gdg.css");
 
 const slidesJson = fileURLToPath(new URL("../src/data/slides.json", import.meta.url));
 const slides = JSON.parse(fs.readFileSync(slidesJson, "utf8"));
+
+// デッキ1本のビルドは marp のサブプロセス起動ぶんだけ重く、25本でビルド時間の
+// 大半を占める。出来上がる HTML は入力が同じなら毎回同じなので、ハッシュが
+// 一致するデッキは前回の HTML を使い回す。
+// 画像はキャッシュに入れない。毎回リポジトリからコピーし直す方が安いし、
+// キャッシュが膨らむと復元と保存の方が高くつく。
+const cacheDir = fileURLToPath(new URL("../.deck-cache", import.meta.url));
+const manifestFile = path.join(cacheDir, "manifest.json");
+
+const pkgVersion = (name) => {
+  try {
+    const file = fileURLToPath(new URL(`../node_modules/${name}/package.json`, import.meta.url));
+    return JSON.parse(fs.readFileSync(file, "utf8")).version;
+  } catch {
+    return "unknown";
+  }
+};
+
+/**
+ * HTML の中身を決めるものを全部混ぜる。
+ *
+ * marp はテーマ CSS を、ippon は自前の CSS と JS を HTML に埋め込むので、
+ * それらのバージョンもハッシュに入れないと、テーマを直したのに
+ * 古い HTML が残る。
+ */
+const RENDERER_STAMP = [
+  pkgVersion("@marp-team/marp-cli"),
+  pkgVersion("ippon-slides"),
+  fs.readFileSync(fileURLToPath(import.meta.url), "utf8"),
+  fs.readFileSync(fileURLToPath(new URL("../site.config.json", import.meta.url)), "utf8"),
+  fs.readFileSync(
+    fileURLToPath(new URL("../../../packages/ssg/src/head.js", import.meta.url)),
+    "utf8",
+  ),
+  fs.existsSync(gdgTheme) ? fs.readFileSync(gdgTheme, "utf8") : "",
+].join("\0");
+
+const deckHash = (srcDir, slide) =>
+  crypto
+    .createHash("sha256")
+    .update(RENDERER_STAMP)
+    .update("\0")
+    .update(fs.readFileSync(path.join(srcDir, "slide.md")))
+    .update("\0")
+    // タイトルや説明文は meta に入るので、変われば HTML も変わる。
+    .update(JSON.stringify(slide))
+    .digest("hex");
+
+const loadManifest = () => {
+  try {
+    return JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+  } catch {
+    return {};
+  }
+};
+
+const site = JSON.parse(
+  fs.readFileSync(fileURLToPath(new URL("../site.config.json", import.meta.url)), "utf8"),
+);
+
+/**
+ * デッキの HTML に meta / OGP / 構造化データを足す。
+ *
+ * marp も ippon も <title> しか出さないので、このままだと
+ * サイトの大半のページが検索結果で説明文を持てない。
+ */
+const addSeo = (html, slide) =>
+  injectHead(
+    html,
+    renderHead({
+      site,
+      title: `${slide.title} | ${site.title}`,
+      description: slide.description,
+      pathname: slide.path,
+      type: "article",
+      publishedAt: slide.date,
+      modifiedAt: slide.updated,
+      jsonLd: [
+        presentationSchema(site, slide),
+        breadcrumbSchema(site, [
+          { name: "Slides", path: "/" },
+          { name: slide.title, path: slide.path },
+        ]),
+      ],
+    }),
+  );
 
 /** HTML が参照しているローカルのパスを集める（data: や http: は除く）。 */
 const localRefs = (html) => {
@@ -154,7 +247,10 @@ const build = () => {
   copyThemeAssets();
 
   const all = Object.values(slides).flatMap((group) => group.slides);
+  const prevManifest = loadManifest();
+  const nextManifest = {};
   let built = 0;
+  let reused = 0;
   const failed = [];
   /** 参照 -> それが切れているデッキの slug */
   const broken = new Map();
@@ -165,12 +261,29 @@ const build = () => {
     fs.mkdirSync(outDir, { recursive: true });
 
     try {
-      if (slide.renderer === "marp") buildMarp(srcDir, outDir);
-      else buildIppon(srcDir, outDir);
-      copyImages(srcDir, outDir);
-      built += 1;
+      const outFile = path.join(outDir, "index.html");
+      const hash = deckHash(srcDir, slide);
+      const cached = path.join(cacheDir, `${slide.slug}.html`);
+      const hit = prevManifest[slide.slug] === hash && fs.existsSync(cached);
 
-      const html = fs.readFileSync(path.join(outDir, "index.html"), "utf8");
+      let html;
+      if (hit) {
+        html = fs.readFileSync(cached, "utf8");
+        fs.writeFileSync(outFile, html);
+        reused += 1;
+      } else {
+        if (slide.renderer === "marp") buildMarp(srcDir, outDir);
+        else buildIppon(srcDir, outDir);
+        html = addSeo(fs.readFileSync(outFile, "utf8"), slide);
+        fs.writeFileSync(outFile, html);
+        fs.mkdirSync(cacheDir, { recursive: true });
+        fs.writeFileSync(cached, html);
+        built += 1;
+      }
+      nextManifest[slide.slug] = hash;
+
+      // 画像はキャッシュしないので、使い回したときも毎回置き直す。
+      copyImages(srcDir, outDir);
       placeReferencedAssets(srcDir, outDir, html);
       for (const ref of missingAssets(outDir, html)) {
         if (!broken.has(ref)) broken.set(ref, []);
@@ -181,7 +294,12 @@ const build = () => {
     }
   }
 
-  console.log(`built ${built}/${all.length} decks -> dist/slides/`);
+  fs.mkdirSync(cacheDir, { recursive: true });
+  fs.writeFileSync(manifestFile, JSON.stringify(nextManifest, null, 2));
+
+  console.log(
+    `decks -> dist/slides/ (ビルド ${built} / キャッシュ利用 ${reused} / 計 ${all.length})`,
+  );
 
   if (broken.size > 0) {
     console.warn(`  WARN ${broken.size} 件の参照が dist に無い（サイトでは画像切れになる）:`);

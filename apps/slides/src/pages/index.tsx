@@ -50,6 +50,9 @@ const Index = () => (
         <a href="https://x.com/tanahiro2010">X</a>
       </li>
       <li>
+        <a href="https://blog.tanahiro2010.com">Blog</a>
+      </li>
+      <li>
         <a href="https://github.com/tanahiro2010/slides">GitHub</a>
       </li>
     </ul>

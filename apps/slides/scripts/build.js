@@ -27,6 +27,41 @@ const slides = {
   },
 };
 
+/** 本文から説明文を作る。frontmatter に description が無いデッキ向け。 */
+const excerptOf = (md) => {
+  const body = md
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "")
+    // script / style / コードブロックの中身は文章ではない。
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/^```[\s\S]*?^```/gm, "");
+
+  for (const raw of body.split(/\r?\n/)) {
+    const line = raw.trim();
+    // 見出し・Marp/ippon のディレクティブ・HTML・画像・区切り・箇条書きは説明文にしない。
+    if (!line) continue;
+    if (/^[#>\-*|`+]/.test(line)) continue;
+    if (/^(::|<|!\[|\/\/|\/\*|\*)/.test(line)) continue;
+    // 英数字と記号だけの行はコードの断片とみなす。
+    if (!/[ぁ-んァ-ヶ一-龠]/.test(line) && /[{};=()]/.test(line)) continue;
+
+    const text = line
+      // 本文中に素の <br> などが混ざるので、説明文からはタグを落とす。
+      .replace(/<[^>]*>/g, " ")
+      .replace(/[*_`[\]()]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    // 著者名や日付だけの行は表紙の署名。説明文にはならない。
+    if (/^(tanahiro2010|田中\s*博悠|Hirohisa\s+Tanaka)/i.test(text)) continue;
+    if (/^[\d\s年月日/.·・-]+$/.test(text)) continue;
+    if (text.replace(/[^ぁ-んァ-ヶ一-龠a-zA-Z]/g, "").length < 6) continue;
+
+    if (text.length >= 8) return text.slice(0, 120);
+  }
+  return "";
+};
+
 const getSlides = () => {
   Object.keys(slides).forEach((key) => {
     const group = slides[key];
@@ -48,6 +83,10 @@ const getSlides = () => {
       group.slides.push({
         name: folder,
         slug: meta.slug,
+        description:
+          meta.frontmatter.description ||
+          excerptOf(fs.readFileSync(file, "utf8")) ||
+          `${meta.title} ― tanahiro2010 の発表スライド`,
         title: meta.title,
         date: meta.date,
         updated: meta.updated,

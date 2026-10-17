@@ -38,7 +38,9 @@ lint / fmt / commit フックの設定はリポジトリルートの `vite.confi
 - `client` / `server` — routes を渡すと hydrate / renderToString する
 - `routes` — `Route` 型と `matchRoute`
 - `frontmatter` — Markdown の frontmatter から slug / title / date / updated を読む
-- `ssg-prerender` — dist にルートを書き出すコマンド（アプリのディレクトリで実行）
+- `head` — meta / OGP / JSON-LD を組み立てる。`injectHead` は marp や ippon が
+  吐いた HTML に後から差し込む用（lang も ja に直す）
+- `bin/prerender.js` / `bin/sitemap.js` — アプリのディレクトリで `node` から実行する
 
 ## 記事（apps/articles）
 
@@ -58,11 +60,12 @@ lint / fmt / commit フックの設定はリポジトリルートの `vite.confi
 `/` の一覧は React SSG、`/slides/<slug>/` は marp / ippon-slides が吐いた完結 HTML。
 両者は同じ `dist/` に同居するだけで、React 側はデッキに一切関与しない。
 
-- `scripts/slides-meta.js` — slide.md の frontmatter から slug / title / date を読む。中央の一覧は持たない。
+- frontmatter の読み取りは `packages/ssg` の `frontmatter` が持つ。中央の一覧は無い。
 - デッキを足すときは `slides/speakerdeck/<名前>/slide.md` を置き、frontmatter に `slug:` を書くだけ。
   `slug:` は URL になるので一度公開したら変えないこと。無い場合はフォルダ名にフォールバックする。
 - `date:` が無いデッキは slide.md が git に入った日を使う。CI の checkout は `fetch-depth: 0` が必須。
-- `scripts/build.js` — `slides.json`（メタデータのみ）をリポジトリ root に生成。デッキ本文は入れない。
+- `scripts/build.js` — `src/data/slides.json`（メタデータのみ）を生成。デッキ本文は入れない。
+  `description` が frontmatter に無ければ本文から抜き、それも無理ならタイトルから作る。
 - `scripts/build-decks.js` — `slides/speakerdeck/*` を marp、`slides/slides/*` を ippon でビルドし `dist/slides/<slug>/` へ。
 - 画像はデッキ直下の `img/`（`images/` `assets/` も可）に置き、slide.md からは `img/x.png` と相対で書くのが基本。
   デッキ内ならどこに置いてもよく、ビルド時に出力 HTML の参照を読んで `dist/slides/<slug>/` へ自動で複製する
@@ -70,6 +73,23 @@ lint / fmt / commit フックの設定はリポジトリルートの `vite.confi
 - デッキの画像切れはローカルだと隣のフォルダに繋がって気付けないので、ビルド末尾に dist 基準で参照を検査し `WARN` を出す。
   テーマが使う `../../assets/...` は `.marp/assets/` を置けば `dist/assets/` に複製される（今は実体が無く WARN が出たまま）。
 - `/slides/*` は React のルートではないので `routes.tsx` に足さないこと。
+
+## SEO / AIO
+
+全ページが単体で meta / OGP / Twitter Card / canonical / JSON-LD を持つ。
+デッキと記事は React を通らないので、生成スクリプト側で `injectHead` / `renderHead` を呼ぶ。
+
+- 一覧: WebSite + ItemList / デッキ: PresentationDigitalDocument + BreadcrumbList
+- 記事: BlogPosting(wordCount, keywords) + BreadcrumbList
+- `sitemap.xml` / `robots.txt` / `llms.txt` は `bin/sitemap.js` が dist を歩いて作る
+- 新しい出力を足したら、ビルド後に全ページを監査して欠落が無いか見ること
+
+## デッキのビルドキャッシュ
+
+`.deck-cache/` に slug ごとの HTML と manifest を置く。ハッシュは slide.md 本体に加え、
+テーマ CSS・marp / ippon のバージョン・`build-decks.js`・`head.js`・`site.config.json` を含む。
+**HTML に焼き込まれるものを増やしたら、ハッシュの材料にも足すこと。** 足し忘れると
+古い HTML が残り続ける。画像はキャッシュに入れず毎回コピーする。
 
 ## React SSG
 
@@ -87,5 +107,7 @@ This app is React 19 prerendered to static HTML at build time — there is no se
 
 - `vp run deploy` — build + `wrangler pages deploy` from your machine.
 - `vp run preview:cf` — serve `dist/` through workerd, the closest local match to production.
-- `.github/workflows/deploy.yaml` deploys `main` on every change under `frontend/`. It needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repo secrets.
+- `.github/workflows/deploy.yaml` が `main` への push で両アプリをデプロイする。
+  `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID` の Secrets が要る。
+  そのアプリの入力が変わっていない push ではビルドもデプロイも飛ばす。
 - `compatibility_date` must not be newer than the bundled workerd supports, or `wrangler pages dev` refuses to start.

@@ -10,7 +10,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import Shiki from "@shikijs/markdown-it";
-import { blogPostingSchema, renderHead } from "@tanahiro2010/ssg/head";
+import { blogPostingSchema, breadcrumbSchema, renderHead } from "@tanahiro2010/ssg/head";
 import MarkdownIt from "markdown-it";
 
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
@@ -84,7 +84,13 @@ ${renderHead({
   type: "article",
   publishedAt: article.date,
   modifiedAt: article.updated,
-  jsonLd: blogPostingSchema(site, article),
+  jsonLd: [
+    blogPostingSchema(site, article),
+    breadcrumbSchema(site, [
+      { name: "Blog", path: "/" },
+      { name: article.title, path: article.path },
+    ]),
+  ],
 })}
 <style>${articleCss}</style>
 ${hasMermaid ? MERMAID_SCRIPT : ""}

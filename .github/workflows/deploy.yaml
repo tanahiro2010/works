@@ -90,6 +90,17 @@ jobs:
         if: steps.changed.outputs.run == 'true'
         run: bun install --frozen-lockfile
 
+      # デッキ HTML のビルドキャッシュ。25本の marp 起動がビルド時間の
+      # 大半なので、入力の変わっていないデッキは前回の HTML を使い回す。
+      # キャッシュはキーごとに不変なので、毎回 sha で保存して直前のものを拾う。
+      - name: Cache built decks
+        if: steps.changed.outputs.run == 'true' && matrix.app == 'slides'
+        uses: actions/cache@v4
+        with:
+          path: apps/slides/.deck-cache
+          key: decks-${{ runner.os }}-${{ github.sha }}
+          restore-keys: decks-${{ runner.os }}-
+
       - name: Build static site
         if: steps.changed.outputs.run == 'true'
         working-directory: apps/${{ matrix.app }}

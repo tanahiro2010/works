@@ -35,6 +35,8 @@ export interface ArticleLike extends ListItem {
   description: string;
   date: string;
   updated?: string;
+  wordCount?: number;
+  keywords?: string[];
 }
 
 export function renderHead(options: HeadOptions): string;
@@ -42,3 +44,9 @@ export function personSchema(site: SiteConfig): Record<string, unknown>;
 export function websiteSchema(site: SiteConfig): Record<string, unknown>;
 export function blogPostingSchema(site: SiteConfig, article: ArticleLike): Record<string, unknown>;
 export function itemListSchema(site: SiteConfig, items: ListItem[]): Record<string, unknown>;
+export function presentationSchema(site: SiteConfig, slide: ArticleLike): Record<string, unknown>;
+export function breadcrumbSchema(
+  site: SiteConfig,
+  trail: { name: string; path: string }[],
+): Record<string, unknown>;
+export function injectHead(html: string, headHtml: string): string;

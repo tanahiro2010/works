@@ -14,3 +14,6 @@ dist-ssr/
 
 # 生成されるスライド/記事のメタデータ
 **/src/data/*.json
+
+# デッキHTMLのビルドキャッシュ
+.deck-cache/
