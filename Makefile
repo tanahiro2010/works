@@ -31,3 +31,6 @@ slide:
 # Swallow the content-name so make doesn't treat it as an unknown target.
 %:
 	@:
+
+make:
+	python main.py --create
