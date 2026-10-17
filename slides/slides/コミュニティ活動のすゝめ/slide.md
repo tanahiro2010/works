@@ -5,49 +5,49 @@ author: 田中博悠 / tanahiro2010
 slug: community-activity
 ---
 
-::center bg=blue::
+::center bg=purple::
 
 最初に、謝ることがあります
 
 ---
 
-::center bg=blue::
+::center bg=purple::
 
 今日のLT会
 
 ---
 
-::center bg=blue::
+::center bg=purple::
 
 「知らない世界の話をしよう」
 
 ---
 
-::center bg=blue::
+::center bg=purple::
 
 僕が企画しました
 
 ---
 
-::center bg=blue::
+::center bg=purple::
 
 そして、自分で自分を登壇者にしました
 
 ---
 
-::center bg=blue size=2::
+::center bg=purple size=2::
 
 🙇
 
 ---
 
-::center bg=blue::
+::center bg=purple::
 
 温かい目で聞いてください
 
 ---
 
-::center bg=blue size=2::
+::center bg=purple size=2::
 
 ではいきます！
 
