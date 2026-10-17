@@ -16,12 +16,12 @@ const SECTIONS = [
   {
     key: "slides",
     heading: "Slides",
-    note: "ippon 製。ページ送りにアニメーションがある。",
+    note: "Built with a custom framework",
   },
   {
     key: "speakerdecks",
     heading: "SpeakerDeck",
-    note: "Marp 製。アニメーションなしの静的なスライド。",
+    note: "Built with a marp and custom theme",
   },
 ] as const;
 
