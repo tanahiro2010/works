@@ -70,6 +70,13 @@ main h1 + p + ul {
   list-style: none;
 }
 
+/* セクションの注釈。見出しの直後に小さく置く。 */
+.section-note {
+  margin: 0 0 0.8rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 /* スライド一覧。行は「• タイトル …… 日付」。 */
 .slide-list {
   margin: 0;
