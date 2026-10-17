@@ -85,14 +85,6 @@ jobs:
         with:
           bun-version: "1.4.3"
 
-      - name: Cache bun install
-        if: steps.changed.outputs.run == 'true'
-        uses: actions/cache@v4
-        with:
-          path: ~/.bun/install/cache
-          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
-          restore-keys: bun-${{ runner.os }}-
-
       # ワークスペースなので install はルートで。
       - name: Install dependencies
         if: steps.changed.outputs.run == 'true'
