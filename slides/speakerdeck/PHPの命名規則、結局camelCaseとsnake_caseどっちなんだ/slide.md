@@ -653,11 +653,11 @@ $dateTime->setTimezone($timezone);
 
 ## PEARの命名規約
 
-| 対象 | 例 |
-| --- | --- |
-| クラス | `Net_Finger`, `HTML_Upload_Error` |
-| メソッド | `connect()`, `getData()` |
-| 定数 | `DB_DATASOURCENAME` |
+| 対象     | 例                                |
+| -------- | --------------------------------- |
+| クラス   | `Net_Finger`, `HTML_Upload_Error` |
+| メソッド | `connect()`, `getData()`          |
+| 定数     | `DB_DATASOURCENAME`               |
 
 ---
 
@@ -812,13 +812,13 @@ OOPメソッドの `camelCase`
 
 ## 多くのフレームワークでメソッドはcamelCaseへ
 
-| 周辺 | メソッド命名の印象 |
-| --- | --- |
-| CakePHP | `camelCase` |
-| Symfony | `camelCase` |
-| Zend Framework | `camelCase` |
-| Doctrine | `camelCase` |
-| CodeIgniter | `snake_case` 寄り |
+| 周辺           | メソッド命名の印象 |
+| -------------- | ------------------ |
+| CakePHP        | `camelCase`        |
+| Symfony        | `camelCase`        |
+| Zend Framework | `camelCase`        |
+| Doctrine       | `camelCase`        |
+| CodeIgniter    | `snake_case` 寄り  |
 
 ---
 
@@ -920,13 +920,13 @@ PHP標準関数に近い世界
 
 <div class="fig-member-table">
 
-| 人 | 周辺プロジェクト | ここで見たいこと |
-| --- | --- | --- |
-| Matthew Weier O'Phinney | Zend Framework | OOPフレームワーク |
-| Fabien Potencier | Symfony | OOPフレームワーク |
-| Paul M. Jones | Solar / Aura | ライブラリ設計 |
-| Jonathan Wage | Doctrine | ORM |
-| Nate Abele | Lithium | フレームワーク |
+| 人                      | 周辺プロジェクト | ここで見たいこと  |
+| ----------------------- | ---------------- | ----------------- |
+| Matthew Weier O'Phinney | Zend Framework   | OOPフレームワーク |
+| Fabien Potencier        | Symfony          | OOPフレームワーク |
+| Paul M. Jones           | Solar / Aura     | ライブラリ設計    |
+| Jonathan Wage           | Doctrine         | ORM               |
+| Nate Abele              | Lithium          | フレームワーク    |
 
 </div>
 
@@ -940,13 +940,13 @@ PHP標準関数に近い世界
 
 <div class="fig-member-table">
 
-| 周辺プロジェクト | メソッド命名の傾向 | 今回の読み |
-| --- | --- | --- |
-| Zend Framework | **camelCase** | OOP API |
-| Symfony | **camelCase** | OOP API |
-| Solar / Aura | **camelCase** | ライブラリAPI |
-| Doctrine | **camelCase** | ORM API |
-| Lithium | **camelCase** | OOP API |
+| 周辺プロジェクト | メソッド命名の傾向 | 今回の読み    |
+| ---------------- | ------------------ | ------------- |
+| Zend Framework   | **camelCase**      | OOP API       |
+| Symfony          | **camelCase**      | OOP API       |
+| Solar / Aura     | **camelCase**      | ライブラリAPI |
+| Doctrine         | **camelCase**      | ORM API       |
+| Lithium          | **camelCase**      | OOP API       |
 
 </div>
 
@@ -1016,11 +1016,11 @@ PHP標準関数に近い世界
 
 ## PSR-1が命名について言っていること
 
-| 対象 | 規則 |
-| --- | --- |
-| クラス名 | `StudlyCaps` |
+| 対象       | 規則                          |
+| ---------- | ----------------------------- |
+| クラス名   | `StudlyCaps`                  |
 | クラス定数 | `UPPER_CASE_WITH_UNDERSCORES` |
-| メソッド名 | `camelCase` |
+| メソッド名 | `camelCase`                   |
 
 ---
 

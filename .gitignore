@@ -5,4 +5,12 @@
 **/.DS_Store
 cache.json
 
-slides.json
+# 依存とビルド成果物
+node_modules/
+dist/
+dist-ssr/
+.vite-ssg/
+.wrangler/
+
+# 生成されるスライド/記事のメタデータ
+**/src/data/*.json

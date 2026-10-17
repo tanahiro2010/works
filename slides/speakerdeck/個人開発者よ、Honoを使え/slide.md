@@ -846,7 +846,6 @@ style: |
       font-size: 23px;
       line-height: 1.5;
   }
-
 ---
 
 <!-- _class: title -->
@@ -896,18 +895,23 @@ style: |
 ---
 
 <!-- _class: lead -->
+
 ## Hono ≒ バンジージャンプの数学的検証だヨ〜
+
 ### 発表しようとしたら別のプロポーザルが採択されたんだナ😅
 
 ---
 
 <!-- _class: lead -->
+
 # なんとネ <span class="red">66%成立😳</span>
+
 ## Hono ≒ バンジー、なんだナ😉
 
 ---
 
 <!-- _class: lead -->
+
 # ところが、ドッコイ‼️😅
 
 ---
@@ -915,7 +919,9 @@ style: |
 <!-- _class: lead -->
 
 # その話は、しないヨ〜😅
+
 ## プロポーザル、採択されなかったんだナ💦
+
 ### 気になったら、懇親会で声かけてネ😉
 
 ---
@@ -960,6 +966,7 @@ style: |
 ---
 
 # 「あとで必要かも」
+
 ## 最初から背負っていませんか？
 
 <div class="type-ghost stats-word">増やす前に考える</div>
@@ -1015,6 +1022,7 @@ style: |
 <div class="geo solid-square closing-square"></div>
 
 # 初期表示<br><strong>最悪で約1分。</strong>
+
 ### 言い過ぎかもしれないけど少なくとも30秒以上はした
 
 ---
@@ -1080,7 +1088,6 @@ style: |
 
 <br /><br />
 
-
 - React / Next.jsなし
 - HTML / Hono JSX中心で育てられる
 
@@ -1126,7 +1133,6 @@ style: |
 
 <br /><br />
 
-
 - 初期表示はサーバーで完了(SSG)
 - ブラウザ側の仕事を増やさない
 
@@ -1149,9 +1155,7 @@ style: |
 
 ```tsx
 /** @jsxImportSource hono/jsx */
-app.get('/novel', (c) => c.html(
-  <NovelPage novel={novel} />
-))
+app.get("/novel", (c) => c.html(<NovelPage novel={novel} />));
 ```
 
 - JSXを書く
@@ -1208,7 +1212,7 @@ app.get('/novel', (c) => c.html(
 ```tsx
 /** @jsxImportSource hono/jsx/dom */
 export function LikeButton() {
-  return <button onClick={toggle}>♥</button>
+  return <button onClick={toggle}>♥</button>;
 }
 ```
 
@@ -1243,10 +1247,7 @@ export function LikeButton() {
 - JavaScriptは操作感のために足す
 
 ```tsx
-<span
-  data-island="like"
-  data-props={JSON.stringify({ action, liked, count })}
->
+<span data-island="like" data-props={JSON.stringify({ action, liked, count })}>
   <form method="post" action={action}>
     <button type="submit">♥ {count}</button>
   </form>
@@ -1265,20 +1266,20 @@ export function LikeButton() {
 
 ```tsx
 /** @jsxImportSource hono/jsx/dom */
-import { useState } from 'hono/jsx'
+import { useState } from "hono/jsx";
 
 export function LikeButton({ action, liked: initial, count: initialCount }) {
-  const [liked, setLiked] = useState(initial)
-  const [count, setCount] = useState(initialCount)
+  const [liked, setLiked] = useState(initial);
+  const [count, setCount] = useState(initialCount);
 
   async function toggle() {
-    const next = !liked
-    setLiked(next)
-    setCount((value) => value + (next ? 1 : -1))
-    await fetch(action, { method: 'POST' })
+    const next = !liked;
+    setLiked(next);
+    setCount((value) => value + (next ? 1 : -1));
+    await fetch(action, { method: "POST" });
   }
 
-  return <button onClick={toggle}>♥ {count}</button>
+  return <button onClick={toggle}>♥ {count}</button>;
 }
 ```
 

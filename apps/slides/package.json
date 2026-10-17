@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "@tanahiro2010/slides",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,7 @@
     "build": "node scripts/build.js && tsc && vp build && vp build --ssr src/entry-server.tsx --outDir .vite-ssg && node scripts/prerender.ts && node scripts/build-decks.js",
     "preview": "vp preview",
     "preview:cf": "wrangler pages dev",
-    "deploy": "vp run build && wrangler pages deploy",
-    "prepare": "vp config"
+    "deploy": "vp run build && wrangler pages deploy"
   },
   "dependencies": {
     "ippon-slides": "^0.1.1",
@@ -22,19 +21,6 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
-    "typescript": "~6.0.2",
-    "vite": "npm:@voidzero-dev/vite-plus-core@1.3.0",
-    "vite-plus": "1.3.0",
     "wrangler": "^4.151.1"
-  },
-  "overrides": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@1.3.0"
-  },
-  "devEngines": {
-    "packageManager": {
-      "name": "bun",
-      "version": "1.4.3",
-      "onFail": "download"
-    }
   }
 }

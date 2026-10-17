@@ -496,10 +496,10 @@ Terraform はリソースを **10 並列** で作る
 
 ## [1, 100000) の素数 9592 個
 
-| 構成 | 時間 |
-|---|---:|
+| 構成                |       時間 |
+| ------------------- | ---------: |
 | Phase 1: 1 プロセス | 2 分 02 秒 |
-| Phase 3: 8 Miner | **38 秒** |
+| Phase 3: 8 Miner    |  **38 秒** |
 
 ---
 
@@ -545,14 +545,14 @@ PrimeChain
 
 ## ブロック
 
-| フィールド | 中身 |
-|---|---|
-| `height` | ブロック番号 |
-| `prev_hash` | 前ブロックのハッシュ |
-| `miner` | 掘った Miner |
-| `prime` | 発見した素数 |
-| `nonce` | Nonce |
-| `hash` | `sha256("height\|prev_hash\|miner\|prime\|nonce")` |
+| フィールド  | 中身                                               |
+| ----------- | -------------------------------------------------- |
+| `height`    | ブロック番号                                       |
+| `prev_hash` | 前ブロックのハッシュ                               |
+| `miner`     | 掘った Miner                                       |
+| `prime`     | 発見した素数                                       |
+| `nonce`     | Nonce                                              |
+| `hash`      | `sha256("height\|prev_hash\|miner\|prime\|nonce")` |
 
 ---
 

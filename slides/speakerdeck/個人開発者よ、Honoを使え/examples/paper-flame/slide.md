@@ -22,7 +22,7 @@ style: |
     --pf-mono: "SFMono-Regular", "Roboto Mono", "Cascadia Code", Consolas,
       monospace;
   }
-  
+
   section {
     width: 1280px;
     height: 720px;
@@ -48,7 +48,7 @@ style: |
     line-break: strict;
     overflow-wrap: anywhere;
   }
-  
+
   section::before {
     content: "";
     position: absolute;
@@ -56,7 +56,7 @@ style: |
     border: 1px solid rgba(183, 45, 24, 0.32);
     pointer-events: none;
   }
-  
+
   section::after {
     color: var(--pf-flame);
     font-family: var(--pf-mono);
@@ -65,7 +65,7 @@ style: |
     right: 40px;
     bottom: 30px;
   }
-  
+
   h1,
   h2,
   h3 {
@@ -73,7 +73,7 @@ style: |
     color: var(--pf-ink);
     text-wrap: balance;
   }
-  
+
   h1 {
     max-width: 980px;
     font-family: var(--pf-serif);
@@ -81,7 +81,7 @@ style: |
     font-weight: 800;
     line-height: 1.03;
   }
-  
+
   h2 {
     font-family: var(--pf-serif);
     font-size: 49px;
@@ -90,48 +90,48 @@ style: |
     padding-bottom: 16px;
     border-bottom: 3px solid var(--pf-flame);
   }
-  
+
   h3 {
     color: var(--pf-flame-dark);
     font-size: 24px;
     font-weight: 800;
   }
-  
+
   p {
     margin: 0;
   }
-  
+
   strong {
     color: var(--pf-flame-dark);
     font-weight: 800;
   }
-  
+
   em {
     color: var(--pf-muted);
     font-style: normal;
   }
-  
+
   a {
     color: var(--pf-flame-dark);
     text-decoration: none;
     border-bottom: 2px solid rgba(233, 71, 36, 0.35);
   }
-  
+
   ul,
   ol {
     margin: 0;
     padding-left: 1.15em;
   }
-  
+
   li {
     margin: 0.22em 0;
   }
-  
+
   li::marker {
     color: var(--pf-flame);
     font-weight: 800;
   }
-  
+
   blockquote {
     margin: 6px 0 0;
     padding: 22px 28px;
@@ -142,25 +142,25 @@ style: |
     font-size: 34px;
     line-height: 1.38;
   }
-  
+
   table {
     width: 100%;
     border-collapse: collapse;
     font-size: 23px;
   }
-  
+
   th,
   td {
     padding: 14px 16px;
     border-bottom: 1px solid var(--pf-line);
   }
-  
+
   th {
     color: var(--pf-flame-dark);
     text-align: left;
     font-weight: 800;
   }
-  
+
   code {
     padding: 0.12em 0.34em;
     border-radius: 4px;
@@ -169,7 +169,7 @@ style: |
     font-family: var(--pf-mono);
     font-size: 0.9em;
   }
-  
+
   pre {
     margin: 2px 0 0;
     padding: 28px 32px;
@@ -182,14 +182,14 @@ style: |
     line-height: 1.5;
     box-shadow: 14px 14px 0 rgba(233, 71, 36, 0.14);
   }
-  
+
   pre code {
     padding: 0;
     background: transparent;
     color: inherit;
     font-size: inherit;
   }
-  
+
   footer {
     position: absolute;
     left: 92px;
@@ -200,7 +200,7 @@ style: |
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  
+
   .kicker {
     color: var(--pf-flame-dark);
     font-family: var(--pf-mono);
@@ -209,12 +209,12 @@ style: |
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  
+
   .note {
     color: var(--pf-muted);
     font-size: 21px;
   }
-  
+
   .stamp {
     display: inline-block;
     width: fit-content;
@@ -226,21 +226,21 @@ style: |
     font-weight: 800;
     transform: rotate(-2deg);
   }
-  
+
   .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
     margin-top: 4px;
   }
-  
+
   .panel {
     min-height: 146px;
     padding: 22px 24px;
     border: 1px solid var(--pf-line);
     background: rgba(255, 253, 248, 0.82);
   }
-  
+
   .panel b {
     display: block;
     margin-bottom: 8px;
@@ -249,7 +249,7 @@ style: |
     font-size: 29px;
     line-height: 1.18;
   }
-  
+
   section.title {
     justify-content: center;
     padding: 86px 100px 86px;
@@ -257,21 +257,21 @@ style: |
       linear-gradient(90deg, transparent 0 68%, rgba(233, 71, 36, 0.1) 68% 100%),
       var(--pf-paper);
   }
-  
+
   section.title::before {
     inset: 32px;
     border-width: 2px;
   }
-  
+
   section.title h1 {
     max-width: 880px;
     font-size: 90px;
   }
-  
+
   section.title h1 strong {
     color: var(--pf-flame);
   }
-  
+
   section.title p {
     max-width: 720px;
     margin-top: 14px;
@@ -279,7 +279,7 @@ style: |
     font-size: 27px;
     font-weight: 700;
   }
-  
+
   section.title .meta {
     position: absolute;
     left: 100px;
@@ -290,7 +290,7 @@ style: |
     font-weight: 800;
     letter-spacing: 0.08em;
   }
-  
+
   section.section {
     justify-content: center;
     padding-left: 116px;
@@ -298,12 +298,12 @@ style: |
       linear-gradient(90deg, var(--pf-flame) 0 18px, transparent 18px 100%),
       var(--pf-paper);
   }
-  
+
   section.section h1 {
     max-width: 1000px;
     font-size: 86px;
   }
-  
+
   section.section h1::before {
     content: attr(data-chapter);
     display: block;
@@ -314,18 +314,18 @@ style: |
     line-height: 1;
     letter-spacing: 0.14em;
   }
-  
+
   section.code {
     background:
       linear-gradient(90deg, rgba(233, 71, 36, 0.12) 0 3px, transparent 3px 100%),
       var(--pf-paper);
   }
-  
+
   section.code h2 {
     border-bottom: 0;
     padding-bottom: 0;
   }
-  
+
   section.split {
     display: grid;
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
@@ -333,29 +333,29 @@ style: |
     column-gap: 54px;
     row-gap: 24px;
   }
-  
+
   section.split h2 {
     grid-column: 1 / -1;
   }
-  
+
   .compare {
     grid-column: 1;
     grid-row: 2;
     display: grid;
     gap: 14px;
   }
-  
+
   .compare > div {
     padding: 18px 20px;
     border-left: 6px solid var(--pf-flame);
     background: rgba(245, 238, 230, 0.74);
   }
-  
+
   .talk-points {
     grid-column: 2;
     grid-row: 2;
   }
-  
+
   section.closing {
     justify-content: center;
     align-items: flex-start;
@@ -363,19 +363,19 @@ style: |
       linear-gradient(180deg, transparent 0 64%, rgba(233, 71, 36, 0.1) 64% 100%),
       var(--pf-paper);
   }
-  
+
   section.closing h1 {
     max-width: 980px;
     font-size: 88px;
   }
-  
+
   section.closing p {
     margin-top: 18px;
     color: var(--pf-muted);
     font-size: 28px;
     font-weight: 700;
   }
-  
+
   section.closing .stamp {
     margin-top: 30px;
   }

@@ -675,16 +675,16 @@ Honoは、小さなAPIからプロダクトの成長まで同じ書き味で付�
 <div class="geo ring code-ring"></div>
 
 ```ts
-import { Hono } from 'hono'
+import { Hono } from "hono";
 
-const app = new Hono()
+const app = new Hono();
 
-app.get('/hello/:name', (c) => {
-  const name = c.req.param('name')
-  return c.json({ message: `Hello, ${name}!` })
-})
+app.get("/hello/:name", (c) => {
+  const name = c.req.param("name");
+  return c.json({ message: `Hello, ${name}!` });
+});
 
-export default app
+export default app;
 ```
 
 ---
@@ -723,11 +723,11 @@ export default app
 <div class="geo ring takeaway-ring"></div>
 <div class="geo pill takeaway-pill"></div>
 
-| Point | Message |
-| --- | --- |
-| Start | まず1本のAPIを動かしてみましょう! |
-| Grow | 必要になった境界だけ追加できます |
-| Ship | 小さな個人開発こそ、すぐ公開しましょう! |
+| Point | Message                                 |
+| ----- | --------------------------------------- |
+| Start | まず1本のAPIを動かしてみましょう!       |
+| Grow  | 必要になった境界だけ追加できます        |
+| Ship  | 小さな個人開発こそ、すぐ公開しましょう! |
 
 > フレームワーク選びを、開発を始めない理由にしないでください
 

@@ -145,13 +145,13 @@ PHP 3は、1998年6月にPHP/FIの正式な後継としてリリースされま�
 
 ここまでの話を整理すると、ある関数やメソッドの命名は、次のような軸によって変わってくることが見えてきます。
 
-| 軸 | 例 |
-| --- | --- |
-| いつ作られたか | 2000年以前のPHP標準関数 vs PSR以降のコード |
-| 誰が作ったか | Rasmus Lerdorf氏個人 vs PHP-FIGのような団体 |
-| どの文化圏か | C言語の関数文化 vs OOPフレームワークの文化 |
+| 軸               | 例                                                                        |
+| ---------------- | ------------------------------------------------------------------------- |
+| いつ作られたか   | 2000年以前のPHP標準関数 vs PSR以降のコード                                |
+| 誰が作ったか     | Rasmus Lerdorf氏個人 vs PHP-FIGのような団体                               |
+| どの文化圏か     | C言語の関数文化 vs OOPフレームワークの文化                                |
 | 互換性を壊せるか | グローバル関数（維持コスト大） vs 新規フレームワークのAPI（維持コスト小） |
-| どの層のAPIか | 言語組み込み関数 vs ユーザーランドのクラス |
+| どの層のAPIか    | 言語組み込み関数 vs ユーザーランドのクラス                                |
 
 「PHPの命名規則がバラバラなのは、設計思想が一貫していないから」と片付けてしまうのは簡単ですが、実際にはこうした複数の軸が絡み合った結果として、今のPHPの命名の見た目ができあがっている、と捉えるとしっくりきます。
 
@@ -170,12 +170,12 @@ PHPには、PSRより前から共通のコーディング規約がありまし�
 
 PEARには、PSRより10年以上前から、はっきりとした命名規約がありました（[PEAR Manual: Naming Conventions](https://pear.php.net/manual/en/standards.naming.php)）。
 
-| 対象 | 規則 | 例 |
-| --- | --- | --- |
-| クラス名 | 先頭大文字、階層はアンダースコアで表現 | `Log`, `Net_Finger`, `HTML_Upload_Error` |
-| メソッド名 | 先頭小文字のcamel系（studly caps） | `connect()`, `getData()`, `buildSomeWidget()` |
-| グローバル関数 | パッケージ名を先頭に付けたcamel系 | `XML_RPC_serializeData()` |
-| 定数 | 大文字とアンダースコア | `DB_DATASOURCENAME`, `SERVICES_AMAZON_S3_LICENSEKEY` |
+| 対象           | 規則                                   | 例                                                   |
+| -------------- | -------------------------------------- | ---------------------------------------------------- |
+| クラス名       | 先頭大文字、階層はアンダースコアで表現 | `Log`, `Net_Finger`, `HTML_Upload_Error`             |
+| メソッド名     | 先頭小文字のcamel系（studly caps）     | `connect()`, `getData()`, `buildSomeWidget()`        |
+| グローバル関数 | パッケージ名を先頭に付けたcamel系      | `XML_RPC_serializeData()`                            |
+| 定数           | 大文字とアンダースコア                 | `DB_DATASOURCENAME`, `SERVICES_AMAZON_S3_LICENSEKEY` |
 
 面白いのは、PEAR規約ではグローバル関数についても「studly caps」、つまりcamel系の命名を推奨していた点です。「PHPの関数は昔からsnake_caseで決まっていた」という単純な図式ではなく、この時点ですでに「PHP標準関数のsnake_case文化」とは別系統の命名文化がPHPコミュニティ内に存在していたことになります。
 
@@ -235,15 +235,16 @@ PHP 5によって、はじめて「メソッドという単位で命名を考え
 
 PHP 5以降、CakePHP、Symfony、Zend Framework、Doctrine、CodeIgniterといったフレームワークやライブラリが登場し、育っていきます。それぞれのメソッド命名の傾向を大まかに整理すると、次のようになります（あくまで筆者が確認できた範囲での大まかな傾向であり、全バージョン・全モジュールを検証したものではありません）。
 
-| プロジェクト | 系統 | メソッド命名の傾向 | 大まかな性格 |
-| --- | --- | --- | --- |
-| CakePHP | フルスタックフレームワーク | camelCase | 設定より規約を重視するMVCフレームワーク |
-| Symfony | フルスタックフレームワーク | camelCase | 部品（コンポーネント）単位で使えるOOP設計 |
-| Zend Framework | フレームワーク／ライブラリ集 | camelCase | エンタープライズ用途を意識した設計 |
-| Doctrine（[ORM](#glossary-orm)） | ORMライブラリ | camelCase | DBのテーブルとオブジェクトを対応付ける |
-| CodeIgniter | 軽量フレームワーク | snake_case寄り | 手続き的PHPに近い、シンプルさを志向 |
+| プロジェクト                     | 系統                         | メソッド命名の傾向 | 大まかな性格                              |
+| -------------------------------- | ---------------------------- | ------------------ | ----------------------------------------- |
+| CakePHP                          | フルスタックフレームワーク   | camelCase          | 設定より規約を重視するMVCフレームワーク   |
+| Symfony                          | フルスタックフレームワーク   | camelCase          | 部品（コンポーネント）単位で使えるOOP設計 |
+| Zend Framework                   | フレームワーク／ライブラリ集 | camelCase          | エンタープライズ用途を意識した設計        |
+| Doctrine（[ORM](#glossary-orm)） | ORMライブラリ                | camelCase          | DBのテーブルとオブジェクトを対応付ける    |
+| CodeIgniter                      | 軽量フレームワーク           | snake_case寄り     | 手続き的PHPに近い、シンプルさを志向       |
 
 <a id="glossary-orm"></a>
+
 > **ORMとは**
 > Object-Relational Mappingの略で、データベースのテーブルとプログラム上のオブジェクト（クラス）を対応付ける技術のことです。Doctrineは、PHPでよく使われるORMライブラリの一つです。
 
@@ -294,13 +295,13 @@ PHP-FIG公式のFAQによると、この団体は2009年、「php|tek」とい�
 2. それらのプロジェクトのメソッド命名は、当時からcamelCase系が主流だった
 3. つまり、PHP-FIGの「顔ぶれ」自体が、すでにcamelCase文化の側に大きく偏っていた
 
-| 人物 | 当時関わっていたプロジェクト | メソッド命名の傾向 |
-| --- | --- | --- |
-| Matthew Weier O'Phinney氏 | Zend Framework | camelCase |
-| Paul M. Jones氏 | Solar | camelCase |
-| Nate Abele氏 | CakePHP（当時。のちにLithiumにも関わる） | camelCase |
-| Fabien Potencier氏 | Symfony | camelCase |
-| （代表者名までは未確認） | PEAR / Phing / Agavi | PEARはグローバル関数もcamel系推奨、Phing/Agaviは未確認 |
+| 人物                      | 当時関わっていたプロジェクト             | メソッド命名の傾向                                     |
+| ------------------------- | ---------------------------------------- | ------------------------------------------------------ |
+| Matthew Weier O'Phinney氏 | Zend Framework                           | camelCase                                              |
+| Paul M. Jones氏           | Solar                                    | camelCase                                              |
+| Nate Abele氏              | CakePHP（当時。のちにLithiumにも関わる） | camelCase                                              |
+| Fabien Potencier氏        | Symfony                                  | camelCase                                              |
+| （代表者名までは未確認）  | PEAR / Phing / Agavi                     | PEARはグローバル関数もcamel系推奨、Phing/Agaviは未確認 |
 
 注意点を2つ置いておきます。1つ目は、これは「2009年設立時点の創設5名の完全な対応表」ではなく、「PHP-FIGの初期の顔ぶれとして名前が挙がるプロジェクトと、それに関わった人物」を突き合わせたものだという点です。2つ目は、Jonathan Wage氏とDoctrineの組み合わせについては、今回の調査では一次資料を確認できなかったため、この表からは外しています。それでも、確認できた範囲だけで見ても「PHP-FIGの初期メンバー周辺は、すでにcamelCase文化のプロジェクトが多数派だった」と言えるだけの材料は揃っている、というのがこの記事の見立てです。
 
@@ -329,11 +330,11 @@ PSR-1、正式名称「Basic Coding Standard」は、次のような目的で書
 
 PSR-1が定めている命名規則は、次の通りです。
 
-| 対象 | 規則 |
-| --- | --- |
-| クラス名 | `StudlyCaps`（`Class names MUST be declared in StudlyCaps.`） |
+| 対象       | 規則                                                                                                              |
+| ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| クラス名   | `StudlyCaps`（`Class names MUST be declared in StudlyCaps.`）                                                     |
 | クラス定数 | `UPPER_CASE_WITH_UNDERSCORES`（`Class constants MUST be declared in all upper case with underscore separators.`） |
-| メソッド名 | `camelCase()`（`Method names MUST be declared in camelCase().`） |
+| メソッド名 | `camelCase()`（`Method names MUST be declared in camelCase().`）                                                  |
 
 > **StudlyCapsとは**
 > 単語の先頭を大文字にしてつなげる書き方のことです。一般に言う「PascalCase」とほぼ同じ意味で使われています（例: `HttpClient`）。
@@ -390,10 +391,10 @@ PHPは、命名規則を構文レベルでは何も強制しません。変数�
 
 実務でこの話をすると、だいたい次のような言い分が出てきます。どちらも一理あり、この記事は「どちらが優れているか」を決めるものではないので、あくまで両論併記として整理しておきます。
 
-| 派閥 | よくある言い分 |
-| --- | --- |
-| snake_case派 | PHP標準関数と統一感が出る／単語の区切りが視覚的にわかりやすい／大文字小文字の打ち間違いに気を使わなくていい |
-| camelCase派 | PSR-1に準拠できる／Java・JavaScript・C#など他言語のOOP文化と統一感が出る／既存の主要フレームワークの流儀に合わせやすい |
+| 派閥         | よくある言い分                                                                                                         |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| snake_case派 | PHP標準関数と統一感が出る／単語の区切りが視覚的にわかりやすい／大文字小文字の打ち間違いに気を使わなくていい            |
+| camelCase派  | PSR-1に準拠できる／Java・JavaScript・C#など他言語のOOP文化と統一感が出る／既存の主要フレームワークの流儀に合わせやすい |
 
 この記事の立場は、「クラスの中(メソッド)かクラスの外(関数)か」で層を分けて考えることで、両方の言い分を無理なく両立できる、というものです。
 

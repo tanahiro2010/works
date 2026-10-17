@@ -9,10 +9,10 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readSlideMeta } from "./slides-meta.js";
 
-// This script lives in <repo>/frontend/scripts, so resolve the slide folders
+// This script lives in <repo>/apps/slides/scripts, so resolve the slide folders
 // against the repo root rather than whatever directory node was started in.
-const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
-const outFile = fileURLToPath(new URL("../../slides.json", import.meta.url));
+const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
+const outFile = fileURLToPath(new URL("../src/data/slides.json", import.meta.url));
 
 const slides = {
   slides: {
@@ -67,6 +67,7 @@ const getSlides = () => {
 
 const build = () => {
   getSlides();
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
   fs.writeFileSync(outFile, JSON.stringify(slides, null, 2));
   console.log(
     `wrote ${path.relative(repoRoot, outFile)} ` +

@@ -18,11 +18,11 @@
 
 構成はこうなっています。
 
-|技術|採用|
-|---|---|
-|Frontend|Next.js|
-|Database|Neon(PostgreSQL)|
-|Hosting|Vercel|
+| 技術     | 採用             |
+| -------- | ---------------- |
+| Frontend | Next.js          |
+| Database | Neon(PostgreSQL) |
+| Hosting  | Vercel           |
 
 つまり、全部サーバーレスです。
 

@@ -30,9 +30,5 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     console.log("TODO: toggleTheme を実装しよう");
   }
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 }

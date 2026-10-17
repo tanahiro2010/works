@@ -16,9 +16,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <h3 className="text-lg font-semibold group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
           {project.title}
         </h3>
-        <p className="flex-1 text-sm text-slate-500 dark:text-slate-400">
-          {project.summary}
-        </p>
+        <p className="flex-1 text-sm text-slate-500 dark:text-slate-400">{project.summary}</p>
         <div className="flex flex-wrap gap-1.5 pt-1">
           {project.tags.map((tag) => (
             <span

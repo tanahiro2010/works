@@ -4,7 +4,7 @@ theme: default
 paginate: true
 size: 16:9
 style: |
-  
+
   :root {
     --hono-red: #e8392f;
     --hono-red-hot: #ff5a3d;
@@ -18,7 +18,7 @@ style: |
     --hono-cyan: #40e0d0;
     --hono-yellow: #ffd166;
   }
-  
+
   section {
     box-sizing: border-box;
     width: 1280px;
@@ -43,7 +43,7 @@ style: |
     line-break: strict;
     overflow-wrap: anywhere;
   }
-  
+
   section::before {
     content: "Hono Conference";
     position: absolute;
@@ -55,7 +55,7 @@ style: |
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  
+
   section::after {
     content: attr(data-marpit-pagination);
     position: absolute;
@@ -65,7 +65,7 @@ style: |
     font-size: 14px;
     font-weight: 900;
   }
-  
+
   h1,
   h2,
   h3,
@@ -74,7 +74,7 @@ style: |
     margin: 0;
     text-wrap: balance;
   }
-  
+
   h1 {
     width: fit-content;
     max-width: 100%;
@@ -85,14 +85,14 @@ style: |
     line-height: 1.02;
     font-weight: 950;
   }
-  
+
   h2 {
     margin-bottom: 22px;
     font-size: 46px;
     line-height: 1.12;
     font-weight: 920;
   }
-  
+
   h3 {
     margin: 16px 0 10px;
     color: var(--hono-red-dark);
@@ -100,38 +100,38 @@ style: |
     line-height: 1.2;
     font-weight: 850;
   }
-  
+
   p {
     margin: 0 0 18px;
   }
-  
+
   strong {
     color: var(--hono-red-dark);
     font-weight: 950;
   }
-  
+
   a {
     color: var(--hono-red-dark);
     font-weight: 850;
     text-decoration: none;
     border-bottom: 3px solid rgba(232, 57, 47, 0.36);
   }
-  
+
   ul,
   ol {
     margin: 8px 0 0 1.15em;
     padding: 0;
   }
-  
+
   li {
     margin: 10px 0;
   }
-  
+
   li::marker {
     color: var(--hono-red);
     font-weight: 950;
   }
-  
+
   blockquote {
     margin: 18px 0 0;
     padding: 22px 28px;
@@ -139,7 +139,7 @@ style: |
     background: rgba(232, 57, 47, 0.08);
     font-weight: 800;
   }
-  
+
   code {
     padding: 0.08em 0.28em;
     border-radius: 4px;
@@ -148,7 +148,7 @@ style: |
     font-family: "SF Mono", "Roboto Mono", Menlo, Consolas, monospace;
     font-size: 0.86em;
   }
-  
+
   pre {
     margin: 16px 0 0;
     padding: 28px 30px;
@@ -163,34 +163,34 @@ style: |
     line-height: 1.48;
     box-shadow: 0 24px 60px rgba(18, 9, 10, 0.2);
   }
-  
+
   pre code {
     padding: 0;
     background: transparent;
     color: inherit;
     font-size: inherit;
   }
-  
+
   table {
     width: 100%;
     margin-top: 16px;
     border-collapse: collapse;
     font-size: 23px;
   }
-  
+
   th,
   td {
     padding: 14px 18px;
     border-bottom: 2px solid rgba(18, 9, 10, 0.12);
     text-align: left;
   }
-  
+
   th {
     background: var(--hono-ink);
     color: var(--hono-paper);
     font-weight: 900;
   }
-  
+
   footer {
     position: absolute;
     right: 76px;
@@ -199,7 +199,7 @@ style: |
     font-size: 13px;
     font-weight: 700;
   }
-  
+
   section.title,
   section.section,
   section.lead,
@@ -210,26 +210,26 @@ style: |
       linear-gradient(145deg, #1a0809 0%, #4a0b0f 48%, #e8392f 100%);
     color: var(--hono-paper);
   }
-  
+
   section.title::before,
   section.section::before,
   section.lead::before,
   section.invert::before {
     color: rgba(255, 248, 244, 0.76);
   }
-  
+
   section.title::after,
   section.section::after,
   section.lead::after,
   section.invert::after {
     color: rgba(255, 248, 244, 0.66);
   }
-  
+
   section.title {
     justify-content: center;
     padding: 96px 104px 90px;
   }
-  
+
   section.title h1 {
     max-width: 980px;
     margin: 0;
@@ -239,7 +239,7 @@ style: |
     letter-spacing: 0;
     text-transform: uppercase;
   }
-  
+
   section.title h1::before {
     content: "SIGNAL RED";
     display: block;
@@ -250,7 +250,7 @@ style: |
     font-weight: 950;
     letter-spacing: 0.16em;
   }
-  
+
   section.title h2 {
     max-width: 740px;
     margin-top: 28px;
@@ -258,25 +258,25 @@ style: |
     font-size: 30px;
     font-weight: 760;
   }
-  
+
   section.title p {
     margin-top: 50px;
     color: rgba(255, 248, 244, 0.72);
     font-size: 18px;
     font-weight: 850;
   }
-  
+
   section.title::before {
     top: 42px;
     bottom: auto;
     left: 52px;
   }
-  
+
   section.title::after {
     top: 42px;
     bottom: auto;
   }
-  
+
   section.title .burst,
   section.section .burst,
   section.lead .burst {
@@ -287,7 +287,7 @@ style: |
     border: 2px solid rgba(255, 248, 244, 0.28);
     transform: rotate(-10deg);
   }
-  
+
   section.title .burst::before,
   section.section .burst::before,
   section.lead .burst::before {
@@ -298,19 +298,19 @@ style: |
     border-left-color: transparent;
     border-bottom-color: transparent;
   }
-  
+
   section.section {
     justify-content: center;
     padding-left: 120px;
   }
-  
+
   section.section h1 {
     max-width: 960px;
     border: none;
     font-size: 82px;
     line-height: 0.98;
   }
-  
+
   section.section h1::before {
     content: attr(data-marpit-pagination);
     display: block;
@@ -320,19 +320,19 @@ style: |
     line-height: 1;
     font-weight: 950;
   }
-  
+
   section.lead {
     justify-content: center;
     text-align: center;
   }
-  
+
   section.lead h1 {
     margin: 0 auto;
     border: none;
     font-size: 82px;
     line-height: 1.02;
   }
-  
+
   section.lead p {
     max-width: 760px;
     margin: 26px auto 0;
@@ -340,60 +340,60 @@ style: |
     font-size: 29px;
     font-weight: 740;
   }
-  
+
   section.invert {
     background:
       linear-gradient(90deg, rgba(232, 57, 47, 0.18), transparent 50%),
       #100708;
   }
-  
+
   section.invert h1,
   section.invert h2,
   section.invert h3,
   section.invert strong {
     color: var(--hono-paper);
   }
-  
+
   section.invert h1 {
     border-bottom-color: var(--hono-red-hot);
   }
-  
+
   section.invert code {
     background: rgba(255, 248, 244, 0.1);
     color: var(--hono-yellow);
   }
-  
+
   section.invert pre {
     box-shadow: none;
   }
-  
+
   section.split {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     column-gap: 72px;
   }
-  
+
   section.split h1,
   section.split h2 {
     grid-column: 1 / -1;
   }
-  
+
   section.split h3 {
     margin-top: 0;
   }
-  
+
   .stage-panel {
     padding: 28px 30px;
     border-top: 8px solid var(--hono-red);
     background: rgba(18, 9, 10, 0.06);
   }
-  
+
   .stage-panel.dark {
     border-color: var(--hono-yellow);
     background: rgba(255, 248, 244, 0.08);
   }
-  
+
   .kicker {
     display: inline-flex;
     align-items: center;
@@ -405,28 +405,28 @@ style: |
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
-  
+
   .kicker::before {
     content: "";
     width: 46px;
     height: 10px;
     background: var(--hono-red);
   }
-  
+
   section.title .kicker,
   section.section .kicker,
   section.lead .kicker,
   section.invert .kicker {
     color: var(--hono-yellow);
   }
-  
+
   section.title .kicker::before,
   section.section .kicker::before,
   section.lead .kicker::before,
   section.invert .kicker::before {
     background: var(--hono-yellow);
   }
-  
+
   .metric {
     display: grid;
     grid-template-columns: 86px 1fr;
@@ -434,25 +434,25 @@ style: |
     align-items: center;
     margin-top: 18px;
   }
-  
+
   .metric strong {
     color: var(--hono-red);
     font-size: 58px;
     line-height: 1;
   }
-  
+
   .metric span {
     font-size: 22px;
     font-weight: 760;
   }
-  
+
   .signal-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
     margin-top: 18px;
   }
-  
+
   .signal-grid > div {
     min-height: 116px;
     padding: 22px;
@@ -460,7 +460,7 @@ style: |
     border-left: 7px solid var(--hono-red);
     font-weight: 820;
   }
-  
+
   .signal-grid strong {
     display: block;
     margin-bottom: 8px;

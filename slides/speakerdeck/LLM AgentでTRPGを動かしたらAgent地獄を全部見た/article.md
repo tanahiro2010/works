@@ -364,7 +364,12 @@ bun run src/index.ts --scenario scenarios/test.txt --cohere --turns 4 --include-
 でも、ログにはこう出ました。
 
 ```json
-{"level":"warn","category":"parser","message":"unknown action type","data":{"record":{"move location":"page-3"}}}
+{
+  "level": "warn",
+  "category": "parser",
+  "message": "unknown action type",
+  "data": { "record": { "move location": "page-3" } }
+}
 ```
 
 `type`ではなく`"move location": "page-3"`という、変なキーで辞書化されていました。
@@ -418,7 +423,7 @@ if (colonIndex !== -1) {
 結果、記録されたPLの行動はこうなりました。
 
 ```json
-{"type":"speak","target":"npc","message":"...","reason":"会話する"}
+{ "type": "speak", "target": "npc", "message": "...", "reason": "会話する" }
 ```
 
 `message`は、スキーマを満たすためのプレースホルダである`"..."`です。
@@ -442,7 +447,7 @@ PLはこう返してきました。
 でも`location`フィールドは提供されていないので、`recordToActionPayload()`のデフォルト値がそのまま入ります。
 
 ```json
-{"type":"move","location":"unknown","reason":"移動する"}
+{ "type": "move", "location": "unknown", "reason": "移動する" }
 ```
 
 移動は成功しているのに、記録上の行き先は`"unknown"`という、ちぐはぐな状態です。
@@ -467,12 +472,12 @@ TRPGとしては、なかなかシュールな結末です。
 
 4ターンの流れを、表にまとめておきます。
 
-|ターン|PLの出力|記録された行動|結果|
-|---|---|---|---|
-|1|`move location=page-3`(パース失敗を3回繰り返した末に`speak`へフォールバック)|`speak, message: "..."`|台詞は消失、移動もせず|
-|2|`move`(branchIdのみ)|`move, location: "unknown"`|移動自体は成功、記録は破綻|
-|3|`speak`(中身なし)|`speak, message: "..."`|沈黙|
-|4|`speak`(中身なし)|`speak, message: "..."`|沈黙のまま4ターン上限|
+| ターン | PLの出力                                                                     | 記録された行動              | 結果                       |
+| ------ | ---------------------------------------------------------------------------- | --------------------------- | -------------------------- |
+| 1      | `move location=page-3`(パース失敗を3回繰り返した末に`speak`へフォールバック) | `speak, message: "..."`     | 台詞は消失、移動もせず     |
+| 2      | `move`(branchIdのみ)                                                         | `move, location: "unknown"` | 移動自体は成功、記録は破綻 |
+| 3      | `speak`(中身なし)                                                            | `speak, message: "..."`     | 沈黙                       |
+| 4      | `speak`(中身なし)                                                            | `speak, message: "..."`     | 沈黙のまま4ターン上限      |
 
 ## 何がなぜ、まだ壊れているか
 

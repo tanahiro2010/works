@@ -461,6 +461,7 @@ section.split h2 {
 <div class="panel blue">
 
 ### 今日の話
+
 「好きなものを書く」と「読まれる型を知る」を、AIでどう橋渡しするか
 
 </div>

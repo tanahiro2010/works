@@ -192,11 +192,11 @@ Serverless LT
 
 匿名で問題を投げるサイト
 
-|技術|採用|
-|---|---|
-|Frontend|Next.js|
-|Database|Neon(PostgreSQL)|
-|Hosting|Vercel|
+| 技術     | 採用             |
+| -------- | ---------------- |
+| Frontend | Next.js          |
+| Database | Neon(PostgreSQL) |
+| Hosting  | Vercel           |
 
 > **全部サーバーレス**
 

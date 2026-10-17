@@ -44,20 +44,21 @@ function svgFor(variant) {
   const gap = (endX - startX) / (events.length - 1);
   const activeEnd = variant.filled > 1 ? startX + gap * (variant.filled - 1) : startX;
 
-  const nodes = events.map((event, i) => {
-    const x = startX + gap * i;
-    const filled = i < variant.filled;
-    const current = i === variant.current;
-    const top = i % 2 === 0;
-    const nodeColor = filled ? event.color : "#DADCE0";
-    const textColor = filled ? "#1A1A1A" : "#8A8F98";
-    const yearSize = current ? 52 : 46;
-    const r = current ? 44 : 34;
-    const label = filled ? event.label : "";
-    const yearY = top ? y - 132 : y + 140;
-    const labelY = top ? y - 74 : y + 198;
+  const nodes = events
+    .map((event, i) => {
+      const x = startX + gap * i;
+      const filled = i < variant.filled;
+      const current = i === variant.current;
+      const top = i % 2 === 0;
+      const nodeColor = filled ? event.color : "#DADCE0";
+      const textColor = filled ? "#1A1A1A" : "#8A8F98";
+      const yearSize = current ? 52 : 46;
+      const r = current ? 44 : 34;
+      const label = filled ? event.label : "";
+      const yearY = top ? y - 132 : y + 140;
+      const labelY = top ? y - 74 : y + 198;
 
-    return `
+      return `
       <g>
         <circle cx="${x}" cy="${y}" r="${r + 8}" fill="${current ? "#FFF6D7" : "#FFFFFF"}"/>
         <circle cx="${x}" cy="${y}" r="${r}" fill="${nodeColor}"/>
@@ -65,13 +66,16 @@ function svgFor(variant) {
         <text x="${x}" y="${yearY}" text-anchor="middle" font-size="${yearSize}" font-weight="800" fill="${textColor}">${esc(event.year)}</text>
         <text x="${x}" y="${labelY}" text-anchor="middle" font-size="30" font-weight="700" fill="${filled ? "#1A1A1A" : "#C2C7CF"}">${esc(label)}</text>
       </g>`;
-  }).join("\n");
+    })
+    .join("\n");
 
-  const ghost = variant.ghost ? `
+  const ghost = variant.ghost
+    ? `
     <g>
       <rect x="${startX + gap * 4 - 150}" y="${y - 248}" width="300" height="58" rx="29" fill="#F1F3F4"/>
       <text x="${startX + gap * 4}" y="${y - 208}" text-anchor="middle" font-size="30" font-weight="700" fill="#5F6368">${esc(variant.ghost)}</text>
-    </g>` : "";
+    </g>`
+    : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <rect width="1920" height="1080" fill="#FFFFFF"/>

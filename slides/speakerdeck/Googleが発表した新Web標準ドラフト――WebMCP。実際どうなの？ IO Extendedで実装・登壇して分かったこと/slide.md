@@ -645,7 +645,6 @@ WebMCP対応ページを<br>MCP経由で既存Agentから呼べるようにし�
 
 # 宣伝
 
-
 ---
 
 <!-- _class: lead -->

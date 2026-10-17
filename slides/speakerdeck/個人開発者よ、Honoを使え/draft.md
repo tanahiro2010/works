@@ -1,6 +1,7 @@
 # 個人開発者よ、Honoを使え
 
 ## 概要
+
 これはタイトル通りの記事を書くためのドラフトです。
 あくまで記事を書くための情報をまとめただけのものです。
 これを読み込んだあなたは、ZennやQiitaに投稿するために作者目線となって記事を作成してください。
@@ -10,6 +11,7 @@
 それぞれのセクションごとの文章量を増やし、もしそのネタが技術的側面を持っているのなら発表以上に技術要素を追加したり（そのためにセクションを追加したりもする）して欲しいです。
 
 ## 30分発表のスライドを作るに当たって
+
 適度に画像を挿入したり、コードを挿入したりして、見やすいスライドを作ってください。
 Chromeとか動かしてスクショ撮るのもOKです。
 また、他のプロジェクトから画像を持ってくるのもOKです。
@@ -18,11 +20,13 @@ Chromeとか動かしてスクショ撮るのもOKです。
 **なお、実際に適当なプロジェクトを作ってレスポンス速度の測定などもしてください**
 
 ## 記事を書くに当たって
+
 記事はスライドの各セクションごとを増量し、そして技術的側面を追加して書くことを意識してください。
 また、記事の中では画像を使うことはできません。
 Mermaidなどで図を作ることはできます。
 
 ## 記事・スライド共通ドラフト
+
 - 発表の中心メッセージ
   - Honoなら、HTMLを返すだけの小さな構成から始めて、捨てずにフルスタックアプリまで育てられる
   - 個人開発で最も貴重なのは、CPUやメモリよりも開発者自身の時間と認知負荷
@@ -251,43 +255,38 @@ Mermaidなどで図を作ることはできます。
   - SEOはフレームワーク名ではなく、実際に返すHTMLと運用で決まる
   - すべてのサイトにHonoだけが最適とは言わない
 
-
-
-
 ## コードサンプル
-  - `sample1.tsx`：サーバーが返すNo-JS fallback
 
-    ```tsx
-    <span
-      data-island="like"
-      data-props={JSON.stringify({ action, liked, count })}
-    >
-      <form method="post" action={action}>
-        <button type="submit">♥ {count}</button>
-      </form>
-    </span>
-    ```
+- `sample1.tsx`：サーバーが返すNo-JS fallback
 
-  - `sample2.tsx`：ブラウザでその部分だけ強化
+  ```tsx
+  <span data-island="like" data-props={JSON.stringify({ action, liked, count })}>
+    <form method="post" action={action}>
+      <button type="submit">♥ {count}</button>
+    </form>
+  </span>
+  ```
 
-    ```tsx
-    /** @jsxImportSource hono/jsx/dom */
-    import { useState } from "hono/jsx"
+- `sample2.tsx`：ブラウザでその部分だけ強化
 
-    export function LikeButton({ action, liked: initialLiked, count: initialCount }) {
-      const [liked, setLiked] = useState(initialLiked)
-      const [count, setCount] = useState(initialCount)
+  ```tsx
+  /** @jsxImportSource hono/jsx/dom */
+  import { useState } from "hono/jsx";
 
-      async function toggle() {
-        const next = !liked
-        setLiked(next)
-        setCount((value) => value + (next ? 1 : -1))
-        await fetch(action, { method: "POST" })
-      }
+  export function LikeButton({ action, liked: initialLiked, count: initialCount }) {
+    const [liked, setLiked] = useState(initialLiked);
+    const [count, setCount] = useState(initialCount);
 
-      return <button onClick={toggle}>♥ {count}</button>
+    async function toggle() {
+      const next = !liked;
+      setLiked(next);
+      setCount((value) => value + (next ? 1 : -1));
+      await fetch(action, { method: "POST" });
     }
-    ```
+
+    return <button onClick={toggle}>♥ {count}</button>;
+  }
+  ```
 
 - 参考資料
   - Hono JSX: https://hono.dev/docs/guides/jsx

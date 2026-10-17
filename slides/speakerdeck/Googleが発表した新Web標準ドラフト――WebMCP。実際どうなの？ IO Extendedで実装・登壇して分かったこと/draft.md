@@ -1,6 +1,7 @@
 # LT登壇資料 仕様書 - Googleが発表した新Web標準ドラフト――WebMCP。実際どうなの？ IO Extendedで実装・登壇して分かったこと
 
 ## 概要
+
 Google I/O Extended Osaka 2026にて、ハンズオンで登壇してきました。
 タイトルは「WebMCP を作って AI エージェントから呼び出してみよう！ WebMCP 開発ハンズオン」
 実際にこのコードラボ（https://learn.gdgs.jp/webmcp-agent/）を使って、ハンズオンの前半部分の登壇を担当しました。
@@ -11,6 +12,7 @@ connpass: https://gdgkwansai.connpass.com/event/391029/
 自作extension: https://github.com/tanahiro2010/webmcp-bridge-extension
 
 ## スライド内容（一セクションに一つ書いてますが、別にそれで一ページと言うわけでもなく分量によって分割推奨）
+
 - タイトル
 - 自己紹介
   - 名前：田中博悠（tanahiro2010）

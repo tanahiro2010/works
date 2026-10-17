@@ -21,9 +21,7 @@ export function Projects() {
   //   [projects, searchText]
   // );
   const filteredProjects = projects.filter(
-    (p) =>
-      p.title.includes(searchText) ||
-      p.tags.some((tag) => tag.includes(searchText)),
+    (p) => p.title.includes(searchText) || p.tags.some((tag) => tag.includes(searchText)),
   );
 
   return (

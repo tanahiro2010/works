@@ -168,13 +168,13 @@ PHP's old `mysql_*` functions, such as `mysql_query`, are a good example. They w
 
 So far, we can see that naming depends on several axes:
 
-| Axis | Example |
-| --- | --- |
-| When it was created | Pre-2000 PHP built-ins vs post-PSR code |
-| Who created it | Rasmus Lerdorf individually vs a group such as PHP-FIG |
-| Which culture it came from | C-style function culture vs OOP framework culture |
+| Axis                                | Example                                                             |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| When it was created                 | Pre-2000 PHP built-ins vs post-PSR code                             |
+| Who created it                      | Rasmus Lerdorf individually vs a group such as PHP-FIG              |
+| Which culture it came from          | C-style function culture vs OOP framework culture                   |
 | Whether compatibility can be broken | Global functions with huge compatibility cost vs new framework APIs |
-| Which API layer it belongs to | Built-in language functions vs userland classes |
+| Which API layer it belongs to       | Built-in language functions vs userland classes                     |
 
 It is easy to say PHP naming is inconsistent because the design philosophy was inconsistent. But in practice, PHP's naming style is the result of several historical layers overlapping.
 
@@ -193,12 +193,12 @@ One fact-checking note: in an earlier draft, I wrote that PEAR was released in D
 
 PEAR had clear naming conventions more than a decade before PSR ([PEAR Manual: Naming Conventions](https://pear.php.net/manual/en/standards.naming.php)).
 
-| Target | Rule | Example |
-| --- | --- | --- |
-| Class names | Initial uppercase, hierarchy expressed with underscores | `Log`, `Net_Finger`, `HTML_Upload_Error` |
-| Method names | Lowercase first word, then studly caps | `connect()`, `getData()`, `buildSomeWidget()` |
-| Global functions | Package name prefix, then studly caps | `XML_RPC_serializeData()` |
-| Constants | Uppercase with underscores | `DB_DATASOURCENAME`, `SERVICES_AMAZON_S3_LICENSEKEY` |
+| Target           | Rule                                                    | Example                                              |
+| ---------------- | ------------------------------------------------------- | ---------------------------------------------------- |
+| Class names      | Initial uppercase, hierarchy expressed with underscores | `Log`, `Net_Finger`, `HTML_Upload_Error`             |
+| Method names     | Lowercase first word, then studly caps                  | `connect()`, `getData()`, `buildSomeWidget()`        |
+| Global functions | Package name prefix, then studly caps                   | `XML_RPC_serializeData()`                            |
+| Constants        | Uppercase with underscores                              | `DB_DATASOURCENAME`, `SERVICES_AMAZON_S3_LICENSEKEY` |
 
 The interesting part is that PEAR recommended a camel-like style even for global functions. So the simple story "PHP functions have always been snake_case" is not quite true. Even before PSR, there was already a separate naming culture inside the PHP community that differed from PHP built-in function style.
 
@@ -262,15 +262,16 @@ After PHP 5, frameworks and libraries such as CakePHP, Symfony, Zend Framework, 
 
 Here is a rough summary of their method naming tendencies, based on what I was able to check. This is not an exhaustive verification of every version or module.
 
-| Project | Type | Method naming tendency | General character |
-| --- | --- | --- | --- |
-| CakePHP | Full-stack framework | camelCase | Convention-over-configuration MVC framework |
-| Symfony | Full-stack framework | camelCase | OOP-oriented components and framework |
-| Zend Framework | Framework / library collection | camelCase | Enterprise-oriented design |
-| Doctrine | ORM library | camelCase | Maps database tables to objects |
-| CodeIgniter | Lightweight framework | More snake_case-oriented | Simplicity closer to procedural PHP |
+| Project        | Type                           | Method naming tendency   | General character                           |
+| -------------- | ------------------------------ | ------------------------ | ------------------------------------------- |
+| CakePHP        | Full-stack framework           | camelCase                | Convention-over-configuration MVC framework |
+| Symfony        | Full-stack framework           | camelCase                | OOP-oriented components and framework       |
+| Zend Framework | Framework / library collection | camelCase                | Enterprise-oriented design                  |
+| Doctrine       | ORM library                    | camelCase                | Maps database tables to objects             |
+| CodeIgniter    | Lightweight framework          | More snake_case-oriented | Simplicity closer to procedural PHP         |
 
 <a id="glossary-orm"></a>
+
 > **What is an ORM?**
 > ORM stands for Object-Relational Mapping. It maps database tables to program objects. Doctrine is one of the best-known ORM libraries in PHP.
 
@@ -329,13 +330,13 @@ Combining that information with individual profiles and project histories, such 
 2. Many of those projects already leaned toward camelCase method names.
 3. Therefore, the early PHP-FIG ecosystem was already strongly connected to camelCase-oriented OOP PHP culture.
 
-| Person | Project associated at the time | Method naming tendency |
-| --- | --- | --- |
-| Matthew Weier O'Phinney | Zend Framework | camelCase |
-| Paul M. Jones | Solar | camelCase |
-| Nate Abele | CakePHP at the time, later Lithium | camelCase |
-| Fabien Potencier | Symfony | camelCase |
-| Representative names not fully confirmed | PEAR / Phing / Agavi | PEAR recommended camel-like global functions; Phing and Agavi not verified here |
+| Person                                   | Project associated at the time     | Method naming tendency                                                          |
+| ---------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------- |
+| Matthew Weier O'Phinney                  | Zend Framework                     | camelCase                                                                       |
+| Paul M. Jones                            | Solar                              | camelCase                                                                       |
+| Nate Abele                               | CakePHP at the time, later Lithium | camelCase                                                                       |
+| Fabien Potencier                         | Symfony                            | camelCase                                                                       |
+| Representative names not fully confirmed | PEAR / Phing / Agavi               | PEAR recommended camel-like global functions; Phing and Agavi not verified here |
 
 Two cautions:
 
@@ -370,11 +371,11 @@ In other words, PSR-1 defines basic coding elements needed for shared PHP code t
 
 PSR-1 defines the following naming conventions:
 
-| Target | Rule |
-| --- | --- |
-| Class names | `StudlyCaps` |
+| Target          | Rule                          |
+| --------------- | ----------------------------- |
+| Class names     | `StudlyCaps`                  |
 | Class constants | `UPPER_CASE_WITH_UNDERSCORES` |
-| Method names | `camelCase()` |
+| Method names    | `camelCase()`                 |
 
 > **What is StudlyCaps?**
 > StudlyCaps means writing words together with each word starting with an uppercase letter. It is roughly equivalent to what many people call PascalCase, for example `HttpClient`.
@@ -437,10 +438,10 @@ Based on the history above, here are the factors I would consider in real projec
 
 In practice, this debate usually produces arguments like these. Both sides have reasonable points. This article is not trying to prove one style superior to the other.
 
-| Camp | Common argument |
-| --- | --- |
-| snake_case | Matches PHP built-in functions; word boundaries are visually clear; less worry about uppercase/lowercase typos |
-| camelCase | Matches PSR-1 for methods; aligns with OOP culture in Java, JavaScript, C#, and others; fits major framework conventions |
+| Camp       | Common argument                                                                                                          |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------ |
+| snake_case | Matches PHP built-in functions; word boundaries are visually clear; less worry about uppercase/lowercase typos           |
+| camelCase  | Matches PSR-1 for methods; aligns with OOP culture in Java, JavaScript, C#, and others; fits major framework conventions |
 
 My position is that we can reconcile both sides by separating the layer: inside classes or outside classes.
 

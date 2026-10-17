@@ -132,12 +132,12 @@ form.addEventListener("submit", (event) => {
 
 でも実際に読み込んでいくと、3つの軸でハッキリ性質が違いました。
 
-|項目|MCP|WebMCP|
-|---|---|---|
-|対象|AI Agent全般|仕様上はブラウザ内蔵Agent中心|
-|登録タイミング|Agent起動時に一度だけ|ページを開くたびに|
-|セッション期間|Agentを終了するまで|ページを開いている間だけ|
-|実行場所|ローカル or サービスサーバー|そのブラウザのそのページ内|
+| 項目           | MCP                          | WebMCP                        |
+| -------------- | ---------------------------- | ----------------------------- |
+| 対象           | AI Agent全般                 | 仕様上はブラウザ内蔵Agent中心 |
+| 登録タイミング | Agent起動時に一度だけ        | ページを開くたびに            |
+| セッション期間 | Agentを終了するまで          | ページを開いている間だけ      |
+| 実行場所       | ローカル or サービスサーバー | そのブラウザのそのページ内    |
 
 体感で一番効いてくるのは、セッション期間の違いです。
 
@@ -254,14 +254,14 @@ isolated world(普通のcontent script)からは直接触れません。
 
 Agentから見えるtoolは、次の6つです。
 
-|tool|説明|
-|---|---|
-|`webmcp_get_status`|Extensionの接続状態、既知タブ数、アクティブタブIDを返す|
-|`webmcp_list_tabs`|ExtensionがつかんでいるWebMCP対応タブ一覧を返す|
-|`webmcp_discover_tools`|指定タブのWebMCP toolを検出する|
-|`webmcp_call_tool`|指定タブのtoolを実行する|
-|`webmcp_submit_tool`|人間の送信待ちを、Agent側から確定させる|
-|`webmcp_ping`|Extensionとの疎通確認|
+| tool                    | 説明                                                    |
+| ----------------------- | ------------------------------------------------------- |
+| `webmcp_get_status`     | Extensionの接続状態、既知タブ数、アクティブタブIDを返す |
+| `webmcp_list_tabs`      | ExtensionがつかんでいるWebMCP対応タブ一覧を返す         |
+| `webmcp_discover_tools` | 指定タブのWebMCP toolを検出する                         |
+| `webmcp_call_tool`      | 指定タブのtoolを実行する                                |
+| `webmcp_submit_tool`    | 人間の送信待ちを、Agent側から確定させる                 |
+| `webmcp_ping`           | Extensionとの疎通確認                                   |
 
 入出力はこんな感じです。
 

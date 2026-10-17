@@ -12,7 +12,7 @@ slug: about-me
 
 # 田中博悠 / tanahiro2010
 
-## 
+##
 
 三田学園高等学校 1年生  
 TypeScript / Web / CLI / AI Agent / Security

@@ -20,7 +20,8 @@
   --runtime-code-bg: #0b0f14;
   --runtime-code-text: #f3f7fb;
   --runtime-font-sans: "Inter", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
-  --runtime-font-mono: "JetBrains Mono", "SFMono-Regular", "Cascadia Code", "Menlo", "Consolas", monospace;
+  --runtime-font-mono:
+    "JetBrains Mono", "SFMono-Regular", "Cascadia Code", "Menlo", "Consolas", monospace;
 }
 
 section {
@@ -33,9 +34,13 @@ section {
     linear-gradient(90deg, rgba(53, 211, 255, 0.055) 1px, transparent 1px),
     linear-gradient(180deg, rgba(53, 211, 255, 0.042) 1px, transparent 1px),
     radial-gradient(circle at 84% 14%, rgba(53, 211, 255, 0.14), transparent 26%),
-    radial-gradient(circle at 8% 90%, rgba(126, 231, 135, 0.08), transparent 28%),
-    var(--runtime-bg);
-  background-size: 44px 44px, 44px 44px, auto, auto, auto;
+    radial-gradient(circle at 8% 90%, rgba(126, 231, 135, 0.08), transparent 28%), var(--runtime-bg);
+  background-size:
+    44px 44px,
+    44px 44px,
+    auto,
+    auto,
+    auto;
   font-family: var(--runtime-font-sans);
   font-size: 30px;
   line-height: 1.45;
@@ -171,8 +176,7 @@ pre {
   border-radius: 14px;
   box-shadow: 0 22px 56px var(--runtime-shadow);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 38px),
-    var(--runtime-code-bg);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 38px), var(--runtime-code-bg);
   font-size: 22px;
   line-height: 1.48;
 }
@@ -184,7 +188,14 @@ pre::before {
   height: 12px;
   margin-bottom: 16px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--runtime-red) 0 10px, transparent 10px 18px, var(--runtime-yellow) 18px 28px, transparent 28px 36px, var(--runtime-green) 36px 46px);
+  background: linear-gradient(
+    90deg,
+    var(--runtime-red) 0 10px,
+    transparent 10px 18px,
+    var(--runtime-yellow) 18px 28px,
+    transparent 28px 36px,
+    var(--runtime-green) 36px 46px
+  );
 }
 
 pre code {

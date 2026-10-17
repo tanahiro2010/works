@@ -32,8 +32,9 @@ section {
     radial-gradient(circle at 88% 18%, rgba(255, 90, 61, 0.22), transparent 30%),
     linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
   color: var(--hono-ink);
-  font-family: Inter, "SF Pro Display", "Helvetica Neue", Arial, "Hiragino Sans",
-    "Yu Gothic UI", Meiryo, sans-serif;
+  font-family:
+    Inter, "SF Pro Display", "Helvetica Neue", Arial, "Hiragino Sans", "Yu Gothic UI", Meiryo,
+    sans-serif;
   font-size: 28px;
   line-height: 1.5;
   letter-spacing: 0;
@@ -153,9 +154,7 @@ pre {
   border: 1px solid rgba(255, 248, 244, 0.16);
   border-left: 10px solid var(--hono-red-hot);
   border-radius: 0;
-  background:
-    linear-gradient(90deg, rgba(232, 57, 47, 0.14), transparent 46%),
-    var(--hono-code);
+  background: linear-gradient(90deg, rgba(232, 57, 47, 0.14), transparent 46%), var(--hono-code);
   color: var(--hono-paper);
   font-size: 21px;
   line-height: 1.48;
@@ -340,9 +339,7 @@ section.lead p {
 }
 
 section.invert {
-  background:
-    linear-gradient(90deg, rgba(232, 57, 47, 0.18), transparent 50%),
-    #100708;
+  background: linear-gradient(90deg, rgba(232, 57, 47, 0.18), transparent 50%), #100708;
 }
 
 section.invert h1,

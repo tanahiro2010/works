@@ -14,18 +14,10 @@ describe("Contact", () => {
     render(<Contact />);
 
     await user.type(screen.getByPlaceholderText("山田 太郎"), "田中太郎");
-    await user.type(
-      screen.getByPlaceholderText("you@example.com"),
-      "taro@example.com",
-    );
-    await user.type(
-      screen.getByPlaceholderText("お問い合わせ内容をご記入ください"),
-      "こんにちは",
-    );
+    await user.type(screen.getByPlaceholderText("you@example.com"), "taro@example.com");
+    await user.type(screen.getByPlaceholderText("お問い合わせ内容をご記入ください"), "こんにちは");
     await user.click(screen.getByRole("button", { name: "送信する" }));
 
-    expect(
-      await screen.findByText((text) => text.includes("田中太郎")),
-    ).toBeInTheDocument();
+    expect(await screen.findByText((text) => text.includes("田中太郎"))).toBeInTheDocument();
   });
 });

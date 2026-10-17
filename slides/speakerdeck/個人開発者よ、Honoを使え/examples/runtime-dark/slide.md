@@ -24,7 +24,7 @@ style: |
     --runtime-font-sans: "Inter", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
     --runtime-font-mono: "JetBrains Mono", "SFMono-Regular", "Cascadia Code", "Menlo", "Consolas", monospace;
   }
-  
+
   section {
     width: 1280px;
     height: 720px;
@@ -43,7 +43,7 @@ style: |
     line-height: 1.45;
     letter-spacing: 0;
   }
-  
+
   section::before {
     content: "";
     position: absolute;
@@ -52,7 +52,7 @@ style: |
     border-radius: 18px;
     pointer-events: none;
   }
-  
+
   section::after {
     content: "runtime-dark";
     position: absolute;
@@ -63,7 +63,7 @@ style: |
     font-size: 15px;
     letter-spacing: 0.04em;
   }
-  
+
   h1,
   h2,
   h3 {
@@ -72,56 +72,56 @@ style: |
     font-weight: 800;
     letter-spacing: 0;
   }
-  
+
   h1 {
     max-width: 980px;
     margin-bottom: 30px;
     font-size: 60px;
     line-height: 1.08;
   }
-  
+
   h2 {
     margin-top: 28px;
     margin-bottom: 16px;
     color: var(--runtime-cyan);
     font-size: 38px;
   }
-  
+
   h3 {
     margin-top: 22px;
     margin-bottom: 10px;
     color: var(--runtime-yellow);
     font-size: 28px;
   }
-  
+
   p {
     margin: 0 0 18px;
   }
-  
+
   strong {
     color: var(--runtime-yellow);
     font-weight: 800;
   }
-  
+
   a {
     color: var(--runtime-cyan);
   }
-  
+
   ul,
   ol {
     margin: 0;
     padding-left: 1.25em;
   }
-  
+
   li {
     margin: 9px 0;
     padding-left: 0.1em;
   }
-  
+
   li::marker {
     color: var(--runtime-green);
   }
-  
+
   blockquote {
     margin: 22px 0 0;
     padding: 18px 24px;
@@ -129,7 +129,7 @@ style: |
     color: var(--runtime-muted);
     background: rgba(17, 21, 28, 0.86);
   }
-  
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -139,23 +139,23 @@ style: |
     background: rgba(17, 21, 28, 0.86);
     font-size: 24px;
   }
-  
+
   th,
   td {
     padding: 13px 16px;
     border-bottom: 1px solid var(--runtime-border);
   }
-  
+
   th {
     color: var(--runtime-cyan);
     background: rgba(53, 211, 255, 0.08);
     text-align: left;
   }
-  
+
   td {
     color: var(--runtime-text);
   }
-  
+
   code {
     padding: 0.08em 0.32em;
     border: 1px solid rgba(53, 211, 255, 0.2);
@@ -165,7 +165,7 @@ style: |
     font-family: var(--runtime-font-mono);
     font-size: 0.9em;
   }
-  
+
   pre {
     margin: 18px 0 0;
     padding: 24px 26px;
@@ -178,7 +178,7 @@ style: |
     font-size: 22px;
     line-height: 1.48;
   }
-  
+
   pre::before {
     content: "";
     display: block;
@@ -188,7 +188,7 @@ style: |
     border-radius: 999px;
     background: linear-gradient(90deg, var(--runtime-red) 0 10px, transparent 10px 18px, var(--runtime-yellow) 18px 28px, transparent 28px 36px, var(--runtime-green) 36px 46px);
   }
-  
+
   pre code {
     padding: 0;
     border: 0;
@@ -196,24 +196,24 @@ style: |
     color: var(--runtime-code-text);
     font-size: inherit;
   }
-  
+
   img {
     max-width: 100%;
   }
-  
+
   hr {
     height: 1px;
     margin: 28px 0;
     border: 0;
     background: linear-gradient(90deg, transparent, var(--runtime-line), transparent);
   }
-  
+
   footer {
     color: var(--runtime-dim);
     font-family: var(--runtime-font-mono);
     font-size: 15px;
   }
-  
+
   section.title,
   section.section,
   section.closing {
@@ -221,22 +221,22 @@ style: |
     flex-direction: column;
     justify-content: center;
   }
-  
+
   section.title {
     padding-right: 150px;
   }
-  
+
   section.title::after {
     content: "Hono Conference";
     color: var(--runtime-cyan);
   }
-  
+
   section.title h1 {
     max-width: 1040px;
     margin-bottom: 24px;
     font-size: 78px;
   }
-  
+
   section.title h1::before {
     content: "$ hono dev";
     display: block;
@@ -246,13 +246,13 @@ style: |
     font-size: 22px;
     font-weight: 700;
   }
-  
+
   section.title p {
     max-width: 760px;
     color: var(--runtime-muted);
     font-size: 30px;
   }
-  
+
   section.title .meta,
   section.closing .meta {
     margin-top: 38px;
@@ -260,22 +260,22 @@ style: |
     font-family: var(--runtime-font-mono);
     font-size: 20px;
   }
-  
+
   section.section {
     align-items: flex-start;
   }
-  
+
   section.section::after {
     content: "chapter";
   }
-  
+
   section.section h1 {
     position: relative;
     max-width: 920px;
     padding-left: 34px;
     font-size: 72px;
   }
-  
+
   section.section h1::before {
     content: "";
     position: absolute;
@@ -286,7 +286,7 @@ style: |
     border-radius: 999px;
     background: linear-gradient(180deg, var(--runtime-cyan), var(--runtime-green));
   }
-  
+
   section.section p {
     max-width: 780px;
     margin-top: 8px;
@@ -294,22 +294,22 @@ style: |
     color: var(--runtime-muted);
     font-size: 31px;
   }
-  
+
   section.code h1 {
     margin-bottom: 12px;
     font-size: 42px;
   }
-  
+
   section.code p {
     color: var(--runtime-muted);
     font-size: 24px;
   }
-  
+
   section.code pre {
     margin-top: 18px;
     font-size: 25px;
   }
-  
+
   section.split {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -317,17 +317,17 @@ style: |
     column-gap: 44px;
     row-gap: 18px;
   }
-  
+
   section.split h1,
   section.split h2 {
     grid-column: 1 / -1;
   }
-  
+
   section.split h1 {
     margin-bottom: 4px;
     font-size: 50px;
   }
-  
+
   section.split > ul,
   section.split > ol,
   section.split > p,
@@ -337,7 +337,7 @@ style: |
   section.split > div {
     min-width: 0;
   }
-  
+
   section.split .panel,
   section .panel {
     padding: 24px 26px;
@@ -346,63 +346,63 @@ style: |
     background: rgba(17, 21, 28, 0.88);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
   }
-  
+
   section.split .panel h2,
   section .panel h2 {
     margin-top: 0;
     font-size: 30px;
   }
-  
+
   section.split pre {
     margin-top: 0;
     font-size: 17px;
   }
-  
+
   section.closing {
     align-items: flex-start;
   }
-  
+
   section.closing::after {
     content: "ship it";
     color: var(--runtime-green);
   }
-  
+
   section.closing h1 {
     max-width: 900px;
     font-size: 76px;
   }
-  
+
   section.closing p {
     max-width: 760px;
     color: var(--runtime-muted);
     font-size: 30px;
   }
-  
+
   .prompt {
     color: var(--runtime-green);
     font-family: var(--runtime-font-mono);
   }
-  
+
   .muted {
     color: var(--runtime-muted);
   }
-  
+
   .accent {
     color: var(--runtime-cyan);
   }
-  
+
   .ok {
     color: var(--runtime-green);
   }
-  
+
   .warn {
     color: var(--runtime-yellow);
   }
-  
+
   .danger {
     color: var(--runtime-red);
   }
-  
+
   .terminal {
     padding: 22px 24px;
     border: 1px solid rgba(53, 211, 255, 0.22);
@@ -414,7 +414,7 @@ style: |
     font-size: 24px;
     line-height: 1.55;
   }
-  
+
   .terminal::before {
     content: "● ● ●";
     display: block;
@@ -422,7 +422,7 @@ style: |
     color: var(--runtime-red);
     letter-spacing: 0.32em;
   }
-  
+
   .kbd {
     padding: 0.04em 0.34em;
     border: 1px solid var(--runtime-border);
@@ -433,21 +433,21 @@ style: |
     font-family: var(--runtime-font-mono);
     font-size: 0.78em;
   }
-  
+
   .steps {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
     margin-top: 24px;
   }
-  
+
   .step {
     padding: 20px;
     border: 1px solid var(--runtime-border);
     border-radius: 14px;
     background: rgba(17, 21, 28, 0.88);
   }
-  
+
   .step strong {
     display: block;
     margin-bottom: 8px;

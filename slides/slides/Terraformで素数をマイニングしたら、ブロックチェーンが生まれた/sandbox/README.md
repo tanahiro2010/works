@@ -20,13 +20,13 @@ Terraform（HCL）だけで素数をマイニングし、ブロックチェー�
 
 各 Phase の完成形をブランチで用意しています。`git switch` すればその Phase の状態になります。
 
-| ブランチ | 内容 |
-|---|---|
-| `phase-1-prime-discovery` | HCL だけで素数を探す |
-| `phase-2-recursive-terraform` | Terraform から Terraform を再帰起動する |
-| `phase-3-distributed-mining` | 複数の Terraform Miner を並列で動かす |
-| `phase-4-primechain` | 素数でブロックを掘ってブロックチェーンにする |
-| `phase-5-terraform-destroy` | `terraform destroy` で全部壊す（= `main`） |
+| ブランチ                      | 内容                                         |
+| ----------------------------- | -------------------------------------------- |
+| `phase-1-prime-discovery`     | HCL だけで素数を探す                         |
+| `phase-2-recursive-terraform` | Terraform から Terraform を再帰起動する      |
+| `phase-3-distributed-mining`  | 複数の Terraform Miner を並列で動かす        |
+| `phase-4-primechain`          | 素数でブロックを掘ってブロックチェーンにする |
+| `phase-5-terraform-destroy`   | `terraform destroy` で全部壊す（= `main`）   |
 
 ```sh
 git switch phase-3-distributed-mining   # Phase 3 の完成形に飛ぶ
@@ -137,15 +137,15 @@ make clean             # 台帳ごと全部消す
 
 ブロックの中身:
 
-| フィールド | 内容 |
-|---|---|
-| `height` | ブロック番号 |
-| `prev_hash` | 前ブロックのハッシュ（#0 は `0` × 64） |
-| `miner` | 採掘した Miner |
-| `prime` | 発見した素数 |
-| `nonce` | Nonce |
-| `difficulty` | 難易度 |
-| `hash` | `sha256("height\|prev_hash\|miner\|prime\|nonce")` |
+| フィールド   | 内容                                               |
+| ------------ | -------------------------------------------------- |
+| `height`     | ブロック番号                                       |
+| `prev_hash`  | 前ブロックのハッシュ（#0 は `0` × 64）             |
+| `miner`      | 採掘した Miner                                     |
+| `prime`      | 発見した素数                                       |
+| `nonce`      | Nonce                                              |
+| `difficulty` | 難易度                                             |
+| `hash`       | `sha256("height\|prev_hash\|miner\|prime\|nonce")` |
 
 ### 検証
 
@@ -218,4 +218,4 @@ make tamper BLOCK=1 && make mine   # 改ざん → plan で検知されて落ち
 make destroy                   # Phase 5: 全部壊す
 ```
 
-*All You Need Is Terraform.*
+_All You Need Is Terraform._

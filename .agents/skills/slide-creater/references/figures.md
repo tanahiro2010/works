@@ -11,13 +11,13 @@ Slides that are all text lose the audience. Figures, tables, charts, and illustr
 
 Measure by slide: "of the **content** slides, how many have a figure or table?" The cover (`title` / `title image`), `section` dividers, and the closing `lead` (Thank you!) don't count toward the denominator.
 
-| Deck type                       |   Figure-bearing share | Figures that fit                                            |
-| ------------------------------- | ---------------------: | ----------------------------------------------------------- |
-| Executive / decision-making     |       30–50% of slides | Comparison tables, structure diagrams, roadmaps, KPI charts |
-| Proposal / sales                |       50–70% of slides | Problem structures, impact, Before/After, case studies      |
-| Training / explanatory          |       40–60% of slides | Flow diagrams, concept diagrams, step diagrams, illustrations |
-| Research / analysis             |       60–80% of slides | Graphs, tables, model diagrams, experiment results          |
-| Live talk (spoken presentation) |               70%+ ok  | Large figures, photos, simple charts                        |
+| Deck type                       | Figure-bearing share | Figures that fit                                              |
+| ------------------------------- | -------------------: | ------------------------------------------------------------- |
+| Executive / decision-making     |     30–50% of slides | Comparison tables, structure diagrams, roadmaps, KPI charts   |
+| Proposal / sales                |     50–70% of slides | Problem structures, impact, Before/After, case studies        |
+| Training / explanatory          |     40–60% of slides | Flow diagrams, concept diagrams, step diagrams, illustrations |
+| Research / analysis             |     60–80% of slides | Graphs, tables, model diagrams, experiment results            |
+| Live talk (spoken presentation) |              70%+ ok | Large figures, photos, simple charts                          |
 
 Decks built in this repo are almost always **training / explanatory** or **live talk** — when unsure, aim for **50–70%**.
 

@@ -31,16 +31,12 @@ export function ProjectDetail() {
         ← 一覧に戻る
       </button>
 
-      <div
-        className={`h-48 w-full rounded-2xl bg-gradient-to-br ${project.color}`}
-      />
+      <div className={`h-48 w-full rounded-2xl bg-gradient-to-br ${project.color}`} />
 
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">{project.title}</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            {project.summary}
-          </p>
+          <p className="mt-1 text-slate-500 dark:text-slate-400">{project.summary}</p>
         </div>
         <LikeButton initialCount={project.likes} />
       </div>
@@ -56,9 +52,7 @@ export function ProjectDetail() {
         ))}
       </div>
 
-      <p className="leading-relaxed text-slate-600 dark:text-slate-300">
-        {project.description}
-      </p>
+      <p className="leading-relaxed text-slate-600 dark:text-slate-300">{project.description}</p>
 
       <div className="flex gap-3">
         <a
@@ -79,10 +73,7 @@ export function ProjectDetail() {
         </a>
       </div>
 
-      <Link
-        to="/projects"
-        className="text-sm text-indigo-500 hover:underline"
-      >
+      <Link to="/projects" className="text-sm text-indigo-500 hover:underline">
         他の作品も見る →
       </Link>
     </div>

@@ -32,6 +32,8 @@ https://qiita.com/shimagaji/items/8acd9b94dfe56fefc0dc
 記事はスライドの各セクションごとを増量し、そして技術的側面を追加して書くことを意識してください。
 また、記事の中では画像を使うことはできません。
 marmaidなどで図を作ることはできます。
+https://zenn.dev/meijin/articles/tech-article-output-recommend
+これを参考に記事書いてください。
 
 ## 記事・スライド共通ドラフト
 """

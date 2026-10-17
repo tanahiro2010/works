@@ -13,8 +13,6 @@ describe("ProjectDetail", () => {
       </MemoryRouter>,
     );
 
-    expect(
-      await screen.findByRole("heading", { name: "タスクボード" }),
-    ).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "タスクボード" })).toBeInTheDocument();
   });
 });

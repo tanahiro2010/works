@@ -55,24 +55,25 @@ The first ~50 lines of `template.md` are three blocks the deck relies on:
 
 Apply via `<!-- _class: <name> -->` at the top of a slide (`_class` = this slide only; `class` without underscore cascades to following slides).
 
-| Class                                                         | Use for                                                                                                     |
-| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `title`                                                       | The deck cover. First slide. Big title + subtitle + metadata. Pair with `<!-- _paginate: false -->` so the cover isn't numbered. |
-| `title image`                                                 | Cover with a logo/hero image — place a single `![](...)` right after the heading. Also pair with `<!-- _paginate: false -->`.   |
-| `lead`                                                        | Centered oversized heading. Use for interior "Welcome" beats, the closing "Thank you!", and quote slides (write the quote as a `>` blockquote on a `lead` slide — no dedicated quote class exists). |
-| `section`, `section yellow`, `section green`, `section red`   | Chapter divider with full-bleed background. Yellow uses dark ink (auto-picked). These four are the only documented variants. |
-| *(no class)*                                                  | Default heading + body. Markdown lists, paragraphs, tables, and fenced code blocks all work bare.            |
-| `split`                                                       | Two-column grid. The `h1`/`h2` spans both columns (it's `grid-column: 1 / -1`); content after it flows into columns in source order. Used for two-column bullets **and** image-with-text (image first → image on left; text first → image on right). Constrain images to column width with `![w:480]`. |
-| `invert`                                                      | Light text on a dark background. Combine with `![bg cover](...)` for full-bleed images, or use alone for code-heavy slides.                                              |
+| Class                                                       | Use for                                                                                                                                                                                                                                                                                                |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `title`                                                     | The deck cover. First slide. Big title + subtitle + metadata. Pair with `<!-- _paginate: false -->` so the cover isn't numbered.                                                                                                                                                                       |
+| `title image`                                               | Cover with a logo/hero image — place a single `![](...)` right after the heading. Also pair with `<!-- _paginate: false -->`.                                                                                                                                                                          |
+| `lead`                                                      | Centered oversized heading. Use for interior "Welcome" beats, the closing "Thank you!", and quote slides (write the quote as a `>` blockquote on a `lead` slide — no dedicated quote class exists).                                                                                                    |
+| `section`, `section yellow`, `section green`, `section red` | Chapter divider with full-bleed background. Yellow uses dark ink (auto-picked). These four are the only documented variants.                                                                                                                                                                           |
+| _(no class)_                                                | Default heading + body. Markdown lists, paragraphs, tables, and fenced code blocks all work bare.                                                                                                                                                                                                      |
+| `split`                                                     | Two-column grid. The `h1`/`h2` spans both columns (it's `grid-column: 1 / -1`); content after it flows into columns in source order. Used for two-column bullets **and** image-with-text (image first → image on left; text first → image on right). Constrain images to column width with `![w:480]`. |
+| `invert`                                                    | Light text on a dark background. Combine with `![bg cover](...)` for full-bleed images, or use alone for code-heavy slides.                                                                                                                                                                            |
 
 For full-bleed images use Marp's `![bg cover](...)` / `bg fit` / `bg left` / `bg right` directives (no class needed for the slide itself; combine with `_class: invert` if captions need light text).
 
 ### Inline two-column: `.container` / `.col`
 
-For two columns *below* a heading and intro paragraph (instead of `split`'s heading-spans-both-columns grid), wrap the columns in inline divs on a default slide:
+For two columns _below_ a heading and intro paragraph (instead of `split`'s heading-spans-both-columns grid), wrap the columns in inline divs on a default slide:
 
 ```markdown
 # タイトル文字
+
 本文をここに書ける
 
 <div class="container">
@@ -98,13 +99,13 @@ There is no `card`, `quote`, `flow`, or `chart` class — build those with inlin
 
 ## CSS variables (use these, not raw hex)
 
-| Variable          | Value     | Typical use                       |
-| ----------------- | --------- | --------------------------------- |
-| `--gdg-blue`      | `#4285F4` | primary accent, default section   |
-| `--gdg-red`       | `#EA4335` | section red, alerts               |
-| `--gdg-yellow`    | `#FBBC04` | section yellow, highlights        |
-| `--gdg-green`     | `#34A853` | section green, success            |
-| `--gdg-ink`       | `#1A1A1A` | dark text (used on yellow bgs)    |
+| Variable       | Value     | Typical use                     |
+| -------------- | --------- | ------------------------------- |
+| `--gdg-blue`   | `#4285F4` | primary accent, default section |
+| `--gdg-red`    | `#EA4335` | section red, alerts             |
+| `--gdg-yellow` | `#FBBC04` | section yellow, highlights      |
+| `--gdg-green`  | `#34A853` | section green, success          |
+| `--gdg-ink`    | `#1A1A1A` | dark text (used on yellow bgs)  |
 
 ## Reusable assets
 
@@ -113,7 +114,7 @@ There is no `card`, `quote`, `flow`, or `chart` class — build those with inlin
 
 ## Things that commonly break decks
 
-- **`title` ≠ `lead`**: the cover uses `title`. `lead` is for *interior* big-text slides (Welcome / quote / Thank you!). Mixing them up gives a wrong-looking cover.
+- **`title` ≠ `lead`**: the cover uses `title`. `lead` is for _interior_ big-text slides (Welcome / quote / Thank you!). Mixing them up gives a wrong-looking cover.
 - **`split` heading inside a column**: don't — the heading spans both columns by CSS rule. Put it before the column content, not nested.
 - **`split` images overflow**: column width ≈ half the slide. Always use explicit `![w:480]` (or smaller) for images inside `split`.
 - **Inventing new `_class` names**: only the classes listed above exist in `gdg.css`. New names need a CSS change.

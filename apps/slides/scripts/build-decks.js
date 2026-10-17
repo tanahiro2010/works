@@ -12,12 +12,13 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { render } from "ippon-slides";
 
-const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
+const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
 const distDir = fileURLToPath(new URL("../dist", import.meta.url));
 const marpBin = fileURLToPath(new URL("../node_modules/.bin/marp", import.meta.url));
 const gdgTheme = path.join(repoRoot, ".marp/gdg.css");
 
-const slides = JSON.parse(fs.readFileSync(path.join(repoRoot, "slides.json"), "utf8"));
+const slidesJson = fileURLToPath(new URL("../src/data/slides.json", import.meta.url));
+const slides = JSON.parse(fs.readFileSync(slidesJson, "utf8"));
 
 /** HTML が参照しているローカルのパスを集める（data: や http: は除く）。 */
 const localRefs = (html) => {

@@ -149,10 +149,7 @@ export const Route = createFileRoute("/articles/")({
 そこで、記事用には `useArticleSort`、ユーザー用には `useUserSort` を作り、ソート処理を分離しました。
 
 ```ts
-const { sortedArticles } = useArticleSort(
-  data instanceof CmsApiError ? [] : data,
-  sort,
-);
+const { sortedArticles } = useArticleSort(data instanceof CmsApiError ? [] : data, sort);
 ```
 
 内部では `useMemo` を使い、元の配列をコピーしてからソートしています。

@@ -132,7 +132,7 @@ Google Developer Groups are **community-led developer groups** that host events 
 - Local meetups, workshops, study jams
 - Powered by Google, run by volunteers
 
-> "Build with Google. Connect with developers." — *GDG community motto*
+> "Build with Google. Connect with developers." — _GDG community motto_
 
 ---
 
@@ -144,12 +144,12 @@ Google Developer Groups are **community-led developer groups** that host events 
 
 ## Tech we love
 
-| Area              | Tools                              |
-| ----------------- | ---------------------------------- |
-| Web               | Chrome, Lighthouse, Web Vitals     |
-| Mobile            | Android, Flutter, Jetpack Compose  |
-| Cloud             | Google Cloud, Firebase             |
-| AI                | Gemini API, Vertex AI, TensorFlow  |
+| Area   | Tools                             |
+| ------ | --------------------------------- |
+| Web    | Chrome, Lighthouse, Web Vitals    |
+| Mobile | Android, Flutter, Jetpack Compose |
+| Cloud  | Google Cloud, Firebase            |
+| AI     | Gemini API, Vertex AI, TensorFlow |
 
 ---
 

@@ -22,16 +22,16 @@ npm run dev
 
 ## TODO 一覧（対応するHook）
 
-| ファイル | Hook | やること |
-|---|---|---|
-| `context/ThemeContext.tsx` | `useState` / `useEffect` | ダークモードの状態管理と `<html>` へのクラス反映 |
-| `components/ThemeToggle.tsx` | `useContext` | ThemeContextから現在のテーマを読んで表示を切り替え |
-| `hooks/useProjects.ts` | `useState` / `useEffect` | 疑似的な非同期フェッチとローディング状態 |
-| `pages/Projects.tsx` | `useState` / `useMemo` | 検索ワードの状態管理と絞り込みのメモ化 |
-| `pages/Home.tsx` | `useMemo` | 「いいね」数上位3件の計算をメモ化 |
-| `pages/ProjectDetail.tsx` | `useParams` / `useNavigate` | URLパラメータから該当プロジェクトを表示、戻るボタン |
-| `components/LikeButton.tsx` | `useReducer`（ボーナス） | いいねの状態をreducerで管理 |
-| `pages/Contact.tsx` | `useState` / `useRef` | フォーム入力の状態管理と初期フォーカス |
+| ファイル                     | Hook                        | やること                                            |
+| ---------------------------- | --------------------------- | --------------------------------------------------- |
+| `context/ThemeContext.tsx`   | `useState` / `useEffect`    | ダークモードの状態管理と `<html>` へのクラス反映    |
+| `components/ThemeToggle.tsx` | `useContext`                | ThemeContextから現在のテーマを読んで表示を切り替え  |
+| `hooks/useProjects.ts`       | `useState` / `useEffect`    | 疑似的な非同期フェッチとローディング状態            |
+| `pages/Projects.tsx`         | `useState` / `useMemo`      | 検索ワードの状態管理と絞り込みのメモ化              |
+| `pages/Home.tsx`             | `useMemo`                   | 「いいね」数上位3件の計算をメモ化                   |
+| `pages/ProjectDetail.tsx`    | `useParams` / `useNavigate` | URLパラメータから該当プロジェクトを表示、戻るボタン |
+| `components/LikeButton.tsx`  | `useReducer`（ボーナス）    | いいねの状態をreducerで管理                         |
+| `pages/Contact.tsx`          | `useState` / `useRef`       | フォーム入力の状態管理と初期フォーカス              |
 
 各TODOコメントの近くに、実装のヒント（書き換えるコード例）を残してあります。
 スライド（`../slide.md`）の対応する章を見ながら、上から順に埋めていくのがおすすめです。
@@ -47,12 +47,12 @@ npm run test        # 1回だけ実行
 npm run test:watch  # ファイル変更のたびに自動で再実行（実装しながら使うならこちら）
 ```
 
-| テストファイル | 何を確認しているか |
-|---|---|
-| `context/ThemeContext.tsx` + `components/ThemeToggle.test.tsx` | クリックでラベルと`<html>`のdarkクラスが切り替わるか |
-| `hooks/useProjects.test.ts` | 最初は`isLoading: true`で、時間経過後にデータが入るか |
-| `pages/Projects.test.tsx` | 検索ワードで一覧が絞り込まれるか |
-| `pages/ProjectDetail.test.tsx` | URLの`:id`に対応するプロジェクトが表示されるか |
-| `components/LikeButton.test.tsx` | クリックでいいね状態とカウントが増減するか |
-| `pages/Contact.test.tsx` | 初期フォーカスが当たるか、送信で完了メッセージが出るか |
-| `pages/Home.test.tsx` | 上位3件の表示順（このテストは最初から通ります。`useMemo`は表示結果を変えず再計算を減らすだけなので、実装前後で挙動が変わらないのが正しい動きです） |
+| テストファイル                                                 | 何を確認しているか                                                                                                                                 |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `context/ThemeContext.tsx` + `components/ThemeToggle.test.tsx` | クリックでラベルと`<html>`のdarkクラスが切り替わるか                                                                                               |
+| `hooks/useProjects.test.ts`                                    | 最初は`isLoading: true`で、時間経過後にデータが入るか                                                                                              |
+| `pages/Projects.test.tsx`                                      | 検索ワードで一覧が絞り込まれるか                                                                                                                   |
+| `pages/ProjectDetail.test.tsx`                                 | URLの`:id`に対応するプロジェクトが表示されるか                                                                                                     |
+| `components/LikeButton.test.tsx`                               | クリックでいいね状態とカウントが増減するか                                                                                                         |
+| `pages/Contact.test.tsx`                                       | 初期フォーカスが当たるか、送信で完了メッセージが出るか                                                                                             |
+| `pages/Home.test.tsx`                                          | 上位3件の表示順（このテストは最初から通ります。`useMemo`は表示結果を変えず再計算を減らすだけなので、実装前後で挙動が変わらないのが正しい動きです） |

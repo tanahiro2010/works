@@ -17,10 +17,7 @@ describe("Projects", () => {
     await screen.findByText("タスクボード");
     expect(screen.getByText("レシピシェア")).toBeInTheDocument();
 
-    await user.type(
-      screen.getByPlaceholderText("プロジェクト名やタグで検索..."),
-      "タスク",
-    );
+    await user.type(screen.getByPlaceholderText("プロジェクト名やタグで検索..."), "タスク");
 
     expect(screen.getByText("タスクボード")).toBeInTheDocument();
     expect(screen.queryByText("レシピシェア")).not.toBeInTheDocument();

@@ -146,12 +146,12 @@ await cms.users.getUserById(userId);
 
 比較表:
 
-| 役割 | 担当 |
-| --- | --- |
-| データ取得 | TanStack Router loader |
-| ソート | useArticleSort / useUserSort |
-| UI | 共通コンポーネント |
-| 認証切れ | 401 でログインへ戻す |
+| 役割       | 担当                         |
+| ---------- | ---------------------------- |
+| データ取得 | TanStack Router loader       |
+| ソート     | useArticleSort / useUserSort |
+| UI         | 共通コンポーネント           |
+| 認証切れ   | 401 でログインへ戻す         |
 
 狙い:
 

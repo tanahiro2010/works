@@ -69,25 +69,25 @@ cd sandboxes/poc_sql_injection
 docker compose up --build
 ```
 
-| フォルダ | 内容 | 脆弱版 | 修正版 |
-|---|---|---:|---:|
-| `05_mysql_realdb/` | MySQL実DBでのUNION情報漏洩 | 5005 | 5015 |
-| `06_mongodb_nosql/` | MongoDB NoSQL injection | 5006 | 5016 |
-| `07_challenge_blackbox/` | 総合演習チャレンジ | 5007 | - |
+| フォルダ                 | 内容                       | 脆弱版 | 修正版 |
+| ------------------------ | -------------------------- | -----: | -----: |
+| `05_mysql_realdb/`       | MySQL実DBでのUNION情報漏洩 |   5005 |   5015 |
+| `06_mongodb_nosql/`      | MongoDB NoSQL injection    |   5006 |   5016 |
+| `07_challenge_blackbox/` | 総合演習チャレンジ         |   5007 |      - |
 
 すべて `127.0.0.1` にのみ公開しています。Docker内のDBは講義用の架空データだけを持ちます。
 
 ## フォルダ構成
 
-| フォルダ | 内容 | ポート |
-|---|---|---|
-| `01_login_bypass/` | 基本編：ログインバイパス（`' OR '1'='1'`） | 5001 |
-| `02_union_based/` | 基本編：UNIONベースでの情報抽出 | 5002 |
-| `03_blind_injection/` | 発展編：ブラインドSQLi（Boolean / Time-based） | 5003 |
-| `04_advanced_second_order/` | 発展編：スタック型 / セカンドオーダー | 5004 |
-| `05_mysql_realdb/` | 実DB編：MySQLでのUNION情報漏洩 | 5005 |
-| `06_mongodb_nosql/` | NoSQL編：MongoDB NoSQL injection | 5006 |
-| `07_challenge_blackbox/` | 総合演習：コードを見ずに脆弱性を探す | 5007 |
+| フォルダ                    | 内容                                           | ポート |
+| --------------------------- | ---------------------------------------------- | ------ |
+| `01_login_bypass/`          | 基本編：ログインバイパス（`' OR '1'='1'`）     | 5001   |
+| `02_union_based/`           | 基本編：UNIONベースでの情報抽出                | 5002   |
+| `03_blind_injection/`       | 発展編：ブラインドSQLi（Boolean / Time-based） | 5003   |
+| `04_advanced_second_order/` | 発展編：スタック型 / セカンドオーダー          | 5004   |
+| `05_mysql_realdb/`          | 実DB編：MySQLでのUNION情報漏洩                 | 5005   |
+| `06_mongodb_nosql/`         | NoSQL編：MongoDB NoSQL injection               | 5006   |
+| `07_challenge_blackbox/`    | 総合演習：コードを見ずに脆弱性を探す           | 5007   |
 
 各フォルダには
 

@@ -1,923 +1,1253 @@
 <!doctype html>
 <html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>コミュニティ活動のすゝめ</title>
-<meta name="description" content="〜 学校の外に、もうひとつの世界を。 〜">
-<meta name="author" content="田中博悠 / tanahiro2010">
-<meta name="generator" content="ippon-slides">
-<style>:root {
-  --slide-bg: #000;
-  --slide-fg: #fff;
-  --slide-accent: #7b42bc; /* Terraform purple */
-  --slide-accent-2: #ff6a00;
-  --slide-muted: #8a8a8a;
-  --slide-code-bg: #0d0d0d;
-  --slide-border: rgba(255, 255, 255, 0.12);
-  --slide-font: -apple-system, 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif;
-  /* macOS には凸版文久見出しゴシックが入っている。ない環境では本文フォントに落ちる */
-  --slide-display-font: 'Toppan Bunkyu Midashi Gothic', '凸版文久見出しゴシック', var(--slide-font);
-  --slide-mono: 'SF Mono', Menlo, Consolas, monospace;
-}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>コミュニティ活動のすゝめ</title>
+    <meta name="description" content="〜 学校の外に、もうひとつの世界を。 〜" />
+    <meta name="author" content="田中博悠 / tanahiro2010" />
+    <meta name="generator" content="ippon-slides" />
+    <style>
+      :root {
+        --slide-bg: #000;
+        --slide-fg: #fff;
+        --slide-accent: #7b42bc; /* Terraform purple */
+        --slide-accent-2: #ff6a00;
+        --slide-muted: #8a8a8a;
+        --slide-code-bg: #0d0d0d;
+        --slide-border: rgba(255, 255, 255, 0.12);
+        --slide-font: -apple-system, "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        /* macOS には凸版文久見出しゴシックが入っている。ない環境では本文フォントに落ちる */
+        --slide-display-font:
+          "Toppan Bunkyu Midashi Gothic", "凸版文久見出しゴシック", var(--slide-font);
+        --slide-mono: "SF Mono", Menlo, Consolas, monospace;
+      }
 
-/* 1280x720 で 16px。画面の短い辺に合わせて rem ごと拡大縮小する */
-html {
-  font-size: max(16px, min(1.25vw, 2.223vh));
-  touch-action: manipulation;
-}
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-body {
-  background: var(--slide-bg);
-  color: var(--slide-fg);
-  font-family: var(--slide-font);
-  overflow: hidden;
-}
-#deck {
-  position: fixed;
-  inset: 0;
-}
+      /* 1280x720 で 16px。画面の短い辺に合わせて rem ごと拡大縮小する */
+      html {
+        font-size: max(16px, min(1.25vw, 2.223vh));
+        touch-action: manipulation;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      body {
+        background: var(--slide-bg);
+        color: var(--slide-fg);
+        font-family: var(--slide-font);
+        overflow: hidden;
+      }
+      #deck {
+        position: fixed;
+        inset: 0;
+      }
 
-/* ---------- slide ---------- */
+      /* ---------- slide ---------- */
 
-.slide {
-  position: absolute;
-  inset: 0;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  padding: 6vh 9vw;
-  box-sizing: border-box;
-  overflow: auto;
-  /* 日本語を文節で改行する（Chrome 119+） */
-  word-break: auto-phrase;
-}
-.slide pre {
-  word-break: normal;
-}
-.slide.active {
-  display: flex;
-  animation: slide-in 0.25s ease;
-}
-@keyframes slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.slide > :first-child {
-  margin-top: 0;
-}
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        padding: 6vh 9vw;
+        box-sizing: border-box;
+        overflow: auto;
+        /* 日本語を文節で改行する（Chrome 119+） */
+        word-break: auto-phrase;
+      }
+      .slide pre {
+        word-break: normal;
+      }
+      .slide.active {
+        display: flex;
+        animation: slide-in 0.25s ease;
+      }
+      @keyframes slide-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .slide > :first-child {
+        margin-top: 0;
+      }
 
-.slide h1 {
-  font-family: var(--slide-display-font);
-  font-size: calc(clamp(2.2rem, 5vw, 3.6rem) * var(--slide-size, 1));
-  line-height: 1.15;
-  margin: 0 0 1.5rem;
-}
-.slide h2 {
-  font-family: var(--slide-display-font);
-  font-size: calc(clamp(1.8rem, 4vw, 2.6rem) * var(--slide-size, 1));
-  line-height: 1.2;
-  margin: 0 0 2.2rem;
-}
-.slide h3 {
-  font-size: calc(clamp(1.4rem, 3vw, 1.9rem) * var(--slide-size, 1));
-  margin: 0 0 1rem;
-}
-.slide p,
-.slide li {
-  font-size: calc(clamp(1.1rem, 2.2vw, 1.5rem) * var(--slide-size, 1));
-  line-height: 1.6;
-}
-.slide ul,
-.slide ol {
-  padding-left: 1.4em;
-  margin: 0 0 1rem;
-}
-.slide li {
-  margin: 0.35em 0;
-}
-.slide li > ul {
-  margin: 0;
-}
-.slide li li {
-  font-size: 0.85em;
-  color: var(--slide-muted);
-}
-.slide a {
-  color: inherit;
-  text-underline-offset: 0.15em;
-}
-/* 太字 = アクセントカラー */
-.slide strong {
-  font-weight: 700;
-  color: var(--slide-accent-2);
-}
-.slide strong code {
-  color: inherit;
-}
-.slide .arrow {
-  color: var(--slide-muted);
-  font-family: 'Hiragino Sans', system-ui, sans-serif;
-  font-weight: 800;
-}
-.slide img {
-  max-height: 58vh;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-  margin: 1rem auto;
-  border-radius: 6px;
-}
-.img-caption {
-  display: block;
-  text-align: center;
-  margin-top: 0.2rem;
-  font-size: 0.85rem;
-  color: var(--slide-muted);
-}
+      .slide h1 {
+        font-family: var(--slide-display-font);
+        font-size: calc(clamp(2.2rem, 5vw, 3.6rem) * var(--slide-size, 1));
+        line-height: 1.15;
+        margin: 0 0 1.5rem;
+      }
+      .slide h2 {
+        font-family: var(--slide-display-font);
+        font-size: calc(clamp(1.8rem, 4vw, 2.6rem) * var(--slide-size, 1));
+        line-height: 1.2;
+        margin: 0 0 2.2rem;
+      }
+      .slide h3 {
+        font-size: calc(clamp(1.4rem, 3vw, 1.9rem) * var(--slide-size, 1));
+        margin: 0 0 1rem;
+      }
+      .slide p,
+      .slide li {
+        font-size: calc(clamp(1.1rem, 2.2vw, 1.5rem) * var(--slide-size, 1));
+        line-height: 1.6;
+      }
+      .slide ul,
+      .slide ol {
+        padding-left: 1.4em;
+        margin: 0 0 1rem;
+      }
+      .slide li {
+        margin: 0.35em 0;
+      }
+      .slide li > ul {
+        margin: 0;
+      }
+      .slide li li {
+        font-size: 0.85em;
+        color: var(--slide-muted);
+      }
+      .slide a {
+        color: inherit;
+        text-underline-offset: 0.15em;
+      }
+      /* 太字 = アクセントカラー */
+      .slide strong {
+        font-weight: 700;
+        color: var(--slide-accent-2);
+      }
+      .slide strong code {
+        color: inherit;
+      }
+      .slide .arrow {
+        color: var(--slide-muted);
+        font-family: "Hiragino Sans", system-ui, sans-serif;
+        font-weight: 800;
+      }
+      .slide img {
+        max-height: 58vh;
+        max-width: 100%;
+        object-fit: contain;
+        display: block;
+        margin: 1rem auto;
+        border-radius: 6px;
+      }
+      .img-caption {
+        display: block;
+        text-align: center;
+        margin-top: 0.2rem;
+        font-size: 0.85rem;
+        color: var(--slide-muted);
+      }
 
-/* `::wide::` 左右の余白を詰める */
-.slide.wide {
-  padding-left: 3vw;
-  padding-right: 3vw;
-}
+      /* `::wide::` 左右の余白を詰める */
+      .slide.wide {
+        padding-left: 3vw;
+        padding-right: 3vw;
+      }
 
-/* `::right::` 2 カラム */
-.slide .cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4vw;
-  align-items: start;
-  width: 100%;
-}
-.slide .cols > * > :first-child {
-  margin-top: 0;
-}
-.slide .cols pre {
-  margin-top: 0;
-}
+      /* `::right::` 2 カラム */
+      .slide .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4vw;
+        align-items: start;
+        width: 100%;
+      }
+      .slide .cols > * > :first-child {
+        margin-top: 0;
+      }
+      .slide .cols pre {
+        margin-top: 0;
+      }
 
-/* `::center::` 1 枚 1 メッセージ */
-.slide.center {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.slide.center h1,
-.slide.center h2 {
-  margin-bottom: 0.4em;
-}
-.slide.center p {
-  font-family: var(--slide-display-font);
-  font-size: calc(clamp(1.8rem, 4.5vw, 3.5rem) * var(--slide-size, 1));
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 0.2em 0;
-}
-.slide.center ul,
-.slide.center ol {
-  text-align: left;
-}
-.slide.center pre {
-  text-align: left;
-  max-width: 100%;
-}
+      /* `::center::` 1 枚 1 メッセージ */
+      .slide.center {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .slide.center h1,
+      .slide.center h2 {
+        margin-bottom: 0.4em;
+      }
+      .slide.center p {
+        font-family: var(--slide-display-font);
+        font-size: calc(clamp(1.8rem, 4.5vw, 3.5rem) * var(--slide-size, 1));
+        font-weight: 600;
+        line-height: 1.5;
+        margin: 0.2em 0;
+      }
+      .slide.center ul,
+      .slide.center ol {
+        text-align: left;
+      }
+      .slide.center pre {
+        text-align: left;
+        max-width: 100%;
+      }
 
-/* `-# ` で始まる段落は小さい注釈 */
-.slide .note,
-.slide.center p.note {
-  font-family: var(--slide-font);
-  font-weight: 400;
-  color: var(--slide-muted);
-}
-.slide .note {
-  font-size: calc(clamp(0.95rem, 1.8vw, 1.25rem) * var(--slide-size, 1));
-}
-.slide.center p.note {
-  font-size: clamp(1.2rem, 2.6vw, 2.1rem);
-}
+      /* `-# ` で始まる段落は小さい注釈 */
+      .slide .note,
+      .slide.center p.note {
+        font-family: var(--slide-font);
+        font-weight: 400;
+        color: var(--slide-muted);
+      }
+      .slide .note {
+        font-size: calc(clamp(0.95rem, 1.8vw, 1.25rem) * var(--slide-size, 1));
+      }
+      .slide.center p.note {
+        font-size: clamp(1.2rem, 2.6vw, 2.1rem);
+      }
 
-/* `::title::` 表紙 */
-.slide.title {
-  padding-bottom: 8vh;
-}
-.slide.title h1 {
-  margin-top: auto;
-  font-size: calc(clamp(2.6rem, 7vw, 5.2rem) * var(--slide-size, 1));
-  line-height: 1.2;
-}
-.slide.title p {
-  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
-  font-weight: 600;
-  margin: 0.2em 0;
-}
-.slide.title p:last-child {
-  margin-top: auto;
-  font-size: clamp(1rem, 1.8vw, 1.3rem);
-  color: var(--slide-muted);
-}
+      /* `::title::` 表紙 */
+      .slide.title {
+        padding-bottom: 8vh;
+      }
+      .slide.title h1 {
+        margin-top: auto;
+        font-size: calc(clamp(2.6rem, 7vw, 5.2rem) * var(--slide-size, 1));
+        line-height: 1.2;
+      }
+      .slide.title p {
+        font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+        font-weight: 600;
+        margin: 0.2em 0;
+      }
+      .slide.title p:last-child {
+        margin-top: auto;
+        font-size: clamp(1rem, 1.8vw, 1.3rem);
+        color: var(--slide-muted);
+      }
 
-/* `::bg=white::` 明るい背景 */
-.slide.light {
-  --slide-fg: #1f1f1f;
-  --slide-accent-2: #e85d00;
-  --slide-muted: #777;
-  --slide-border: rgba(0, 0, 0, 0.12);
-  --slide-code-bg: #f0f0f0;
-  color: var(--slide-fg);
-}
+      /* `::bg=white::` 明るい背景 */
+      .slide.light {
+        --slide-fg: #1f1f1f;
+        --slide-accent-2: #e85d00;
+        --slide-muted: #777;
+        --slide-border: rgba(0, 0, 0, 0.12);
+        --slide-code-bg: #f0f0f0;
+        color: var(--slide-fg);
+      }
 
-.slide blockquote {
-  border-left: 4px solid var(--slide-accent-2);
-  margin: 0 0 1rem;
-  padding: 0.2rem 0 0.2rem 1.2rem;
-  color: var(--slide-muted);
-}
+      .slide blockquote {
+        border-left: 4px solid var(--slide-accent-2);
+        margin: 0 0 1rem;
+        padding: 0.2rem 0 0.2rem 1.2rem;
+        color: var(--slide-muted);
+      }
 
-.slide table {
-  border-collapse: collapse;
-  font-size: calc(clamp(1rem, 2vw, 1.35rem) * var(--slide-size, 1));
-  margin: 0 auto 1rem 0;
-}
-.slide.center table {
-  margin: 0 auto;
-}
-.slide th,
-.slide td {
-  padding: 0.5em 1.2em;
-  border-bottom: 1px solid var(--slide-border);
-  text-align: left;
-}
-.slide th {
-  color: var(--slide-muted);
-  font-weight: 600;
-}
-.slide td.num,
-.slide th.num {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
+      .slide table {
+        border-collapse: collapse;
+        font-size: calc(clamp(1rem, 2vw, 1.35rem) * var(--slide-size, 1));
+        margin: 0 auto 1rem 0;
+      }
+      .slide.center table {
+        margin: 0 auto;
+      }
+      .slide th,
+      .slide td {
+        padding: 0.5em 1.2em;
+        border-bottom: 1px solid var(--slide-border);
+        text-align: left;
+      }
+      .slide th {
+        color: var(--slide-muted);
+        font-weight: 600;
+      }
+      .slide td.num,
+      .slide th.num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
 
-/* ---------- code ---------- */
+      /* ---------- code ---------- */
 
-.slide pre {
-  position: relative;
-  font-family: var(--slide-mono);
-  font-size: calc(clamp(0.8rem, 1.35vw, 1rem) * var(--slide-size, 1));
-  background: var(--slide-code-bg);
-  border: 1px solid var(--slide-border);
-  padding: 1.2rem 1.5rem;
-  border-radius: 10px;
-  overflow: auto;
-  max-height: 64vh;
-  line-height: 1.5;
-  margin: 0 0 1rem;
-}
-.slide pre code {
-  display: block;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-.slide pre[data-lang]::before {
-  content: attr(data-lang);
-  position: absolute;
-  top: 0.5rem;
-  right: 0.8rem;
-  font-size: 0.7rem;
-  color: var(--slide-muted);
-  opacity: 0.6;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.slide :not(pre) > code {
-  font-family: var(--slide-mono);
-  background: rgba(127, 127, 127, 0.18);
-  padding: 0.1em 0.4em;
-  border-radius: 4px;
-  font-size: 0.9em;
-}
+      .slide pre {
+        position: relative;
+        font-family: var(--slide-mono);
+        font-size: calc(clamp(0.8rem, 1.35vw, 1rem) * var(--slide-size, 1));
+        background: var(--slide-code-bg);
+        border: 1px solid var(--slide-border);
+        padding: 1.2rem 1.5rem;
+        border-radius: 10px;
+        overflow: auto;
+        max-height: 64vh;
+        line-height: 1.5;
+        margin: 0 0 1rem;
+      }
+      .slide pre code {
+        display: block;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .slide pre[data-lang]::before {
+        content: attr(data-lang);
+        position: absolute;
+        top: 0.5rem;
+        right: 0.8rem;
+        font-size: 0.7rem;
+        color: var(--slide-muted);
+        opacity: 0.6;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .slide :not(pre) > code {
+        font-family: var(--slide-mono);
+        background: rgba(127, 127, 127, 0.18);
+        padding: 0.1em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
 
-/* ハイライト（atom-one-dark 寄り） */
-.hl-c {
-  color: #7f848e;
-  font-style: italic;
-}
-.hl-s {
-  color: #98c379;
-}
-.hl-k {
-  color: #c678dd;
-}
-.hl-n {
-  color: #d19a66;
-}
-.hl-f {
-  color: #61afef;
-}
-.hl-t {
-  color: #e5c07b;
-}
-.hl-i {
-  color: #56b6c2;
-}
-/* console */
-.hl-prompt {
-  color: var(--slide-accent-2);
-  user-select: none;
-}
-.hl-cmd {
-  color: #fff;
-  font-weight: 600;
-}
-.light .hl-cmd {
-  color: #1f1f1f;
-}
-.hl-out {
-  color: #abb2bf;
-}
-.hl-err {
-  color: #ef5350;
-  font-weight: 600;
-}
-.hl-ok {
-  color: #98c379;
-}
-/* `!! ` を付けた行は行全体を帯でハイライト */
-.hl-mark {
-  display: inline-block;
-  width: calc(100% + 3rem);
-  margin: 0 -1.5rem;
-  padding: 0 1.5rem;
-  box-sizing: border-box;
-  background: rgba(255, 106, 0, 0.16);
-  box-shadow: inset 3px 0 0 var(--slide-accent-2);
-}
+      /* ハイライト（atom-one-dark 寄り） */
+      .hl-c {
+        color: #7f848e;
+        font-style: italic;
+      }
+      .hl-s {
+        color: #98c379;
+      }
+      .hl-k {
+        color: #c678dd;
+      }
+      .hl-n {
+        color: #d19a66;
+      }
+      .hl-f {
+        color: #61afef;
+      }
+      .hl-t {
+        color: #e5c07b;
+      }
+      .hl-i {
+        color: #56b6c2;
+      }
+      /* console */
+      .hl-prompt {
+        color: var(--slide-accent-2);
+        user-select: none;
+      }
+      .hl-cmd {
+        color: #fff;
+        font-weight: 600;
+      }
+      .light .hl-cmd {
+        color: #1f1f1f;
+      }
+      .hl-out {
+        color: #abb2bf;
+      }
+      .hl-err {
+        color: #ef5350;
+        font-weight: 600;
+      }
+      .hl-ok {
+        color: #98c379;
+      }
+      /* `!! ` を付けた行は行全体を帯でハイライト */
+      .hl-mark {
+        display: inline-block;
+        width: calc(100% + 3rem);
+        margin: 0 -1.5rem;
+        padding: 0 1.5rem;
+        box-sizing: border-box;
+        background: rgba(255, 106, 0, 0.16);
+        box-shadow: inset 3px 0 0 var(--slide-accent-2);
+      }
 
-/* ---------- chrome ---------- */
+      /* ---------- chrome ---------- */
 
-#progress {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 4px;
-  width: 0;
-  background: var(--slide-accent);
-  transition: width 0.2s ease;
-  z-index: 10;
-}
-#counter,
-#timer,
-#hint {
-  font-family: system-ui, -apple-system, 'Hiragino Sans', sans-serif;
-  position: fixed;
-  color: var(--slide-muted);
-  font-variant-numeric: tabular-nums;
-  z-index: 10;
-}
-#counter {
-  bottom: 12px;
-  right: 18px;
-  font-size: 0.9rem;
-}
-#timer {
-  bottom: 34px;
-  right: 18px;
-  font-size: 0.95rem;
-}
-#hint {
-  bottom: 12px;
-  left: 18px;
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-:fullscreen #hint {
-  display: none;
-}
-@media (pointer: coarse) {
-  #hint {
-    display: none;
-  }
-}
+      #progress {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 0;
+        background: var(--slide-accent);
+        transition: width 0.2s ease;
+        z-index: 10;
+      }
+      #counter,
+      #timer,
+      #hint {
+        font-family:
+          system-ui,
+          -apple-system,
+          "Hiragino Sans",
+          sans-serif;
+        position: fixed;
+        color: var(--slide-muted);
+        font-variant-numeric: tabular-nums;
+        z-index: 10;
+      }
+      #counter {
+        bottom: 12px;
+        right: 18px;
+        font-size: 0.9rem;
+      }
+      #timer {
+        bottom: 34px;
+        right: 18px;
+        font-size: 0.95rem;
+      }
+      #hint {
+        bottom: 12px;
+        left: 18px;
+        font-size: 0.8rem;
+        opacity: 0.6;
+      }
+      :fullscreen #hint {
+        display: none;
+      }
+      @media (pointer: coarse) {
+        #hint {
+          display: none;
+        }
+      }
 
-/* ---------- overview（o / Esc） ---------- */
+      /* ---------- overview（o / Esc） ---------- */
 
-#overview {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  display: none;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: center;
-  gap: 20px;
-  padding: 28px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  background: #29292c;
-}
-body.overview #overview {
-  display: flex;
-}
-body.overview #deck,
-body.overview #progress,
-body.overview #counter,
-body.overview #timer,
-body.overview #hint {
-  display: none;
-}
-.ov-item {
-  cursor: pointer;
-}
-.ov-frame {
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: var(--slide-bg);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
-}
-.ov-item.current .ov-frame {
-  outline: 3px solid var(--slide-accent);
-  outline-offset: 2px;
-}
-.ov-item:hover .ov-frame {
-  border-color: var(--slide-accent);
-}
-.ov-scale {
-  position: relative;
-  transform-origin: 0 0;
-}
-#overview .slide {
-  display: flex;
-  animation: none;
-  overflow: hidden;
-}
-.ov-num {
-  margin-top: 6px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--slide-muted);
-  font-variant-numeric: tabular-nums;
-}
-.ov-item.current .ov-num {
-  color: var(--slide-fg);
-  font-weight: 600;
-}
+      #overview {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: none;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: center;
+        gap: 20px;
+        padding: 28px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        background: #29292c;
+      }
+      body.overview #overview {
+        display: flex;
+      }
+      body.overview #deck,
+      body.overview #progress,
+      body.overview #counter,
+      body.overview #timer,
+      body.overview #hint {
+        display: none;
+      }
+      .ov-item {
+        cursor: pointer;
+      }
+      .ov-frame {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: var(--slide-bg);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+      }
+      .ov-item.current .ov-frame {
+        outline: 3px solid var(--slide-accent);
+        outline-offset: 2px;
+      }
+      .ov-item:hover .ov-frame {
+        border-color: var(--slide-accent);
+      }
+      .ov-scale {
+        position: relative;
+        transform-origin: 0 0;
+      }
+      #overview .slide {
+        display: flex;
+        animation: none;
+        overflow: hidden;
+      }
+      .ov-num {
+        margin-top: 6px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--slide-muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .ov-item.current .ov-num {
+        color: var(--slide-fg);
+        font-weight: 600;
+      }
 
-/* ---------- PDF（ブラウザの印刷 → PDF に保存） ---------- */
+      /* ---------- PDF（ブラウザの印刷 → PDF に保存） ---------- */
 
-@media print {
-  @page {
-    size: 1280px 720px;
-    margin: 0;
-  }
-  html {
-    font-size: 16px;
-  }
-  html,
-  body {
-    height: auto;
-    overflow: visible;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  #deck {
-    position: static;
-  }
-  .slide {
-    display: flex !important;
-    position: relative;
-    width: 1280px;
-    height: 720px;
-    padding: 43px 115px;
-    animation: none !important;
-    overflow: hidden;
-    break-after: page;
-    background: var(--slide-bg);
-  }
-  .slide.wide {
-    padding-left: 38px;
-    padding-right: 38px;
-  }
-  .slide.center p {
-    font-size: calc(3.5rem * var(--slide-size, 1));
-  }
-  .slide.title h1 {
-    font-size: calc(5.2rem * var(--slide-size, 1));
-  }
-  #progress,
-  #counter,
-  #timer,
-  #hint,
-  #overview {
-    display: none !important;
-  }
-}
-</style>
-</head>
-<body>
-<div id="deck">
-<section class="slide center" style="background:#5c2d91;"><p>最初に、謝ることがあります</p></section>
-<section class="slide center" style="background:#5c2d91;"><p>今日のLT会</p></section>
-<section class="slide center" style="background:#5c2d91;"><p>「知らない世界の話をしよう」</p></section>
-<section class="slide center" style="background:#5c2d91;"><p>僕が企画しました</p></section>
-<section class="slide center" style="background:#5c2d91;"><p>そして、自分で自分を登壇者にしました</p></section>
-<section class="slide center" style="background:#5c2d91;--slide-size:2;"><p>🙇</p></section>
-<section class="slide center" style="background:#5c2d91;"><p>温かい目で聞いてください</p></section>
-<section class="slide center" style="background:#5c2d91;--slide-size:2;"><p>ではいきます！</p></section>
-<section class="slide title"><h1>コミュニティ活動のすゝめ</h1><p>〜 学校の外に、もうひとつの世界を。 〜</p><p>田中博悠 / tanahiro2010</p><p>文化祭LT会「知らない世界の話をしよう」</p></section>
-<section class="slide"><h2>田中博悠 / tanahiro2010</h2><div class="cols"><div><ul><li>三田学園高等学校 1年</li><li>TypeScript / Web / AI Agent / Security</li><li>個人開発・OSS・イベント運営</li></ul></div><div><p><img src="img/tanahiro_hono.jpg" alt="tanahiro2010"></p></div></div></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>問い</p></section>
-<section class="slide center"><p>みなさんに聞きたいことがあります</p></section>
-<section class="slide center"><p>学校の外に、世界があるのを</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>知っていますか？</p></section>
-<section class="slide center"><p>高校生の世界って</p></section>
-<section class="slide center"><p>教室 <span class="arrow">→</span> 部活 <span class="arrow">→</span> 家</p></section>
-<section class="slide center"><p>だいたい、半径数キロ</p></section>
-<section class="slide center"><p>でも</p></section>
-<section class="slide center"><p>その外には</p></section>
-<section class="slide center"><p>自分と同じものを好きな人がいる</p></section>
-<section class="slide center"><p>自分にはない知識を持っている人がいる</p></section>
-<section class="slide center"><p>自分の考え方を変えてくれる人がいる</p></section>
-<section class="slide center"><p>その入口が</p></section>
-<section class="slide center" style="--slide-size:2;"><p><strong>コミュニティ</strong></p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>コミュニティ</p></section>
-<section class="slide"><h2>コミュニティとは</h2><ul><li>共通の趣味・興味・目標を持つ人の集まり</li><li>技術系だけじゃない<ul><li>音楽 / ゲーム / 小説 / イラスト / スポーツ / 研究 / 地域活動</li></ul></li></ul></section>
-<section class="slide center"><p>一番すごいところは</p></section>
-<section class="slide center"><p><strong>枠組みを超えられる</strong>こと</p></section>
-<section class="slide"><h2>関係なくなるもの</h2><ul><li>学校</li><li>学年</li><li>年齢</li><li>職業</li></ul></section>
-<section class="slide center"><p>高校生も、大学生も、社会人も、研究者も</p></section>
-<section class="slide center"><p>共通の興味があれば、対等な仲間</p></section>
-<section class="slide center"><p>あと、よくある誤解</p></section>
-<section class="slide center"><p>「運営する人」だけがコミュニティ活動ではない</p></section>
-<section class="slide"><h2>これも全部、コミュニティ活動</h2><ul><li>イベントに<strong>参加する</strong></li><li>誰かの話を<strong>聞く</strong></li><li><strong>交流する</strong></li><li>自分の作品を<strong>発表する</strong></li><li>一緒に何かを<strong>作る</strong></li></ul></section>
-<section class="slide center"><p>参加する側でも、作る側でもいい</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>楽しい</p></section>
-<section class="slide center"><p>なぜコミュニティ活動をするのか？</p></section>
-<section class="slide center"><p>進学のため？ 就職のため？</p></section>
-<section class="slide center"><p>違います</p></section>
-<section class="slide center" style="--slide-size:2;"><p><strong>楽しいから</strong></p></section>
-<section class="slide center"><p>学校だと</p></section>
-<section class="slide center"><p>同じ趣味の人が、そもそもいない</p></section>
-<section class="slide center"><p>「Honoの話ができる人、クラスにいますか？」</p><p class="note">（いません）</p></section>
-<section class="slide center"><p>でも、外に出ると</p></section>
-<section class="slide center"><p>その話を何時間でもできる人がいる</p></section>
-<section class="slide center"><p>自分よりはるかに熱中している人がいる</p></section>
-<section class="slide"><h2>実際に行った場所</h2><ul><li><strong>GDG Greater Kwansai</strong> — 運営・交流</li><li><strong>Hono Conference</strong> — 登壇・運営</li></ul><p class="note">同じ技術が好きな人としか通じない話を、延々とできる</p></section>
-<section class="slide center"><p>そして、作る側はもっと楽しい</p></section>
-<section class="slide"><h2>イベントが形になっていく</h2><ul><li>企画を考える</li><li>協力してくれる人を集める</li><li>一つのイベントが完成する</li></ul></section>
-<section class="slide center"><p>準備は、正直しんどい</p></section>
-<section class="slide center"><p>でも当日</p></section>
-<section class="slide center"><p>自分たちが作った場で、参加者が楽しんでいる</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>これがマジで嬉しい</p></section>
-<section class="slide center"><p>成果を出すためにやるものじゃない</p></section>
-<section class="slide center"><p>楽しいから参加する</p></section>
-<section class="slide center"><p>それだけで、十分な理由</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>水を飲む</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>人</p></section>
-<section class="slide center"><p>コミュニティ活動の大きな魅力</p></section>
-<section class="slide center"><p>学校の外に、人間関係ができる</p></section>
-<section class="slide"><h2>学校の人間関係</h2><ul><li>同じ学年</li><li>同じ学校</li><li>先生</li></ul></section>
-<section class="slide"><h2>コミュニティの人間関係</h2><ul><li>年齢もバラバラ</li><li>所属もバラバラ</li><li>経験も価値観もバラバラ</li></ul></section>
-<section class="slide"><h2>こんな人がいる</h2><ul><li>自分が知らない技術を使いこなしている人</li><li>面白いサービスを作っている人</li><li>大きなイベントを運営している人</li><li>研究に取り組んでいる人</li></ul><p class="note">GDGのオーガナイザー、GDE、Hono Conferenceで出会ったエンジニア⋯</p></section>
-<section class="slide center"><p>ただ、これは</p></section>
-<section class="slide center"><p>「すごい人と知り合える」という話ではない</p></section>
-<section class="slide center"><p>大事なのは</p></section>
-<section class="slide center"><p>その人たちが、<strong>気軽に話せる相手</strong>になること</p></section>
-<section class="slide"><h2>つながると起きること</h2><ul><li>困ったときに<strong>相談できる</strong></li><li>挑戦したときに<strong>アドバイスをもらえる</strong></li><li>お互いの活動を<strong>応援し合える</strong></li></ul></section>
-<section class="slide center"><p>自分にはない視点が、身近にある</p></section>
-<section class="slide center"><p>すると、自分の考え方と行動が変わっていく</p></section>
-<section class="slide center"><p>自分の知らない世界を</p></section>
-<section class="slide center"><p><strong>当たり前に生きている人</strong>と仲良くなれる</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>機会</p></section>
-<section class="slide center"><p>人とつながると、機会が降ってくる</p></section>
-<section class="slide"><h2>気づいたらこうなっていた</h2><ul><li>最初は、ただの参加者だった</li><li><span class="arrow">→</span> 別のイベントを紹介される</li><li><span class="arrow">→</span> 一緒に作ろうと誘われる</li><li><span class="arrow">→</span> 気づいたら運営側</li><li><span class="arrow">→</span> 気づいたら登壇していた</li></ul></section>
-<section class="slide center"><p>全部の機会を、自分で探してくる必要はない</p></section>
-<section class="slide center"><p>ひとりでは存在すら知らなかった選択肢が見えてくる</p></section>
-<section class="slide center"><p>そして、挑戦を応援してくれる人がいる</p></section>
-<section class="slide center"><p>ひとりでは無理でも</p></section>
-<section class="slide center"><p>経験や知識を持つ人に協力してもらえば、実現できる</p></section>
-<section class="slide center"><p>例えば</p></section>
-<section class="slide center"><p>今日のこのLT会</p></section>
-<section class="slide center"><p>登壇者も、協力者も</p></section>
-<section class="slide center"><p><strong>学校の外で出会った人たち</strong></p></section>
-<section class="slide center"><p>一つの出会いが、次の挑戦につながる</p></section>
-<section class="slide center"><p>その挑戦が、また新しい出会いを生む</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>水を飲む 🍵</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>進路</p></section>
-<section class="slide center"><p>ここからは、少し現実的な話</p></section>
-<section class="slide center"><p>総合型選抜（旧AO入試）</p></section>
-<section class="slide"><h2>大学・学部によっては</h2><ul><li>学力だけでなく</li><li><strong>主体性</strong></li><li><strong>活動経験</strong></li><li><strong>志望分野への関心</strong></li></ul></section>
-<section class="slide center"><p>これ、就職活動でも同じ</p></section>
-<section class="slide"><h2>イベント運営で得られる経験</h2><ul><li><strong>企画力</strong> — やりたいことを企画に落とし込む</li><li><strong>コミュニケーション能力</strong> — 初対面・立場の違う人と話す</li><li><strong>調整力</strong> — 関係者の希望と予定を合わせる</li></ul></section>
-<section class="slide"><h2>イベント運営で得られる経験</h2><ul><li><strong>問題解決力</strong> — 予算不足や計画変更に対応する</li><li><strong>リーダーシップ</strong> — 人を巻き込んで進める</li><li><strong>発信力</strong> — 自分の考えを他人に伝える</li></ul></section>
-<section class="slide center"><p>学校の授業だけでは、なかなか経験できない</p></section>
-<section class="slide center"><p>ただし</p></section>
-<section class="slide center" style="background:#c0392b;"><p>参加しただけでは、有利になりません</p></section>
-<section class="slide"><h2>大事なのは</h2><ul><li>どんな課題に向き合ったか</li><li>何を考えて行動したか</li><li>そこから何を学んだか</li></ul></section>
-<section class="slide center"><p>肩書きや活動実績の数 <span class="arrow">→</span> <strong>経験の中身</strong></p></section>
-<section class="slide center"><p>あと、進路の情報も手に入る</p></section>
-<section class="slide"><h2>話を聞ける相手</h2><ul><li>実際にその仕事をしている社会人</li><li>大学で研究している学生・研究者</li></ul></section>
-<section class="slide center"><p>自分の将来を、具体的に考えられるようになる</p></section>
-<section class="slide center"><p>好きなことを続けていたら</p></section>
-<section class="slide center"><p>いつの間にか<strong>将来の武器</strong>になっていた</p><p class="note">そんなこともある、くらいの話です</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>ハードル</p></section>
-<section class="slide center"><p>「でも、自分なんて」</p></section>
-<section class="slide center"><p>よくある誤解</p></section>
-<section class="slide center"><p>コミュニティ = 実績がある人が行く場所</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>違います</p></section>
-<section class="slide"><h2>実際のところ</h2><ul><li><strong>初心者向け</strong>のイベントがある</li><li>「興味がある」だけで参加できる場所がある</li></ul></section>
-<section class="slide"><h2>やらなくていいこと</h2><ul><li>自分から話しかける</li><li>自分の知識を披露する</li></ul></section>
-<section class="slide center"><p>まずは、聞くだけでいい</p></section>
-<section class="slide"><h2>慣れてきたら</h2><ul><li>自分から話しかけてみる</li><li>発表してみる</li><li>企画を考えてみる</li></ul></section>
-<section class="slide center"><p>参加者のままでもいいし、運営になってもいい</p></section>
-<section class="slide center"><p>活動の仕方は、人それぞれ</p></section>
-<section class="slide center"><p>何者かになってから参加する必要はない</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>何者でもない自分のまま、参加していい</p></section>
-<section class="slide center" style="background:#ff6a00;"><p>ただし、安全の話</p></section>
-<section class="slide"><h2>確認すること</h2><ul><li>参加条件</li><li>年齢制限</li><li>運営者が信頼できるか</li></ul><p class="note">高校生なら、公開イベント・信頼できる運営の場から始めると安心</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>水を飲む</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>正直な話</p></section>
-<section class="slide center"><p>ここまで、いい話ばかりしてきました</p></section>
-<section class="slide center"><p>が</p></section>
-<section class="slide center"><p>楽なことばかりではありません</p></section>
-<section class="slide"><h2>うまくいかないこと</h2><ul><li>人が集まらない</li><li>予算が足りない</li><li>計画が思いどおりに進まない</li><li>人間関係で悩む</li><li>活動の負担が大きくなる</li></ul></section>
-<section class="slide center"><p>今日のLT会の準備も</p></section>
-<section class="slide"><h2>敗因というか、課題</h2><ul><li>学校との調整</li><li>予算の確保</li><li>登壇者への連絡</li></ul></section>
-<section class="slide center"><p>正直、大変でした</p></section>
-<section class="slide center"><p>でも</p></section>
-<section class="slide"><h2>わかったこと</h2><ul><li>問題に向き合う中で、学べることがある</li><li>協力してくれる人のありがたさが、実感としてわかる</li></ul></section>
-<section class="slide center"><p>そして、一番大事なこと</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>無理して続けなくていい</p></section>
-<section class="slide center"><p>学校生活や自分の時間とのバランスで</p></section>
-<section class="slide center"><p>楽しく続けられる範囲で関わればいい</p></section>
-<section class="slide center"><p>コミュニティ活動は、頑張り続ける義務ではない</p></section>
-<section class="slide center" style="--slide-size:1.5;background:#5c2d91;"><p>自分の世界を広げるための、<strong>選択肢</strong></p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>高校生</p></section>
-<section class="slide center"><p>なぜ「高校生のうちに」なのか</p></section>
-<section class="slide center"><p>まだ、進路が決まっていない人が多い</p></section>
-<section class="slide center"><p>だからこそ、いろんな世界を見る意味がある</p></section>
-<section class="slide"><h2>こんなことが起きるかもしれない</h2><ul><li>興味のなかった分野に出会って、やりたいことが変わる</li><li>社会人の話を聞いて、知らなかった職業を知る</li><li>好きなことを続けるうちに、新しい目標が生まれる</li></ul></section>
-<section class="slide center"><p>それに</p></section>
-<section class="slide center"><p>大人にならないとできないことは、確かにある</p></section>
-<section class="slide center"><p>でも</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>高校生だからこそ、できることもある</p></section>
-<section class="slide"><h2>高校生にしかない視点</h2><ul><li>学生の視点で企画を考える</li><li>学校の中に、新しい活動を生み出す</li></ul></section>
-<section class="slide center"><p>例えば</p></section>
-<section class="slide center"><p>文化祭でLT会を開く、とか</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>今日</p></section>
-<section class="slide center"><p>今日の「知らない世界の話をしよう」も</p></section>
-<section class="slide center"><p>コミュニティ活動の一つ</p></section>
-<section class="slide"><h2>今日やっていること</h2><ul><li>普段は話を聞く機会がない人を招いた</li><li>それぞれの専門分野や活動を話してもらう</li><li>参加者は、知らなかった世界を知る</li><li>登壇者同士・参加者同士にも交流が生まれるかもしれない</li></ul></section>
-<section class="slide center"><p>こういうイベントは</p></section>
-<section class="slide center"><p>特別な団体や企業だけのものじゃない</p></section>
-<section class="slide center"><p>学生が企画して、周りに協力してもらえば、作れる</p></section>
-<section class="slide center"><p>コミュニティは、どこか遠くにある特別なものじゃない</p></section>
-<section class="slide center" style="--slide-size:1.5;background:#5c2d91;"><p>今日、この会場も、その一つ</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>まとめ</p></section>
-<section class="slide"><h2>コミュニティ活動でできること</h2><ul><li>進学や就職に役立つ経験が得られることもある</li><li>刺激をくれる人に出会えることもある</li><li>新しい挑戦や、思いもよらない機会が生まれることもある</li></ul></section>
-<section class="slide center"><p>でも</p></section>
-<section class="slide center"><p>何より大切なのは</p></section>
-<section class="slide center" style="--slide-size:2;"><p><strong>楽しいと思えること</strong></p></section>
-<section class="slide"><h2>やらなくていいこと</h2><ul><li>進学や就職のためだけに活動する</li><li>大きな実績を残す</li></ul></section>
-<section class="slide"><h2>理由はこれで十分</h2><ul><li>ただ好きだから</li><li>面白そうだから</li><li>もっと知りたいから</li></ul></section>
-<section class="slide"><h2>わかったこと</h2><ul><li>コミュニティは<strong>枠組みを超えて</strong>人と出会える場所</li><li>何者でもない自分のまま、参加していい</li><li>知らない世界を知ることは、<strong>選択肢を増やすこと</strong></li></ul></section>
-<section class="slide center"><p>学校の外には、もうひとつの世界がある</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>行ってみると、選択肢が増える</p></section>
-<section class="slide center light" style="--slide-size:1.5;background:#fafafa;"><p>おまけ</p></section>
-<section class="slide center"><p>今日できる、一番簡単なコミュニティ活動</p></section>
-<section class="slide center"><p>帰る前に</p></section>
-<section class="slide center"><p>登壇者か、隣の席の人に話しかける</p></section>
-<section class="slide center" style="--slide-size:1.5;"><p>それだけで、もう始まっています</p></section>
-<section class="slide title"><h1>ありがとうございました</h1><p>コミュニティ活動のすゝめ</p><p>田中博悠 / tanahiro2010<br>https://github.com/tanahiro2010</p></section>
-</div>
-<div id="overview"></div>
-<div id="progress"></div>
-<div id="timer"></div>
-<div id="counter"></div>
-<div id="hint">← → 移動 ・ f フルスクリーン ・ o 一覧</div>
-<script>// スライドのナビゲーション。ippon が HTML に埋め込む。
-//   → / Space / PageDown / クリック右側     次へ
-//   ← / PageUp / クリック左側              前へ
-//   Home / End                              最初 / 最後
-//   f                                       フルスクリーン
-//   o / Esc                                 一覧
-;(function () {
-  var slides = Array.prototype.slice.call(document.querySelectorAll('#deck .slide'))
-  if (!slides.length) return
+      @media print {
+        @page {
+          size: 1280px 720px;
+          margin: 0;
+        }
+        html {
+          font-size: 16px;
+        }
+        html,
+        body {
+          height: auto;
+          overflow: visible;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        #deck {
+          position: static;
+        }
+        .slide {
+          display: flex !important;
+          position: relative;
+          width: 1280px;
+          height: 720px;
+          padding: 43px 115px;
+          animation: none !important;
+          overflow: hidden;
+          break-after: page;
+          background: var(--slide-bg);
+        }
+        .slide.wide {
+          padding-left: 38px;
+          padding-right: 38px;
+        }
+        .slide.center p {
+          font-size: calc(3.5rem * var(--slide-size, 1));
+        }
+        .slide.title h1 {
+          font-size: calc(5.2rem * var(--slide-size, 1));
+        }
+        #progress,
+        #counter,
+        #timer,
+        #hint,
+        #overview {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="deck">
+      <section class="slide center" style="background: #5c2d91">
+        <p>最初に、謝ることがあります</p>
+      </section>
+      <section class="slide center" style="background: #5c2d91"><p>今日のLT会</p></section>
+      <section class="slide center" style="background: #5c2d91">
+        <p>「知らない世界の話をしよう」</p>
+      </section>
+      <section class="slide center" style="background: #5c2d91"><p>僕が企画しました</p></section>
+      <section class="slide center" style="background: #5c2d91">
+        <p>そして、自分で自分を登壇者にしました</p>
+      </section>
+      <section class="slide center" style="background: #5c2d91; --slide-size: 2"><p>🙇</p></section>
+      <section class="slide center" style="background: #5c2d91">
+        <p>温かい目で聞いてください</p>
+      </section>
+      <section class="slide center" style="background: #5c2d91; --slide-size: 2">
+        <p>ではいきます！</p>
+      </section>
+      <section class="slide title">
+        <h1>コミュニティ活動のすゝめ</h1>
+        <p>〜 学校の外に、もうひとつの世界を。 〜</p>
+        <p>田中博悠 / tanahiro2010</p>
+        <p>文化祭LT会「知らない世界の話をしよう」</p>
+      </section>
+      <section class="slide">
+        <h2>田中博悠 / tanahiro2010</h2>
+        <div class="cols">
+          <div>
+            <ul>
+              <li>三田学園高等学校 1年</li>
+              <li>TypeScript / Web / AI Agent / Security</li>
+              <li>個人開発・OSS・イベント運営</li>
+            </ul>
+          </div>
+          <div>
+            <p><img src="img/tanahiro_hono.jpg" alt="tanahiro2010" /></p>
+          </div>
+        </div>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>問い</p>
+      </section>
+      <section class="slide center"><p>みなさんに聞きたいことがあります</p></section>
+      <section class="slide center"><p>学校の外に、世界があるのを</p></section>
+      <section class="slide center" style="--slide-size: 1.5"><p>知っていますか？</p></section>
+      <section class="slide center"><p>高校生の世界って</p></section>
+      <section class="slide center">
+        <p>教室 <span class="arrow">→</span> 部活 <span class="arrow">→</span> 家</p>
+      </section>
+      <section class="slide center"><p>だいたい、半径数キロ</p></section>
+      <section class="slide center"><p>でも</p></section>
+      <section class="slide center"><p>その外には</p></section>
+      <section class="slide center"><p>自分と同じものを好きな人がいる</p></section>
+      <section class="slide center"><p>自分にはない知識を持っている人がいる</p></section>
+      <section class="slide center"><p>自分の考え方を変えてくれる人がいる</p></section>
+      <section class="slide center"><p>その入口が</p></section>
+      <section class="slide center" style="--slide-size: 2">
+        <p><strong>コミュニティ</strong></p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>コミュニティ</p>
+      </section>
+      <section class="slide">
+        <h2>コミュニティとは</h2>
+        <ul>
+          <li>共通の趣味・興味・目標を持つ人の集まり</li>
+          <li>
+            技術系だけじゃない
+            <ul>
+              <li>音楽 / ゲーム / 小説 / イラスト / スポーツ / 研究 / 地域活動</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section class="slide center"><p>一番すごいところは</p></section>
+      <section class="slide center">
+        <p><strong>枠組みを超えられる</strong>こと</p>
+      </section>
+      <section class="slide">
+        <h2>関係なくなるもの</h2>
+        <ul>
+          <li>学校</li>
+          <li>学年</li>
+          <li>年齢</li>
+          <li>職業</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>高校生も、大学生も、社会人も、研究者も</p></section>
+      <section class="slide center"><p>共通の興味があれば、対等な仲間</p></section>
+      <section class="slide center"><p>あと、よくある誤解</p></section>
+      <section class="slide center"><p>「運営する人」だけがコミュニティ活動ではない</p></section>
+      <section class="slide">
+        <h2>これも全部、コミュニティ活動</h2>
+        <ul>
+          <li>イベントに<strong>参加する</strong></li>
+          <li>誰かの話を<strong>聞く</strong></li>
+          <li><strong>交流する</strong></li>
+          <li>自分の作品を<strong>発表する</strong></li>
+          <li>一緒に何かを<strong>作る</strong></li>
+        </ul>
+      </section>
+      <section class="slide center"><p>参加する側でも、作る側でもいい</p></section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>楽しい</p>
+      </section>
+      <section class="slide center"><p>なぜコミュニティ活動をするのか？</p></section>
+      <section class="slide center"><p>進学のため？ 就職のため？</p></section>
+      <section class="slide center"><p>違います</p></section>
+      <section class="slide center" style="--slide-size: 2">
+        <p><strong>楽しいから</strong></p>
+      </section>
+      <section class="slide center"><p>学校だと</p></section>
+      <section class="slide center"><p>同じ趣味の人が、そもそもいない</p></section>
+      <section class="slide center">
+        <p>「Honoの話ができる人、クラスにいますか？」</p>
+        <p class="note">（いません）</p>
+      </section>
+      <section class="slide center"><p>でも、外に出ると</p></section>
+      <section class="slide center"><p>その話を何時間でもできる人がいる</p></section>
+      <section class="slide center"><p>自分よりはるかに熱中している人がいる</p></section>
+      <section class="slide">
+        <h2>実際に行った場所</h2>
+        <ul>
+          <li><strong>GDG Greater Kwansai</strong> — 運営・交流</li>
+          <li><strong>Hono Conference</strong> — 登壇・運営</li>
+        </ul>
+        <p class="note">同じ技術が好きな人としか通じない話を、延々とできる</p>
+      </section>
+      <section class="slide center"><p>そして、作る側はもっと楽しい</p></section>
+      <section class="slide">
+        <h2>イベントが形になっていく</h2>
+        <ul>
+          <li>企画を考える</li>
+          <li>協力してくれる人を集める</li>
+          <li>一つのイベントが完成する</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>準備は、正直しんどい</p></section>
+      <section class="slide center"><p>でも当日</p></section>
+      <section class="slide center"><p>自分たちが作った場で、参加者が楽しんでいる</p></section>
+      <section class="slide center" style="--slide-size: 1.5"><p>これがマジで嬉しい</p></section>
+      <section class="slide center"><p>成果を出すためにやるものじゃない</p></section>
+      <section class="slide center"><p>楽しいから参加する</p></section>
+      <section class="slide center"><p>それだけで、十分な理由</p></section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>水を飲む</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>人</p>
+      </section>
+      <section class="slide center"><p>コミュニティ活動の大きな魅力</p></section>
+      <section class="slide center"><p>学校の外に、人間関係ができる</p></section>
+      <section class="slide">
+        <h2>学校の人間関係</h2>
+        <ul>
+          <li>同じ学年</li>
+          <li>同じ学校</li>
+          <li>先生</li>
+        </ul>
+      </section>
+      <section class="slide">
+        <h2>コミュニティの人間関係</h2>
+        <ul>
+          <li>年齢もバラバラ</li>
+          <li>所属もバラバラ</li>
+          <li>経験も価値観もバラバラ</li>
+        </ul>
+      </section>
+      <section class="slide">
+        <h2>こんな人がいる</h2>
+        <ul>
+          <li>自分が知らない技術を使いこなしている人</li>
+          <li>面白いサービスを作っている人</li>
+          <li>大きなイベントを運営している人</li>
+          <li>研究に取り組んでいる人</li>
+        </ul>
+        <p class="note">GDGのオーガナイザー、GDE、Hono Conferenceで出会ったエンジニア⋯</p>
+      </section>
+      <section class="slide center"><p>ただ、これは</p></section>
+      <section class="slide center"><p>「すごい人と知り合える」という話ではない</p></section>
+      <section class="slide center"><p>大事なのは</p></section>
+      <section class="slide center">
+        <p>その人たちが、<strong>気軽に話せる相手</strong>になること</p>
+      </section>
+      <section class="slide">
+        <h2>つながると起きること</h2>
+        <ul>
+          <li>困ったときに<strong>相談できる</strong></li>
+          <li>挑戦したときに<strong>アドバイスをもらえる</strong></li>
+          <li>お互いの活動を<strong>応援し合える</strong></li>
+        </ul>
+      </section>
+      <section class="slide center"><p>自分にはない視点が、身近にある</p></section>
+      <section class="slide center"><p>すると、自分の考え方と行動が変わっていく</p></section>
+      <section class="slide center"><p>自分の知らない世界を</p></section>
+      <section class="slide center">
+        <p><strong>当たり前に生きている人</strong>と仲良くなれる</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>機会</p>
+      </section>
+      <section class="slide center"><p>人とつながると、機会が降ってくる</p></section>
+      <section class="slide">
+        <h2>気づいたらこうなっていた</h2>
+        <ul>
+          <li>最初は、ただの参加者だった</li>
+          <li><span class="arrow">→</span> 別のイベントを紹介される</li>
+          <li><span class="arrow">→</span> 一緒に作ろうと誘われる</li>
+          <li><span class="arrow">→</span> 気づいたら運営側</li>
+          <li><span class="arrow">→</span> 気づいたら登壇していた</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>全部の機会を、自分で探してくる必要はない</p></section>
+      <section class="slide center">
+        <p>ひとりでは存在すら知らなかった選択肢が見えてくる</p>
+      </section>
+      <section class="slide center"><p>そして、挑戦を応援してくれる人がいる</p></section>
+      <section class="slide center"><p>ひとりでは無理でも</p></section>
+      <section class="slide center">
+        <p>経験や知識を持つ人に協力してもらえば、実現できる</p>
+      </section>
+      <section class="slide center"><p>例えば</p></section>
+      <section class="slide center"><p>今日のこのLT会</p></section>
+      <section class="slide center"><p>登壇者も、協力者も</p></section>
+      <section class="slide center">
+        <p><strong>学校の外で出会った人たち</strong></p>
+      </section>
+      <section class="slide center"><p>一つの出会いが、次の挑戦につながる</p></section>
+      <section class="slide center"><p>その挑戦が、また新しい出会いを生む</p></section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>水を飲む 🍵</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>進路</p>
+      </section>
+      <section class="slide center"><p>ここからは、少し現実的な話</p></section>
+      <section class="slide center"><p>総合型選抜（旧AO入試）</p></section>
+      <section class="slide">
+        <h2>大学・学部によっては</h2>
+        <ul>
+          <li>学力だけでなく</li>
+          <li><strong>主体性</strong></li>
+          <li><strong>活動経験</strong></li>
+          <li><strong>志望分野への関心</strong></li>
+        </ul>
+      </section>
+      <section class="slide center"><p>これ、就職活動でも同じ</p></section>
+      <section class="slide">
+        <h2>イベント運営で得られる経験</h2>
+        <ul>
+          <li><strong>企画力</strong> — やりたいことを企画に落とし込む</li>
+          <li><strong>コミュニケーション能力</strong> — 初対面・立場の違う人と話す</li>
+          <li><strong>調整力</strong> — 関係者の希望と予定を合わせる</li>
+        </ul>
+      </section>
+      <section class="slide">
+        <h2>イベント運営で得られる経験</h2>
+        <ul>
+          <li><strong>問題解決力</strong> — 予算不足や計画変更に対応する</li>
+          <li><strong>リーダーシップ</strong> — 人を巻き込んで進める</li>
+          <li><strong>発信力</strong> — 自分の考えを他人に伝える</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>学校の授業だけでは、なかなか経験できない</p></section>
+      <section class="slide center"><p>ただし</p></section>
+      <section class="slide center" style="background: #c0392b">
+        <p>参加しただけでは、有利になりません</p>
+      </section>
+      <section class="slide">
+        <h2>大事なのは</h2>
+        <ul>
+          <li>どんな課題に向き合ったか</li>
+          <li>何を考えて行動したか</li>
+          <li>そこから何を学んだか</li>
+        </ul>
+      </section>
+      <section class="slide center">
+        <p>肩書きや活動実績の数 <span class="arrow">→</span> <strong>経験の中身</strong></p>
+      </section>
+      <section class="slide center"><p>あと、進路の情報も手に入る</p></section>
+      <section class="slide">
+        <h2>話を聞ける相手</h2>
+        <ul>
+          <li>実際にその仕事をしている社会人</li>
+          <li>大学で研究している学生・研究者</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>自分の将来を、具体的に考えられるようになる</p></section>
+      <section class="slide center"><p>好きなことを続けていたら</p></section>
+      <section class="slide center">
+        <p>いつの間にか<strong>将来の武器</strong>になっていた</p>
+        <p class="note">そんなこともある、くらいの話です</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>ハードル</p>
+      </section>
+      <section class="slide center"><p>「でも、自分なんて」</p></section>
+      <section class="slide center"><p>よくある誤解</p></section>
+      <section class="slide center"><p>コミュニティ = 実績がある人が行く場所</p></section>
+      <section class="slide center" style="--slide-size: 1.5"><p>違います</p></section>
+      <section class="slide">
+        <h2>実際のところ</h2>
+        <ul>
+          <li><strong>初心者向け</strong>のイベントがある</li>
+          <li>「興味がある」だけで参加できる場所がある</li>
+        </ul>
+      </section>
+      <section class="slide">
+        <h2>やらなくていいこと</h2>
+        <ul>
+          <li>自分から話しかける</li>
+          <li>自分の知識を披露する</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>まずは、聞くだけでいい</p></section>
+      <section class="slide">
+        <h2>慣れてきたら</h2>
+        <ul>
+          <li>自分から話しかけてみる</li>
+          <li>発表してみる</li>
+          <li>企画を考えてみる</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>参加者のままでもいいし、運営になってもいい</p></section>
+      <section class="slide center"><p>活動の仕方は、人それぞれ</p></section>
+      <section class="slide center"><p>何者かになってから参加する必要はない</p></section>
+      <section class="slide center" style="--slide-size: 1.5">
+        <p>何者でもない自分のまま、参加していい</p>
+      </section>
+      <section class="slide center" style="background: #ff6a00"><p>ただし、安全の話</p></section>
+      <section class="slide">
+        <h2>確認すること</h2>
+        <ul>
+          <li>参加条件</li>
+          <li>年齢制限</li>
+          <li>運営者が信頼できるか</li>
+        </ul>
+        <p class="note">高校生なら、公開イベント・信頼できる運営の場から始めると安心</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>水を飲む</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>正直な話</p>
+      </section>
+      <section class="slide center"><p>ここまで、いい話ばかりしてきました</p></section>
+      <section class="slide center"><p>が</p></section>
+      <section class="slide center"><p>楽なことばかりではありません</p></section>
+      <section class="slide">
+        <h2>うまくいかないこと</h2>
+        <ul>
+          <li>人が集まらない</li>
+          <li>予算が足りない</li>
+          <li>計画が思いどおりに進まない</li>
+          <li>人間関係で悩む</li>
+          <li>活動の負担が大きくなる</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>今日のLT会の準備も</p></section>
+      <section class="slide">
+        <h2>敗因というか、課題</h2>
+        <ul>
+          <li>学校との調整</li>
+          <li>予算の確保</li>
+          <li>登壇者への連絡</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>正直、大変でした</p></section>
+      <section class="slide center"><p>でも</p></section>
+      <section class="slide">
+        <h2>わかったこと</h2>
+        <ul>
+          <li>問題に向き合う中で、学べることがある</li>
+          <li>協力してくれる人のありがたさが、実感としてわかる</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>そして、一番大事なこと</p></section>
+      <section class="slide center" style="--slide-size: 1.5">
+        <p>無理して続けなくていい</p>
+      </section>
+      <section class="slide center"><p>学校生活や自分の時間とのバランスで</p></section>
+      <section class="slide center"><p>楽しく続けられる範囲で関わればいい</p></section>
+      <section class="slide center"><p>コミュニティ活動は、頑張り続ける義務ではない</p></section>
+      <section class="slide center" style="--slide-size: 1.5; background: #5c2d91">
+        <p>自分の世界を広げるための、<strong>選択肢</strong></p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>高校生</p>
+      </section>
+      <section class="slide center"><p>なぜ「高校生のうちに」なのか</p></section>
+      <section class="slide center"><p>まだ、進路が決まっていない人が多い</p></section>
+      <section class="slide center"><p>だからこそ、いろんな世界を見る意味がある</p></section>
+      <section class="slide">
+        <h2>こんなことが起きるかもしれない</h2>
+        <ul>
+          <li>興味のなかった分野に出会って、やりたいことが変わる</li>
+          <li>社会人の話を聞いて、知らなかった職業を知る</li>
+          <li>好きなことを続けるうちに、新しい目標が生まれる</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>それに</p></section>
+      <section class="slide center"><p>大人にならないとできないことは、確かにある</p></section>
+      <section class="slide center"><p>でも</p></section>
+      <section class="slide center" style="--slide-size: 1.5">
+        <p>高校生だからこそ、できることもある</p>
+      </section>
+      <section class="slide">
+        <h2>高校生にしかない視点</h2>
+        <ul>
+          <li>学生の視点で企画を考える</li>
+          <li>学校の中に、新しい活動を生み出す</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>例えば</p></section>
+      <section class="slide center"><p>文化祭でLT会を開く、とか</p></section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>今日</p>
+      </section>
+      <section class="slide center"><p>今日の「知らない世界の話をしよう」も</p></section>
+      <section class="slide center"><p>コミュニティ活動の一つ</p></section>
+      <section class="slide">
+        <h2>今日やっていること</h2>
+        <ul>
+          <li>普段は話を聞く機会がない人を招いた</li>
+          <li>それぞれの専門分野や活動を話してもらう</li>
+          <li>参加者は、知らなかった世界を知る</li>
+          <li>登壇者同士・参加者同士にも交流が生まれるかもしれない</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>こういうイベントは</p></section>
+      <section class="slide center"><p>特別な団体や企業だけのものじゃない</p></section>
+      <section class="slide center"><p>学生が企画して、周りに協力してもらえば、作れる</p></section>
+      <section class="slide center">
+        <p>コミュニティは、どこか遠くにある特別なものじゃない</p>
+      </section>
+      <section class="slide center" style="--slide-size: 1.5; background: #5c2d91">
+        <p>今日、この会場も、その一つ</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>まとめ</p>
+      </section>
+      <section class="slide">
+        <h2>コミュニティ活動でできること</h2>
+        <ul>
+          <li>進学や就職に役立つ経験が得られることもある</li>
+          <li>刺激をくれる人に出会えることもある</li>
+          <li>新しい挑戦や、思いもよらない機会が生まれることもある</li>
+        </ul>
+      </section>
+      <section class="slide center"><p>でも</p></section>
+      <section class="slide center"><p>何より大切なのは</p></section>
+      <section class="slide center" style="--slide-size: 2">
+        <p><strong>楽しいと思えること</strong></p>
+      </section>
+      <section class="slide">
+        <h2>やらなくていいこと</h2>
+        <ul>
+          <li>進学や就職のためだけに活動する</li>
+          <li>大きな実績を残す</li>
+        </ul>
+      </section>
+      <section class="slide">
+        <h2>理由はこれで十分</h2>
+        <ul>
+          <li>ただ好きだから</li>
+          <li>面白そうだから</li>
+          <li>もっと知りたいから</li>
+        </ul>
+      </section>
+      <section class="slide">
+        <h2>わかったこと</h2>
+        <ul>
+          <li>コミュニティは<strong>枠組みを超えて</strong>人と出会える場所</li>
+          <li>何者でもない自分のまま、参加していい</li>
+          <li>知らない世界を知ることは、<strong>選択肢を増やすこと</strong></li>
+        </ul>
+      </section>
+      <section class="slide center"><p>学校の外には、もうひとつの世界がある</p></section>
+      <section class="slide center" style="--slide-size: 1.5">
+        <p>行ってみると、選択肢が増える</p>
+      </section>
+      <section class="slide center light" style="--slide-size: 1.5; background: #fafafa">
+        <p>おまけ</p>
+      </section>
+      <section class="slide center"><p>今日できる、一番簡単なコミュニティ活動</p></section>
+      <section class="slide center"><p>帰る前に</p></section>
+      <section class="slide center"><p>登壇者か、隣の席の人に話しかける</p></section>
+      <section class="slide center" style="--slide-size: 1.5">
+        <p>それだけで、もう始まっています</p>
+      </section>
+      <section class="slide title">
+        <h1>ありがとうございました</h1>
+        <p>コミュニティ活動のすゝめ</p>
+        <p>田中博悠 / tanahiro2010<br />https://github.com/tanahiro2010</p>
+      </section>
+    </div>
+    <div id="overview"></div>
+    <div id="progress"></div>
+    <div id="timer"></div>
+    <div id="counter"></div>
+    <div id="hint">← → 移動 ・ f フルスクリーン ・ o 一覧</div>
+    <script>
+      // スライドのナビゲーション。ippon が HTML に埋め込む。
+      //   → / Space / PageDown / クリック右側     次へ
+      //   ← / PageUp / クリック左側              前へ
+      //   Home / End                              最初 / 最後
+      //   f                                       フルスクリーン
+      //   o / Esc                                 一覧
+      (function () {
+        var slides = Array.prototype.slice.call(document.querySelectorAll("#deck .slide"));
+        if (!slides.length) return;
 
-  var idx = 0
-  var progress = document.getElementById('progress')
-  var counter = document.getElementById('counter')
-  var timerEl = document.getElementById('timer')
+        var idx = 0;
+        var progress = document.getElementById("progress");
+        var counter = document.getElementById("counter");
+        var timerEl = document.getElementById("timer");
 
-  function clamp(n) {
-    return Math.max(0, Math.min(slides.length - 1, n))
-  }
+        function clamp(n) {
+          return Math.max(0, Math.min(slides.length - 1, n));
+        }
 
-  // ---------- タイマー（表紙から進んだら開始、表紙に戻ったらリセット） ----------
+        // ---------- タイマー（表紙から進んだら開始、表紙に戻ったらリセット） ----------
 
-  var startedAt = null
-  var ticking = null
-  function fmt(ms) {
-    var s = Math.floor(ms / 1000)
-    var m = Math.floor(s / 60)
-    s = s % 60
-    return m + ':' + (s < 10 ? '0' : '') + s
-  }
-  function syncTimer() {
-    if (idx === 0) {
-      startedAt = null
-      clearInterval(ticking)
-      ticking = null
-      timerEl.textContent = ''
-      return
-    }
-    if (startedAt === null) startedAt = Date.now()
-    if (!ticking) {
-      ticking = setInterval(function () {
-        timerEl.textContent = fmt(Date.now() - startedAt)
-      }, 500)
-    }
-    timerEl.textContent = fmt(Date.now() - startedAt)
-  }
+        var startedAt = null;
+        var ticking = null;
+        function fmt(ms) {
+          var s = Math.floor(ms / 1000);
+          var m = Math.floor(s / 60);
+          s = s % 60;
+          return m + ":" + (s < 10 ? "0" : "") + s;
+        }
+        function syncTimer() {
+          if (idx === 0) {
+            startedAt = null;
+            clearInterval(ticking);
+            ticking = null;
+            timerEl.textContent = "";
+            return;
+          }
+          if (startedAt === null) startedAt = Date.now();
+          if (!ticking) {
+            ticking = setInterval(function () {
+              timerEl.textContent = fmt(Date.now() - startedAt);
+            }, 500);
+          }
+          timerEl.textContent = fmt(Date.now() - startedAt);
+        }
 
-  // ---------- 描画 ----------
+        // ---------- 描画 ----------
 
-  function render() {
-    slides.forEach(function (s, i) {
-      s.classList.toggle('active', i === idx)
-    })
-    slides[idx].scrollTop = 0
-    counter.textContent = idx + 1 + ' / ' + slides.length
-    progress.style.width = ((idx + 1) / slides.length) * 100 + '%'
-    syncTimer()
-  }
-  function go(n) {
-    n = clamp(n)
-    if (n === idx) return
-    idx = n
-    render()
-    history.replaceState(null, '', '#' + (idx + 1))
-  }
-  window.addEventListener('hashchange', function () {
-    var n = parseInt(location.hash.slice(1), 10)
-    if (n) go(n - 1)
-  })
+        function render() {
+          slides.forEach(function (s, i) {
+            s.classList.toggle("active", i === idx);
+          });
+          slides[idx].scrollTop = 0;
+          counter.textContent = idx + 1 + " / " + slides.length;
+          progress.style.width = ((idx + 1) / slides.length) * 100 + "%";
+          syncTimer();
+        }
+        function go(n) {
+          n = clamp(n);
+          if (n === idx) return;
+          idx = n;
+          render();
+          history.replaceState(null, "", "#" + (idx + 1));
+        }
+        window.addEventListener("hashchange", function () {
+          var n = parseInt(location.hash.slice(1), 10);
+          if (n) go(n - 1);
+        });
 
-  // ---------- 一覧 ----------
+        // ---------- 一覧 ----------
 
-  var overview = document.getElementById('overview')
-  var ovItems = null
-  var ovOpen = false
-  var THUMB = 240
+        var overview = document.getElementById("overview");
+        var ovItems = null;
+        var ovOpen = false;
+        var THUMB = 240;
 
-  function buildOverview() {
-    ovItems = slides.map(function (s, i) {
-      var item = document.createElement('div')
-      item.className = 'ov-item'
-      var frame = document.createElement('div')
-      frame.className = 'ov-frame'
-      var scale = document.createElement('div')
-      scale.className = 'ov-scale'
-      var clone = s.cloneNode(true)
-      clone.classList.remove('active')
-      scale.appendChild(clone)
-      frame.appendChild(scale)
-      var num = document.createElement('div')
-      num.className = 'ov-num'
-      num.textContent = i + 1
-      item.appendChild(frame)
-      item.appendChild(num)
-      item.addEventListener('click', function () {
-        idx = i
-        closeOverview()
-        render()
-        history.replaceState(null, '', '#' + (idx + 1))
-      })
-      overview.appendChild(item)
-      return { item: item, frame: frame, scale: scale }
-    })
-  }
-  function layoutOverview() {
-    var w = window.innerWidth
-    var h = window.innerHeight
-    var k = THUMB / w
-    ovItems.forEach(function (t) {
-      t.frame.style.width = THUMB + 'px'
-      t.frame.style.height = h * k + 'px'
-      t.scale.style.width = w + 'px'
-      t.scale.style.height = h + 'px'
-      t.scale.style.transform = 'scale(' + k + ')'
-    })
-  }
-  function openOverview() {
-    if (!ovItems) buildOverview()
-    layoutOverview()
-    ovItems.forEach(function (t, i) {
-      t.item.classList.toggle('current', i === idx)
-    })
-    ovOpen = true
-    document.body.classList.add('overview')
-    ovItems[idx].item.scrollIntoView({ block: 'center' })
-  }
-  function closeOverview() {
-    ovOpen = false
-    document.body.classList.remove('overview')
-  }
-  window.addEventListener('resize', function () {
-    if (ovOpen) layoutOverview()
-  })
+        function buildOverview() {
+          ovItems = slides.map(function (s, i) {
+            var item = document.createElement("div");
+            item.className = "ov-item";
+            var frame = document.createElement("div");
+            frame.className = "ov-frame";
+            var scale = document.createElement("div");
+            scale.className = "ov-scale";
+            var clone = s.cloneNode(true);
+            clone.classList.remove("active");
+            scale.appendChild(clone);
+            frame.appendChild(scale);
+            var num = document.createElement("div");
+            num.className = "ov-num";
+            num.textContent = i + 1;
+            item.appendChild(frame);
+            item.appendChild(num);
+            item.addEventListener("click", function () {
+              idx = i;
+              closeOverview();
+              render();
+              history.replaceState(null, "", "#" + (idx + 1));
+            });
+            overview.appendChild(item);
+            return { item: item, frame: frame, scale: scale };
+          });
+        }
+        function layoutOverview() {
+          var w = window.innerWidth;
+          var h = window.innerHeight;
+          var k = THUMB / w;
+          ovItems.forEach(function (t) {
+            t.frame.style.width = THUMB + "px";
+            t.frame.style.height = h * k + "px";
+            t.scale.style.width = w + "px";
+            t.scale.style.height = h + "px";
+            t.scale.style.transform = "scale(" + k + ")";
+          });
+        }
+        function openOverview() {
+          if (!ovItems) buildOverview();
+          layoutOverview();
+          ovItems.forEach(function (t, i) {
+            t.item.classList.toggle("current", i === idx);
+          });
+          ovOpen = true;
+          document.body.classList.add("overview");
+          ovItems[idx].item.scrollIntoView({ block: "center" });
+        }
+        function closeOverview() {
+          ovOpen = false;
+          document.body.classList.remove("overview");
+        }
+        window.addEventListener("resize", function () {
+          if (ovOpen) layoutOverview();
+        });
 
-  // ---------- 入力 ----------
+        // ---------- 入力 ----------
 
-  document.addEventListener('keydown', function (e) {
-    if (e.metaKey || e.ctrlKey || e.altKey) return
-    if (ovOpen) {
-      if (e.key === 'Escape' || e.key === 'o') closeOverview()
-      return
-    }
-    switch (e.key) {
-      case 'ArrowRight':
-      case 'PageDown':
-      case ' ':
-        e.preventDefault()
-        go(idx + 1)
-        break
-      case 'ArrowLeft':
-      case 'PageUp':
-        e.preventDefault()
-        go(idx - 1)
-        break
-      case 'Home':
-        go(0)
-        break
-      case 'End':
-        go(slides.length - 1)
-        break
-      case 'f':
-        if (document.fullscreenElement) document.exitFullscreen()
-        else document.documentElement.requestFullscreen()
-        break
-      case 'o':
-        openOverview()
-        break
-      case 'Escape':
-        if (!document.fullscreenElement) openOverview()
-        break
-    }
-  })
+        document.addEventListener("keydown", function (e) {
+          if (e.metaKey || e.ctrlKey || e.altKey) return;
+          if (ovOpen) {
+            if (e.key === "Escape" || e.key === "o") closeOverview();
+            return;
+          }
+          switch (e.key) {
+            case "ArrowRight":
+            case "PageDown":
+            case " ":
+              e.preventDefault();
+              go(idx + 1);
+              break;
+            case "ArrowLeft":
+            case "PageUp":
+              e.preventDefault();
+              go(idx - 1);
+              break;
+            case "Home":
+              go(0);
+              break;
+            case "End":
+              go(slides.length - 1);
+              break;
+            case "f":
+              if (document.fullscreenElement) document.exitFullscreen();
+              else document.documentElement.requestFullscreen();
+              break;
+            case "o":
+              openOverview();
+              break;
+            case "Escape":
+              if (!document.fullscreenElement) openOverview();
+              break;
+          }
+        });
 
-  // 画面の右 3 割で次へ、左 3 割で前へ（リンクと文字選択は邪魔しない）
-  var deck = document.getElementById('deck')
-  deck.addEventListener('click', function (e) {
-    if (e.target.closest('a, button')) return
-    if (String(window.getSelection() || '')) return
-    var x = e.clientX / window.innerWidth
-    if (x > 0.7) go(idx + 1)
-    else if (x < 0.3) go(idx - 1)
-  })
+        // 画面の右 3 割で次へ、左 3 割で前へ（リンクと文字選択は邪魔しない）
+        var deck = document.getElementById("deck");
+        deck.addEventListener("click", function (e) {
+          if (e.target.closest("a, button")) return;
+          if (String(window.getSelection() || "")) return;
+          var x = e.clientX / window.innerWidth;
+          if (x > 0.7) go(idx + 1);
+          else if (x < 0.3) go(idx - 1);
+        });
 
-  // 横スワイプ
-  var tx = null
-  var ty = null
-  deck.addEventListener(
-    'touchstart',
-    function (e) {
-      if (e.touches.length !== 1) return (tx = null)
-      tx = e.touches[0].clientX
-      ty = e.touches[0].clientY
-    },
-    { passive: true }
-  )
-  deck.addEventListener(
-    'touchend',
-    function (e) {
-      if (tx === null) return
-      var t = e.changedTouches[0]
-      var dx = t.clientX - tx
-      var dy = t.clientY - ty
-      tx = null
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? idx + 1 : idx - 1)
-    },
-    { passive: true }
-  )
+        // 横スワイプ
+        var tx = null;
+        var ty = null;
+        deck.addEventListener(
+          "touchstart",
+          function (e) {
+            if (e.touches.length !== 1) return (tx = null);
+            tx = e.touches[0].clientX;
+            ty = e.touches[0].clientY;
+          },
+          { passive: true },
+        );
+        deck.addEventListener(
+          "touchend",
+          function (e) {
+            if (tx === null) return;
+            var t = e.changedTouches[0];
+            var dx = t.clientX - tx;
+            var dy = t.clientY - ty;
+            tx = null;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5)
+              go(dx < 0 ? idx + 1 : idx - 1);
+          },
+          { passive: true },
+        );
 
-  var start = parseInt(location.hash.slice(1), 10)
-  if (start) idx = clamp(start - 1)
-  render()
-})()
-</script>
-</body>
+        var start = parseInt(location.hash.slice(1), 10);
+        if (start) idx = clamp(start - 1);
+        render();
+      })();
+    </script>
+  </body>
 </html>

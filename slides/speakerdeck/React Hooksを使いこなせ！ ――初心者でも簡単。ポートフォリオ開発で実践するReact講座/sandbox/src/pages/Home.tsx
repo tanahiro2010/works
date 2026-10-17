@@ -14,12 +14,8 @@ export function Home() {
   return (
     <div className="flex flex-col gap-16">
       <section className="flex flex-col items-center gap-4 py-8 text-center">
-        <p className="text-sm font-medium text-indigo-500">
-          Frontend Engineer / 高専生
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          太郎のポートフォリオ
-        </h1>
+        <p className="text-sm font-medium text-indigo-500">Frontend Engineer / 高専生</p>
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">太郎のポートフォリオ</h1>
         <p className="max-w-lg text-slate-500 dark:text-slate-400">
           個人開発が好きなフロントエンドエンジニアです。日々の暮らしを少し便利にする
           小さなWebアプリを作っています。
@@ -43,10 +39,7 @@ export function Home() {
       <section>
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-xl font-semibold">注目の作品</h2>
-          <Link
-            to="/projects"
-            className="text-sm font-medium text-indigo-500 hover:underline"
-          >
+          <Link to="/projects" className="text-sm font-medium text-indigo-500 hover:underline">
             すべて見る →
           </Link>
         </div>

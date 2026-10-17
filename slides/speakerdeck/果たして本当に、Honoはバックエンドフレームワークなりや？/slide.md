@@ -255,12 +255,12 @@ GET
 
 ## ポートフォリオで考える
 
-| 作りたい体験 | 選択 |
-| --- | --- |
-| アニメーションごりごり | React、わかる |
-| アニメーションごりごりなだけ | Next.js、本当に要る? |
-| 少し動く | Hono + 必要なJSでもよさそう |
-| ほぼ動かない | Honoでよくない? |
+| 作りたい体験                 | 選択                        |
+| ---------------------------- | --------------------------- |
+| アニメーションごりごり       | React、わかる               |
+| アニメーションごりごりなだけ | Next.js、本当に要る?        |
+| 少し動く                     | Hono + 必要なJSでもよさそう |
+| ほぼ動かない                 | Honoでよくない?             |
 
 ---
 
@@ -308,12 +308,12 @@ CRUD中心なら、サーバー状態をHTMLにするだけで強い
 
 ## 管理画面で考える
 
-| UI | Hono SSR | React |
-| --- | --- | --- |
+| UI                         | Hono SSR   | React        |
+| -------------------------- | ---------- | ------------ |
 | テーブル / 検索 / フォーム | 合いやすい | もちろん可能 |
-| CSV出力 / 権限 / 承認 | 合いやすい | もちろん可能 |
-| DnD / 複雑なグラフ操作 | つらくなる | 合いやすい |
-| 画面全体の状態同期 | つらくなる | 合いやすい |
+| CSV出力 / 権限 / 承認      | 合いやすい | もちろん可能 |
+| DnD / 複雑なグラフ操作     | つらくなる | 合いやすい   |
+| 画面全体の状態同期         | つらくなる | 合いやすい   |
 
 ---
 
@@ -365,27 +365,27 @@ HTMLを返すRouteとJSONを返すRouteで、同じServiceを使えるように�
 ## HTMLから始めて、必要ならAPIへ
 
 ```tsx
-app.get('/novels/:id', async (c) => {
-  const novel = await novelService.find(c.req.param('id'))
-  return c.html(<NovelPage novel={novel} />)
-})
+app.get("/novels/:id", async (c) => {
+  const novel = await novelService.find(c.req.param("id"));
+  return c.html(<NovelPage novel={novel} />);
+});
 
-app.get('/api/novels/:id', async (c) => {
-  const novel = await novelService.find(c.req.param('id'))
-  return c.json(novel)
-})
+app.get("/api/novels/:id", async (c) => {
+  const novel = await novelService.find(c.req.param("id"));
+  return c.json(novel);
+});
 ```
 
 ---
 
 ## 判断表
 
-| まずHonoでよさそう | Reactが欲しい | Next.jsが欲しい |
-| --- | --- | --- |
-| 静的ページ | 複雑なClient State | React前提の大きめアプリ |
-| フォーム中心 | リッチな操作UI | SSG / ISR |
-| CRUD中心 | DnD / リッチエディタ | App Router / RSC |
-| 管理画面 | リアルタイム同期UI | 画像最適化 |
+| まずHonoでよさそう | Reactが欲しい        | Next.jsが欲しい         |
+| ------------------ | -------------------- | ----------------------- |
+| 静的ページ         | 複雑なClient State   | React前提の大きめアプリ |
+| フォーム中心       | リッチな操作UI       | SSG / ISR               |
+| CRUD中心           | DnD / リッチエディタ | App Router / RSC        |
+| 管理画面           | リアルタイム同期UI   | 画像最適化              |
 
 ---
 
@@ -420,4 +420,3 @@ app.get('/api/novels/:id', async (c) => {
 # 個人開発者よ、Honoを使え
 
 複雑さは、必要になってから導入しましょう!
-

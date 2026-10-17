@@ -299,23 +299,21 @@ Repository / DB
 例えば最初は、
 
 ```tsx
-app.get('/novels/:id', async (c) => {
-  const novel = await novelService.find(c.req.param('id'))
+app.get("/novels/:id", async (c) => {
+  const novel = await novelService.find(c.req.param("id"));
 
-  return c.html(
-    <NovelPage novel={novel} />
-  )
-})
+  return c.html(<NovelPage novel={novel} />);
+});
 ```
 
 あとから、
 
 ```tsx
-app.get('/api/novels/:id', async (c) => {
-  const novel = await novelService.find(c.req.param('id'))
+app.get("/api/novels/:id", async (c) => {
+  const novel = await novelService.find(c.req.param("id"));
 
-  return c.json(novel)
-})
+  return c.json(novel);
+});
 ```
 
 のように変更できる。

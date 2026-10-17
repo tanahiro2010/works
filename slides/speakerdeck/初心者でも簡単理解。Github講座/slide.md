@@ -47,6 +47,7 @@ slug: github-beginners
 # GitHub 活用セミナー
 
 ## チーム開発のセキュリティと運用
+
 田中博悠 / 湘南藤沢高専学生会副会長
 
 ---
@@ -74,12 +75,12 @@ slug: github-beginners
 
 ## 主要な概念
 
-| 用語 | 意味 |
-|------|------|
-| `commit` | 変更を記録するスナップショット |
-| `push` | ローカルの変更をリモートへ送る |
-| `pull` | リモートの変更をローカルへ取り込む |
-| `clone` | リモートリポジトリをローカルへ複製 |
+| 用語     | 意味                               |
+| -------- | ---------------------------------- |
+| `commit` | 変更を記録するスナップショット     |
+| `push`   | ローカルの変更をリモートへ送る     |
+| `pull`   | リモートの変更をローカルへ取り込む |
+| `clone`  | リモートリポジトリをローカルへ複製 |
 
 ---
 
@@ -88,7 +89,7 @@ slug: github-beginners
 ```
 [あなたのPC]                  [GitHub]
   ローカルリポジトリ   ←→   リモートリポジトリ
-  
+
   作業する場所         push/pull    共有される場所
 ```
 
@@ -230,12 +231,12 @@ __pycache__/
 
 ## 設定できること
 
-| 設定 | 効果 |
-|------|------|
-| Require pull request reviews | PR なしの merge を禁止 |
-| Require status checks | CI 通過しないと merge 不可 |
-| Restrict who can push | 直 push できる人を制限 |
-| Require signed commits | 署名なし commit を拒否 |
+| 設定                         | 効果                       |
+| ---------------------------- | -------------------------- |
+| Require pull request reviews | PR なしの merge を禁止     |
+| Require status checks        | CI 通過しないと merge 不可 |
+| Restrict who can push        | 直 push できる人を制限     |
+| Require signed commits       | 署名なし commit を拒否     |
 
 **Settings → Branches → Add branch ruleset** から設定
 
@@ -259,18 +260,22 @@ __pycache__/
 
 ```markdown
 ## 概要
+
 ログイン機能にバリデーションを追加した。
 
 ## 変更内容
+
 - メールアドレスの形式チェックを追加
 - 空白送信を防止
 
 ## 確認方法
+
 1. ログインページへ移動
 2. 不正なメールアドレスを入力
 3. エラーメッセージが表示されることを確認
 
 ## 関連 Issue
+
 closes #42
 ```
 
@@ -372,7 +377,7 @@ gpg --armor --export <KEY_ID>
 ## 流れ
 
 ```
-非公開で報告 → 開発者と非公開で議論 
+非公開で報告 → 開発者と非公開で議論
 → 修正完了 → CVE 発行 → 公開
 ```
 
@@ -382,15 +387,15 @@ gpg --armor --export <KEY_ID>
 
 # まとめ
 
-| テーマ | 要点 |
-|--------|------|
-| Git の基本 | commit / push / pull でチーム開発を安全に |
-| ブランチ戦略 | main への直 push 禁止・GitHub Flow |
-| `.gitignore` | シークレットは絶対にpushしない |
-| Branch Protection | ルールは機能で強制する |
-| PR・レビュー | 小さく出して・丁寧に議論する |
-| Sign Commit | GPG署名でなりすましを防ぐ |
-| 脆弱性報告 | Issue ではなく Security Report へ |
+| テーマ            | 要点                                      |
+| ----------------- | ----------------------------------------- |
+| Git の基本        | commit / push / pull でチーム開発を安全に |
+| ブランチ戦略      | main への直 push 禁止・GitHub Flow        |
+| `.gitignore`      | シークレットは絶対にpushしない            |
+| Branch Protection | ルールは機能で強制する                    |
+| PR・レビュー      | 小さく出して・丁寧に議論する              |
+| Sign Commit       | GPG署名でなりすましを防ぐ                 |
+| 脆弱性報告        | Issue ではなく Security Report へ         |
 
 ---
 

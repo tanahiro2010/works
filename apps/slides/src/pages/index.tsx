@@ -1,4 +1,4 @@
-import slidesData from "../../../slides.json";
+import slidesData from "../data/slides.json";
 
 type Slide = {
   name: string;

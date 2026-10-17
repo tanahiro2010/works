@@ -128,23 +128,21 @@ Repository / DB
 たとえば最初はHTMLを返します。
 
 ```tsx
-app.get('/novels/:id', async (c) => {
-  const novel = await novelService.find(c.req.param('id'))
+app.get("/novels/:id", async (c) => {
+  const novel = await novelService.find(c.req.param("id"));
 
-  return c.html(
-    <NovelPage novel={novel} />
-  )
-})
+  return c.html(<NovelPage novel={novel} />);
+});
 ```
 
 必要になれば、同じServiceを使ってJSON APIも作れます。
 
 ```tsx
-app.get('/api/novels/:id', async (c) => {
-  const novel = await novelService.find(c.req.param('id'))
+app.get("/api/novels/:id", async (c) => {
+  const novel = await novelService.find(c.req.param("id"));
 
-  return c.json(novel)
-})
+  return c.json(novel);
+});
 ```
 
 Honoで小さく始めることは、将来の拡張性を捨てることではありません。

@@ -62,6 +62,7 @@ slug: react-hooks
 # React Hooksを使いこなせ！
 
 ## 初心者でも簡単。ポートフォリオ開発で実践するReact講座
+
 田中博悠 / UniSchool
 
 ---
@@ -125,11 +126,7 @@ import { useState } from "react";
 function Counter() {
   const [count, setCount] = useState(0);
 
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  );
+  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
 }
 ```
 
@@ -160,12 +157,12 @@ Stateは直接書き換えない！ <code>state.push(...)</code> ではなく
 
 # `useState` 実務での使いどころ
 
-| ユースケース | 例 |
-|---|---|
-| フォーム入力 | `const [email, setEmail] = useState("")` |
-| トグルUI | モーダルの開閉、アコーディオン、タブ切り替え |
-| APIの状態管理 | `data` / `isLoading` / `error` の3点セット |
-| 一時的なUI状態 | ホバー中フラグ、選択中の行、ページ番号 |
+| ユースケース   | 例                                           |
+| -------------- | -------------------------------------------- |
+| フォーム入力   | `const [email, setEmail] = useState("")`     |
+| トグルUI       | モーダルの開閉、アコーディオン、タブ切り替え |
+| APIの状態管理  | `data` / `isLoading` / `error` の3点セット   |
+| 一時的なUI状態 | ホバー中フラグ、選択中の行、ページ番号       |
 
 ```jsx
 // 関連する値は1つのオブジェクトにまとめてもOK
@@ -194,10 +191,10 @@ useEffect(() => {
 }, [依存配列]);
 ```
 
-| 依存配列 | 実行タイミング |
-|---|---|
-| 省略 | 毎レンダー後 |
-| `[]` | 初回マウント時のみ |
+| 依存配列 | 実行タイミング             |
+| -------- | -------------------------- |
+| 省略     | 毎レンダー後               |
+| `[]`     | 初回マウント時のみ         |
 | `[a, b]` | 初回 + a か b が変わった時 |
 
 ---
@@ -299,7 +296,7 @@ useEffect(() => {
 ```jsx
 const filteredProjects = useMemo(
   () => projects.filter((p) => p.title.includes(searchText)),
-  [projects, searchText] // これらが変わった時だけ再計算
+  [projects, searchText], // これらが変わった時だけ再計算
 );
 ```
 
@@ -332,12 +329,12 @@ const handleSearchChange = useCallback((value) => {
 
 **本当に必要になる代表的な場面**
 
-| 場面 | 理由 |
-|---|---|
-| 配列の filter/sort/reduce が重い or 頻繁 | 毎レンダー計算を避けたい |
-| `React.memo` した子コンポーネントに関数/オブジェクトを渡す | 参照が変わると memo が効かない |
-| Context の `value` に渡すオブジェクト | 毎回新しい参照だと全consumerが再レンダー |
-| 他のHookの依存配列に渡す値 | 参照の安定化が必要 |
+| 場面                                                       | 理由                                     |
+| ---------------------------------------------------------- | ---------------------------------------- |
+| 配列の filter/sort/reduce が重い or 頻繁                   | 毎レンダー計算を避けたい                 |
+| `React.memo` した子コンポーネントに関数/オブジェクトを渡す | 参照が変わると memo が効かない           |
+| Context の `value` に渡すオブジェクト                      | 毎回新しい参照だと全consumerが再レンダー |
+| 他のHookの依存配列に渡す値                                 | 参照の安定化が必要                       |
 
 ---
 
@@ -412,11 +409,11 @@ function LikeButton() {
 
 # `useReducer` を使うべきタイミング
 
-| こういう時は `useState` を並べるより `useReducer` | 具体例 |
-|---|---|
-| 複数のstateが同時に・連動して変わる | フォームの「入力値」と「エラー」と「送信中」 |
-| 次のstateが前のstateとactionから決まる | カート（追加・削除・数量変更） |
-| 状態遷移が多い | ウィザード形式のステップ管理 |
+| こういう時は `useState` を並べるより `useReducer` | 具体例                                       |
+| ------------------------------------------------- | -------------------------------------------- |
+| 複数のstateが同時に・連動して変わる               | フォームの「入力値」と「エラー」と「送信中」 |
+| 次のstateが前のstateとactionから決まる            | カート（追加・削除・数量変更）               |
+| 状態遷移が多い                                    | ウィザード形式のステップ管理                 |
 
 <div class="tip">
 迷ったら最初は useState でOK。「更新ロジックがあちこちに散らばって辛い」と感じたら useReducer への切り替えを検討する、で十分。
@@ -435,7 +432,7 @@ const ThemeContext = createContext({ theme: "light", toggleTheme: () => {} });
 // 2. Providerで囲んで値を配る
 <ThemeContext.Provider value={{ theme, toggleTheme }}>
   <App />
-</ThemeContext.Provider>
+</ThemeContext.Provider>;
 
 // 3. 好きな深さのコンポーネントから読む
 const { theme, toggleTheme } = useContext(ThemeContext);
@@ -445,11 +442,11 @@ const { theme, toggleTheme } = useContext(ThemeContext);
 
 # Context を使うべき時 / 使わなくていい時
 
-| 使うべき | 使わなくていい |
-|---|---|
-| テーマ（ダーク/ライト） | ボタンの中だけで完結するstate |
-| ログイン中のユーザー情報 | フォーム1個の入力値 |
-| 言語設定（i18n） | 親から子1階層だけで渡せる値 |
+| 使うべき                 | 使わなくていい                |
+| ------------------------ | ----------------------------- |
+| テーマ（ダーク/ライト）  | ボタンの中だけで完結するstate |
+| ログイン中のユーザー情報 | フォーム1個の入力値           |
+| 言語設定（i18n）         | 親から子1階層だけで渡せる値   |
 
 <div class="warning">
 Contextは「グローバル変数」に近い便利さと危険さがある。
@@ -504,11 +501,11 @@ function useProjects() {
 
 # 実務でよく使うカスタムフック集
 
-| フック名 | 用途 |
-|---|---|
-| `useDebounce(value, delay)` | 検索入力などの発火を遅らせる |
-| `useLocalStorage(key, initial)` | stateをlocalStorageと同期する |
-| `useMediaQuery(query)` | 画面幅に応じてUIを出し分ける |
+| フック名                          | 用途                                 |
+| --------------------------------- | ------------------------------------ |
+| `useDebounce(value, delay)`       | 検索入力などの発火を遅らせる         |
+| `useLocalStorage(key, initial)`   | stateをlocalStorageと同期する        |
+| `useMediaQuery(query)`            | 画面幅に応じてUIを出し分ける         |
 | `useOnClickOutside(ref, handler)` | ドロップダウンの外側クリックで閉じる |
 
 ```jsx
@@ -578,8 +575,8 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
 
 function ProjectDetail() {
-  const { id } = useParams();          // URLの :id 部分を取得
-  const navigate = useNavigate();       // JSからページ遷移させる
+  const { id } = useParams(); // URLの :id 部分を取得
+  const navigate = useNavigate(); // JSからページ遷移させる
 
   const project = projects.find((p) => p.id === id);
 
@@ -604,7 +601,7 @@ const [searchParams, setSearchParams] = useSearchParams();
 const tag = searchParams.get("tag");
 
 // どのpathにも一致しない = 404ページ
-<Route path="*" element={<NotFound />} />
+<Route path="*" element={<NotFound />} />;
 
 // ログインしていないと弾く「認証ガード」の基本形
 function RequireAuth({ children }) {
@@ -625,16 +622,16 @@ function RequireAuth({ children }) {
 `sandbox/` に Vite + React + TypeScript + Tailwind CSS のプロジェクトを用意済み。
 **デザインは完成済み**、Hooksのロジック部分だけ `TODO` コメントになっています。
 
-| ファイル | 実装するHook |
-|---|---|
-| `context/ThemeContext.tsx` | `useState` / `useEffect` |
-| `components/ThemeToggle.tsx` | `useContext` |
-| `hooks/useProjects.ts` | `useState` / `useEffect`（カスタムフック） |
-| `pages/Projects.tsx` | `useState` / `useMemo` |
-| `pages/Home.tsx` | `useMemo` |
-| `pages/ProjectDetail.tsx` | `useParams` / `useNavigate` |
-| `components/LikeButton.tsx` | `useReducer`（ボーナス） |
-| `pages/Contact.tsx` | `useState` / `useRef` |
+| ファイル                     | 実装するHook                               |
+| ---------------------------- | ------------------------------------------ |
+| `context/ThemeContext.tsx`   | `useState` / `useEffect`                   |
+| `components/ThemeToggle.tsx` | `useContext`                               |
+| `hooks/useProjects.ts`       | `useState` / `useEffect`（カスタムフック） |
+| `pages/Projects.tsx`         | `useState` / `useMemo`                     |
+| `pages/Home.tsx`             | `useMemo`                                  |
+| `pages/ProjectDetail.tsx`    | `useParams` / `useNavigate`                |
+| `components/LikeButton.tsx`  | `useReducer`（ボーナス）                   |
+| `pages/Contact.tsx`          | `useState` / `useRef`                      |
 
 ---
 
@@ -669,11 +666,11 @@ npm run dev
 
 # 次のステップ（実務でさらに使うもの）
 
-| これを学んだら | 次はこれ |
-|---|---|
+| これを学んだら             | 次はこれ                                          |
+| -------------------------- | ------------------------------------------------- |
 | `useEffect` でのデータ取得 | React Query / SWR（キャッシュ・再取得を肩代わり） |
-| `useReducer` + Context | Zustand / Redux Toolkit（大規模な状態管理） |
-| フォームの `useState` 地獄 | React Hook Form / Zod によるバリデーション |
-| ESLintの手動運用 | `eslint-plugin-react-hooks` を必ず導入 |
+| `useReducer` + Context     | Zustand / Redux Toolkit（大規模な状態管理）       |
+| フォームの `useState` 地獄 | React Hook Form / Zod によるバリデーション        |
+| ESLintの手動運用           | `eslint-plugin-react-hooks` を必ず導入            |
 
 ## お疲れ様でした！ 実装、頑張ってください 🎉

@@ -14,12 +14,10 @@
   --pf-flame-dark: #b72d18;
   --pf-code-bg: #211815;
   --pf-code-text: #f9efe7;
-  --pf-serif: "Yu Mincho", "Hiragino Mincho ProN", "Source Han Serif JP",
-    "Noto Serif CJK JP", serif;
-  --pf-sans: "Inter", "Helvetica Neue", "Hiragino Sans", "Yu Gothic", Meiryo,
-    sans-serif;
-  --pf-mono: "SFMono-Regular", "Roboto Mono", "Cascadia Code", Consolas,
-    monospace;
+  --pf-serif:
+    "Yu Mincho", "Hiragino Mincho ProN", "Source Han Serif JP", "Noto Serif CJK JP", serif;
+  --pf-sans: "Inter", "Helvetica Neue", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  --pf-mono: "SFMono-Regular", "Roboto Mono", "Cascadia Code", Consolas, monospace;
 }
 
 section {
@@ -35,9 +33,11 @@ section {
   padding: 76px 92px 78px;
   background:
     linear-gradient(90deg, rgba(233, 71, 36, 0.08) 0 2px, transparent 2px 100%),
-    linear-gradient(180deg, rgba(223, 210, 199, 0.22) 0 1px, transparent 1px 100%),
-    var(--pf-paper);
-  background-size: 100% 100%, 100% 36px, 100% 100%;
+    linear-gradient(180deg, rgba(223, 210, 199, 0.22) 0 1px, transparent 1px 100%), var(--pf-paper);
+  background-size:
+    100% 100%,
+    100% 36px,
+    100% 100%;
   color: var(--pf-ink);
   font-family: var(--pf-sans);
   font-size: 27px;
@@ -253,8 +253,7 @@ section.title {
   justify-content: center;
   padding: 86px 100px 86px;
   background:
-    linear-gradient(90deg, transparent 0 68%, rgba(233, 71, 36, 0.1) 68% 100%),
-    var(--pf-paper);
+    linear-gradient(90deg, transparent 0 68%, rgba(233, 71, 36, 0.1) 68% 100%), var(--pf-paper);
 }
 
 section.title::before {
@@ -294,8 +293,7 @@ section.section {
   justify-content: center;
   padding-left: 116px;
   background:
-    linear-gradient(90deg, var(--pf-flame) 0 18px, transparent 18px 100%),
-    var(--pf-paper);
+    linear-gradient(90deg, var(--pf-flame) 0 18px, transparent 18px 100%), var(--pf-paper);
 }
 
 section.section h1 {
@@ -316,8 +314,7 @@ section.section h1::before {
 
 section.code {
   background:
-    linear-gradient(90deg, rgba(233, 71, 36, 0.12) 0 3px, transparent 3px 100%),
-    var(--pf-paper);
+    linear-gradient(90deg, rgba(233, 71, 36, 0.12) 0 3px, transparent 3px 100%), var(--pf-paper);
 }
 
 section.code h2 {
@@ -359,8 +356,7 @@ section.closing {
   justify-content: center;
   align-items: flex-start;
   background:
-    linear-gradient(180deg, transparent 0 64%, rgba(233, 71, 36, 0.1) 64% 100%),
-    var(--pf-paper);
+    linear-gradient(180deg, transparent 0 64%, rgba(233, 71, 36, 0.1) 64% 100%), var(--pf-paper);
 }
 
 section.closing h1 {

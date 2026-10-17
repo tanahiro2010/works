@@ -1,10 +1,11 @@
-name: Deploy frontend to Cloudflare Pages
+name: Deploy slides to Cloudflare Pages
 
 on:
   push:
     branches: [main]
     paths:
-      - "frontend/**"
+      - "apps/**"
+      - "packages/**"
       # デッキも dist/slides/ にビルドされるので、スライド本体とテーマの変更でもデプロイする
       - "slides/**"
       - ".marp/**"
@@ -38,13 +39,13 @@ jobs:
         with:
           bun-version: "1.4.3"
 
+      # ワークスペースなので install はルートで。
       - name: Install dependencies
-        working-directory: frontend
         run: bun install --frozen-lockfile
 
-      # tsc -> client build -> SSR build -> prerender into frontend/dist
+      # tsc -> client build -> SSR build -> prerender into apps/slides/dist
       - name: Build static site
-        working-directory: frontend
+        working-directory: apps/slides
         run: bun run build
 
       - name: Deploy to Cloudflare Pages
@@ -52,6 +53,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: frontend
+          workingDirectory: apps/slides
           packageManager: bun
           command: pages deploy

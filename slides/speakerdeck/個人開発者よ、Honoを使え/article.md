@@ -157,9 +157,7 @@ HonoにはJSXを使ってサーバー側でHTMLを生成する仕組みがあり
 ```tsx
 /** @jsxImportSource hono/jsx */
 
-app.get('/novel', (c) => c.html(
-  <NovelPage novel={novel} />
-))
+app.get("/novel", (c) => c.html(<NovelPage novel={novel} />));
 ```
 
 このコードで行っていることは、次のとおりです。
@@ -210,20 +208,20 @@ Renovelでは、ページ全体をSSRで返します。
 
 ```tsx
 /** @jsxImportSource hono/jsx/dom */
-import { useState } from 'hono/jsx'
+import { useState } from "hono/jsx";
 
 export function LikeButton({ action, liked: initialLiked, count: initialCount }) {
-  const [liked, setLiked] = useState(initialLiked)
-  const [count, setCount] = useState(initialCount)
+  const [liked, setLiked] = useState(initialLiked);
+  const [count, setCount] = useState(initialCount);
 
   async function toggle() {
-    const next = !liked
-    setLiked(next)
-    setCount((value) => value + (next ? 1 : -1))
-    await fetch(action, { method: 'POST' })
+    const next = !liked;
+    setLiked(next);
+    setCount((value) => value + (next ? 1 : -1));
+    await fetch(action, { method: "POST" });
   }
 
-  return <button onClick={toggle}>♥ {count}</button>
+  return <button onClick={toggle}>♥ {count}</button>;
 }
 ```
 
@@ -238,10 +236,7 @@ islandを使う場合でも、最初からJavaScriptだけに依存する形に�
 まず、通常のHTMLフォームとして操作できる形を用意します。
 
 ```tsx
-<span
-  data-island="like"
-  data-props={JSON.stringify({ action, liked, count })}
->
+<span data-island="like" data-props={JSON.stringify({ action, liked, count })}>
   <form method="post" action={action}>
     <button type="submit">♥ {count}</button>
   </form>
@@ -297,31 +292,29 @@ ReactやNext.jsでもSSRを使えば、同じことは実現できます。Hono�
 Hono appをexportし、`wrangler deploy`でWorkersへデプロイできます。
 
 ```ts
-import { Hono } from 'hono'
+import { Hono } from "hono";
 
-const app = new Hono()
+const app = new Hono();
 
-app.get('/', (c) => c.html('<h1>Hello, Hono!</h1>'))
+app.get("/", (c) => c.html("<h1>Hello, Hono!</h1>"));
 
-export default app
+export default app;
 ```
 
 D1を使う場合は、Workerからbindingとして参照します。
 
 ```ts
 type Bindings = {
-  DB: D1Database
-}
+  DB: D1Database;
+};
 
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono<{ Bindings: Bindings }>();
 
-app.get('/books', async (c) => {
-  const result = await c.env.DB
-    .prepare('SELECT * FROM books ORDER BY created_at DESC')
-    .all()
+app.get("/books", async (c) => {
+  const result = await c.env.DB.prepare("SELECT * FROM books ORDER BY created_at DESC").all();
 
-  return c.json(result.results)
-})
+  return c.json(result.results);
+});
 ```
 
 WorkersとD1を使うと、アプリケーションとデータベースへの接続を、Cloudflareの設定とbindingでまとめられます。
