@@ -68,16 +68,18 @@ const collect = () => {
       const source = fs.readFileSync(file, "utf8");
       const slide = slideFrontmatter(path.join(dir, folder));
 
+      // slug は記事 > デッキ > フォルダ名の順。デッキと URL を揃えたいので借りる。
+      const slug = meta.frontmatter.slug || slide.slug || folder;
+
       articles.push({
         name: folder,
-        // slug は記事 > デッキ > フォルダ名の順。デッキと URL を揃えたいので借りる。
-        slug: meta.frontmatter.slug || slide.slug || folder,
+        slug,
         title: meta.frontmatter.title || headingOf(source) || folder,
         date: meta.date,
         updated: meta.updated,
         description: meta.frontmatter.description || excerptOf(source),
         dir: relDir,
-        path: `/articles/${meta.slug}/`,
+        path: `/articles/${slug}/`,
       });
     }
   }

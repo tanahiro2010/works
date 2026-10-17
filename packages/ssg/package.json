@@ -2,15 +2,13 @@
   "name": "@tanahiro2010/ssg",
   "version": "0.0.0",
   "private": true,
-  "bin": {
-    "ssg-prerender": "./bin/prerender.js"
-  },
   "type": "module",
   "exports": {
     "./client": "./src/client.tsx",
     "./server": "./src/server.tsx",
     "./routes": "./src/routes.ts",
-    "./frontmatter": "./src/frontmatter.js"
+    "./frontmatter": "./src/frontmatter.js",
+    "./head": "./src/head.js"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

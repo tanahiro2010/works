@@ -1,0 +1,14 @@
+{
+  "name": "blog",
+  "title": "Blog | tanahiro2010",
+  "url": "https://blog.tanahiro2010.com",
+  "description": "tanahiro2010 のブログ。Web 開発、セキュリティ、AI Agent まわりで調べたことや作ったものを書いています。",
+  "keywords": ["tanahiro2010", "田中博悠", "ブログ", "Web開発", "セキュリティ", "TypeScript"],
+  "author": "田中博悠 / tanahiro2010",
+  "authorUrl": "https://tanahiro2010.com",
+  "sameAs": ["https://github.com/tanahiro2010", "https://x.com/tanahiro2010"],
+  "twitter": "@tanahiro2010",
+  "themeColor": "#ffffff",
+  "ogImage": "/ogp.png",
+  "feed": true
+}

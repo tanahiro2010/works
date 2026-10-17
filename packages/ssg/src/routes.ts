@@ -5,6 +5,10 @@ export interface Route {
   path: string;
   /** 生成される HTML の <title> になる。 */
   title: string;
+  /** <meta name="description">。省略すると site.config.json の説明を使う。 */
+  description?: string;
+  /** そのページの構造化データ(JSON-LD)。 */
+  jsonLd?: unknown;
   Component: ComponentType;
 }
 

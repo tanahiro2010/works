@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "build": "node scripts/build.js && tsc && vp build && vp build --ssr src/entry-server.tsx --outDir .vite-ssg && ssg-prerender && node scripts/build-articles.js",
+    "build": "node scripts/build.js && tsc && vp build && vp build --ssr src/entry-server.tsx --outDir .vite-ssg && node ../../packages/ssg/bin/prerender.js && node scripts/build-articles.js && node ../../packages/ssg/bin/sitemap.js",
     "preview": "vp preview",
     "preview:cf": "wrangler pages dev",
     "deploy": "vp run build && wrangler pages deploy"

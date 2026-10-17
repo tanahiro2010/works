@@ -1,0 +1,13 @@
+{
+  "name": "slides",
+  "title": "Slides | tanahiro2010",
+  "url": "https://slides.tanahiro2010.com",
+  "description": "tanahiro2010 の登壇・発表スライド一覧。Hono / Cloudflare Workers / TypeScript / セキュリティ / AI Agent などの発表資料をまとめています。",
+  "keywords": ["tanahiro2010", "田中博悠", "スライド", "登壇", "発表資料", "LT", "勉強会"],
+  "author": "田中博悠 / tanahiro2010",
+  "authorUrl": "https://tanahiro2010.com",
+  "sameAs": ["https://github.com/tanahiro2010", "https://x.com/tanahiro2010"],
+  "twitter": "@tanahiro2010",
+  "themeColor": "#ffffff",
+  "ogImage": "/ogp.png"
+}

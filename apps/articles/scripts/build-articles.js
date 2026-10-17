@@ -10,6 +10,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import Shiki from "@shikijs/markdown-it";
+import { blogPostingSchema, renderHead } from "@tanahiro2010/ssg/head";
 import MarkdownIt from "markdown-it";
 
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
@@ -18,6 +19,10 @@ const articlesJson = fileURLToPath(new URL("../src/data/articles.json", import.m
 const articleCss = fs.readFileSync(
   fileURLToPath(new URL("../styles/article.css", import.meta.url)),
   "utf8",
+);
+
+const site = JSON.parse(
+  fs.readFileSync(fileURLToPath(new URL("../site.config.json", import.meta.url)), "utf8"),
 );
 
 const { articles } = JSON.parse(fs.readFileSync(articlesJson, "utf8"));
@@ -50,15 +55,23 @@ const page = (article, body) => `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(article.title)} | blog.tanahiro2010.com</title>
-${article.description ? `<meta name="description" content="${esc(article.description)}">\n` : ""}<meta property="og:title" content="${esc(article.title)}">
-<meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+${renderHead({
+  site,
+  title: `${article.title} | ${site.title}`,
+  description: article.description,
+  pathname: article.path,
+  type: "article",
+  publishedAt: article.date,
+  modifiedAt: article.updated,
+  jsonLd: blogPostingSchema(site, article),
+})}
 <style>${articleCss}</style>
 </head>
 <body>
 <main>
 <a class="back" href="/">&larr; 記事一覧</a>
+<article>
 <header class="article-header">
 <h1>${esc(article.title)}</h1>
 <p class="meta"><time datetime="${esc(article.date)}">${esc(article.date)}</time></p>
@@ -66,10 +79,36 @@ ${article.description ? `<meta name="description" content="${esc(article.descrip
 <div class="prose">
 ${body}
 </div>
+</article>
 <footer>© tanahiro2010</footer>
 </main>
 </body>
 </html>
+`;
+
+/** RSS。記事が増えたら購読者に届くように、一覧と一緒に吐く。 */
+const feed = (articles) => `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>${esc(site.title)}</title>
+<link>${esc(site.url)}</link>
+<description>${esc(site.description)}</description>
+<language>ja</language>
+<atom:link href="${esc(new URL("/feed.xml", site.url).href)}" rel="self" type="application/rss+xml"/>
+${articles
+  .map((a) => {
+    const url = new URL(a.path, site.url).href;
+    return `<item>
+<title>${esc(a.title)}</title>
+<link>${esc(url)}</link>
+<guid isPermaLink="true">${esc(url)}</guid>
+<pubDate>${new Date(`${a.date}T00:00:00Z`).toUTCString()}</pubDate>
+<description>${esc(a.description)}</description>
+</item>`;
+  })
+  .join("\n")}
+</channel>
+</rss>
 `;
 
 const build = () => {
@@ -93,7 +132,8 @@ const build = () => {
     copyAssets(srcDir, outDir);
   }
 
-  console.log(`built ${articles.length} article(s) -> dist/articles/`);
+  fs.writeFileSync(path.join(distDir, "feed.xml"), feed(articles));
+  console.log(`built ${articles.length} article(s) -> dist/articles/ (+ feed.xml)`);
 };
 
 build();
