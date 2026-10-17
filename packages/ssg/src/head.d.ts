@@ -24,6 +24,8 @@ export interface HeadOptions {
   noindex?: boolean;
   publishedAt?: string;
   modifiedAt?: string;
+  /** そのページ固有の OGP 画像。省略すると site.ogImage。 */
+  image?: string;
 }
 
 export interface ListItem {
@@ -37,6 +39,8 @@ export interface ArticleLike extends ListItem {
   updated?: string;
   wordCount?: number;
   keywords?: string[];
+  image?: string;
+  summary?: string;
 }
 
 export function renderHead(options: HeadOptions): string;
@@ -49,4 +53,4 @@ export function breadcrumbSchema(
   site: SiteConfig,
   trail: { name: string; path: string }[],
 ): Record<string, unknown>;
-export function injectHead(html: string, headHtml: string): string;
+export function injectHead(html: string, headHtml: string, options?: { lang?: string }): string;

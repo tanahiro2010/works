@@ -8,7 +8,13 @@
     "./server": "./src/server.tsx",
     "./routes": "./src/routes.ts",
     "./frontmatter": "./src/frontmatter.js",
-    "./head": "./src/head.js"
+    "./head": "./src/head.js",
+    "./ogimage": "./src/ogimage.js"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-jp": "^5.3.1",
+    "@resvg/resvg-js": "^2.6.2",
+    "wawoff2": "^2.0.1"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

@@ -116,6 +116,8 @@ const collect = () => {
         date: meta.date,
         updated: meta.updated,
         description: meta.frontmatter.description || excerptOf(source),
+        summary: meta.frontmatter.summary || "",
+        image: `/og/${slug}.png`,
         wordCount: countWords(source),
         keywords: keywordsOf(source, meta.frontmatter),
         dir: relDir,

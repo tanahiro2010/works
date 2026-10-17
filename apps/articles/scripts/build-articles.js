@@ -64,6 +64,7 @@ ${renderHead({
   description: article.description,
   pathname: article.path,
   type: "article",
+  image: article.image,
   publishedAt: article.date,
   modifiedAt: article.updated,
   jsonLd: [

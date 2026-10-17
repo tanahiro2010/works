@@ -101,6 +101,7 @@ const addSeo = (html, slide) =>
       description: slide.description,
       pathname: slide.path,
       type: "article",
+      image: slide.image,
       publishedAt: slide.date,
       modifiedAt: slide.updated,
       jsonLd: [

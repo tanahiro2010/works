@@ -89,6 +89,14 @@ lint / fmt / commit フックの設定はリポジトリルートの `vite.confi
 - 一覧: WebSite + ItemList / デッキ: PresentationDigitalDocument + BreadcrumbList
 - 記事: BlogPosting(wordCount, keywords) + BreadcrumbList
 - `sitemap.xml` / `robots.txt` / `llms.txt` は `bin/sitemap.js` が dist を歩いて作る
+- **OGP 画像はビルド時に 1 枚ずつ作る**（`bin/ogimages.js`）。ブラウザは使わず、
+  SVG を組み立てて resvg でラスタライズするので 25 枚で 0.5 秒ほど。
+  CI に Chrome も日本語フォントも要らない。
+  - カードの見出しは frontmatter の **`summary:`** を優先し、無ければタイトル。
+    発表タイトルは長いものが多く、そのままだと 3 行で切れて何の資料か分からなくなる。
+  - 日本語は woff2 配布の Noto Sans JP を TTF に戻して resvg に渡している。
+    配布サブセットに無い約物（`―` `～`）は `GLYPH_FALLBACK` で近い字に寄せる。
+    **記号を足したら実際に描いて豆腐(⊠)が出ないか確かめること。**
 - 新しい出力を足したら、ビルド後に全ページを監査して欠落が無いか見ること
 
 ## デッキのビルドキャッシュ

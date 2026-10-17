@@ -83,6 +83,10 @@ const getSlides = () => {
       group.slides.push({
         name: folder,
         slug: meta.slug,
+        // OGP カードの見出し。長いタイトルは card に収まらないので
+        // frontmatter の summary を優先する。
+        summary: meta.frontmatter.summary || "",
+        image: `/og/${meta.slug}.png`,
         description:
           meta.frontmatter.description ||
           excerptOf(fs.readFileSync(file, "utf8")) ||

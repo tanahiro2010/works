@@ -32,9 +32,10 @@ export function renderHead({
   noindex = false,
   publishedAt,
   modifiedAt,
+  image,
 }) {
   const canonical = new URL(pathname, site.url).href;
-  const ogImage = new URL(site.ogImage, site.url).href;
+  const ogImage = new URL(image || site.ogImage, site.url).href;
   const blocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 
   return tag(`<title>${esc(title)}</title>
@@ -109,7 +110,7 @@ export function blogPostingSchema(site, article) {
     inLanguage: "ja",
     author: personSchema(site),
     publisher: personSchema(site),
-    image: new URL(site.ogImage, site.url).href,
+    image: new URL(article.image || site.ogImage, site.url).href,
     isAccessibleForFree: true,
     ...(article.wordCount ? { wordCount: article.wordCount } : {}),
     ...(article.keywords?.length ? { keywords: article.keywords.join(", ") } : {}),
