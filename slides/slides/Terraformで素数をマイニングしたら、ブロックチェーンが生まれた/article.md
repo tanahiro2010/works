@@ -1,5 +1,6 @@
 ---
 published: true
+summary: Terraform だけでブロックチェーンは作れるのか
 ---
 
 # Terraformで素数をマイニングしたら、ブロックチェーンが生まれた

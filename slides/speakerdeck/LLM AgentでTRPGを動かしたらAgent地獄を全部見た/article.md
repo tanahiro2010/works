@@ -1,5 +1,6 @@
 ---
 published: true
+summary: LLM にリトライさせたら、出力がどんどん痩せていった
 ---
 
 # LLM AgentでTRPGを動かしたら、Agentの地獄を（多分）全部見た

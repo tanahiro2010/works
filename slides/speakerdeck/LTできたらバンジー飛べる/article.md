@@ -1,5 +1,6 @@
 ---
 published: true
+summary: LT もバンジーも、怖いのは始める前だけ
 ---
 
 # LTできたらバンジー飛べる

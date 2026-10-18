@@ -1,5 +1,6 @@
 ---
 published: true
+summary: 自分でサーバーを持って、Serverless が隠していたものが分かった
 ---
 
 # Serverlessのすゝめ――自分でサーバーを運用して分かった「管理からの自由」

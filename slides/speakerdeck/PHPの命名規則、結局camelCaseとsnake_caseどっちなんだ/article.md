@@ -1,5 +1,6 @@
 ---
 published: true
+summary: PHP の命名規則は、なぜ層ごとに割れて見えるのか
 ---
 
 # PHPの命名規則、結局camelCaseとsnake_caseどっちなんだ

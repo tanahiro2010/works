@@ -9,7 +9,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { parseFrontmatter, readDocMeta } from "@tanahiro2010/ssg/frontmatter";
+import { normalizeDate, readDocMeta } from "@tanahiro2010/ssg/frontmatter";
 
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
 const outFile = fileURLToPath(new URL("../src/data/articles.json", import.meta.url));
@@ -21,10 +21,17 @@ const GROUPS = ["slides/slides", "slides/speakerdeck"];
 
 const isPublished = (value) => String(value).trim().toLowerCase() === "true";
 
-/** 隣の slide.md の frontmatter。slug はデッキと揃えたいので借りる。 */
-const slideFrontmatter = (dir) => {
+/**
+ * 隣の slide.md のメタ情報。slug と date はデッキから借りる。
+ *
+ * article.md は main.py がプロジェクト作成時に空ファイルとして置くので、
+ * その git 追加日は「記事を書いた日」でも「登壇した日」でもない。
+ * 実際、登壇より前の日付になっているものもある。
+ */
+const slideMetaOf = (repoRoot, relDir, folder, dir) => {
   const file = path.join(dir, "slide.md");
-  return fs.existsSync(file) ? parseFrontmatter(fs.readFileSync(file, "utf8")) : {};
+  if (!fs.existsSync(file)) return { frontmatter: {} };
+  return readDocMeta({ repoRoot, relDir, folder, file });
 };
 
 /** 本文先頭の `# 見出し` をタイトルに使う。 */
@@ -107,16 +114,17 @@ const collect = () => {
       }
 
       const source = fs.readFileSync(file, "utf8");
-      const slide = slideFrontmatter(path.join(dir, folder));
+      const slide = slideMetaOf(repoRoot, relDir, folder, path.join(dir, folder));
 
       // slug は記事 > デッキ > フォルダ名の順。デッキと URL を揃えたいので借りる。
-      const slug = meta.frontmatter.slug || slide.slug || folder;
+      const slug = meta.frontmatter.slug || slide.frontmatter.slug || folder;
 
       articles.push({
         name: folder,
         slug,
         title: meta.frontmatter.title || headingOf(source) || folder,
-        date: meta.date,
+        // 日付は記事 > デッキの順。記事側に書いていなければ登壇日を使う。
+        date: normalizeDate(meta.frontmatter.date) || slide.date || meta.date,
         updated: meta.updated,
         description: meta.frontmatter.description || excerptOf(source),
         summary: meta.frontmatter.summary || "",

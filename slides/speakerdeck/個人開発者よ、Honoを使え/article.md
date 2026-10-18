@@ -1,5 +1,6 @@
 ---
 published: true
+summary: HTML を返すだけで始めて、必要になってから足す
 ---
 
 # 個人開発者よ、Honoを使え
